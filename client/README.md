@@ -44,23 +44,24 @@ sports-activity-platform/
 │
 ├── README.md
 ├── src/
-│ ├── components/
-│ │ ├── Dashboard.js
-│ │ ├── EventRegistration.js
-│ │ ├── Analytics.js
-│ │ ├── Communication.js
-│ │ └── SubscriptionManagement.js
-│ ├── pages/
-│ │ ├── Home.js
-│ │ ├── About.js
-│ │ ├── Services.js
-│ │ ├── Contact.js
-│ │ └── NotFound.js
-│ ├── App.js
-│ └── index.js
+│   ├── components/
+│   │   ├── Dashboard.js
+│   │   ├── EventRegistration.js
+│   │   ├── Analytics.js
+│   │   ├── Communication.js
+│   │   └── SubscriptionManagement.js
+│   ├── pages/
+│   │   ├── Home.js
+│   │   ├── About.js
+│   │   ├── Services.js
+│   │   ├── Contact.js
+│   │   └── NotFound.js
+│   ├── App.js
+│   └── index.js
 └── public/
-├── index.html
-└── ...
+    ├── index.html
+    └── ...
+
 
 
 ## Installation and Usage
