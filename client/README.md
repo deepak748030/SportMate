@@ -37,6 +37,26 @@ The Sports Activity Platform aims to address the pain points in communication an
 5. **Partnerships and Sponsorships**:
    - Collaborations with sports equipment brands, health products, or local businesses for cross-promotion and affiliate sales.
 
+## Installation and Usage
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/your-username/sports-activity-platform.git
+cd sports-activity-platform
+
+npm install
+npm run dev
+
+Open your browser and navigate to http://localhost:3000 to view the application.
+
+Contributing
+Contributions are welcome! Please feel free to submit pull requests or open issues for any bugs or feature requests.
+
+License
+This project is licensed under the MIT License.
+
+
 
 ## Project Structure
 
@@ -61,24 +81,3 @@ sports-activity-platform/
 └── public/
     ├── index.html
     └── ...
-
-
-
-## Installation and Usage
-
-1. Clone the repository:
-
-```bash
-git clone https://github.com/your-username/sports-activity-platform.git
-cd sports-activity-platform
-
-npm install
-npm run dev
-
-Open your browser and navigate to http://localhost:3000 to view the application.
-
-Contributing
-Contributions are welcome! Please feel free to submit pull requests or open issues for any bugs or feature requests.
-
-License
-This project is licensed under the MIT License.
