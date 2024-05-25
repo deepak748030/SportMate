@@ -4,9 +4,11 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Roboto', sans-serif;
+    /* font-family: 'Roboto', sans-serif; */
+    font-family: 'Exo 2', sans-serif;
 }
 
 body {
-    background-color: #374c63;
+    /* background-color: #374c63; */
+    background-color: aliceblue;
 }
