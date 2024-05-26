@@ -29,13 +29,23 @@ function Home() {
                     <div className="col-lg-6 col-md-12 d-flex flex-column justify-content-center align-items-start p-3">
                         <h1 className="font-weight-bold">Manage your sports team or exercise class with Teamer!</h1>
                         <p className='my-3' style={{ fontSize: '1.3rem' }}>Sign up today for instant access!</p>
-                        <button
-                            className="btn btn-success mt-2 px-4 py-3"
-                            style={{ backgroundColor: '#5cab84', borderColor: '#5cab84' }}
-                            onClick={handleSignUpClick}
-                        >
-                            Free Sign Up
-                        </button>
+
+                        <div className='d-flex gap-2'>
+                            <button
+                                className="btn btn-success mt-2 px-4 py-3"
+                                onClick={handleSignUpClick}
+                            >
+                                Free Sign Up
+                            </button>
+                            <button
+                                className="btn btn-primary mt-2 px-4 py-3"
+                                onClick={() => { navigate('login') }}
+                            >
+                                Log-In
+                            </button>
+                        </div>
+
+
                     </div>
                 </div>
 
@@ -158,16 +168,17 @@ function Home() {
                 </div>
             </div>
 
-            <div className='w-100 text-center p-md-5' style={{
+            <div className='w-100 text-center py-5' style={{
                 backgroundColor: '#323b4e',
                 color: '#BFBFBF',
             }}>
-                <h1 style={{ fontSize: '3rem' }}>
+                <h1 className="fs-md-6 fs-lg-7" >
                     Teamer is a free, easy-to-use mobile app;<br />
                     <span style={{ fontWeight: 'bold' }}>
                         Sign up today for instant access!
                     </span>
                 </h1>
+
 
                 <button
                     className="btn btn-success mt-5 px-5 py-3"

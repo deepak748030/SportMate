@@ -12,11 +12,11 @@ const Navbar = () => {
         <nav className="navbar navbar-expand-lg navbar-dark py-sm-3" style={{ backgroundColor: '#323b4e' }}>
             <div className="container py-2">
                 <Link className="navbar-brand" to="/">SPORTS-MATE</Link>
-                <button className="navbar-toggler" type="button" onClick={toggleMenu}>
+                <button className={`navbar-toggler ${isMenuOpen ? 'collapsed' : ''}`} type="button" onClick={toggleMenu} data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded={isMenuOpen ? 'true' : 'false'} aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
-                <div className={`collapse navbar-collapse ${isMenuOpen ? 'show' : ''}`} id="navbarNav" style={{ position: 'absolute', top: '100%', left: 0, zIndex: 1000, width: '100%', backgroundColor: '#323b4e', transition: 'all 0.3s ease' }}>
-                    <ul className="navbar-nav ms-auto nav_ul align-items-center" style={{ width: '100%' }}>
+                <div className={`collapse navbar-collapse ${isMenuOpen ? 'show' : ''}`} id="navbarNav">
+                    <ul className="navbar-nav ms-auto nav_ul align-items-center">
                         <li className="nav-item">
                             <Link className="nav-link" to="/sports">Sports</Link>
                         </li>
