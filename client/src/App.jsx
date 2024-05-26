@@ -9,7 +9,6 @@ import Navbar from './components/NavBar';
 function App() {
   return (
     <Router>
-      <Navbar />
       <Suspense fallback={
         <div class="spinner-border spinner-border-lg animate-spin" role="status">
           <span class="visually-hidden">Loading...</span>

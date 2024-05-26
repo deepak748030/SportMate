@@ -1,5 +1,6 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import Layout from '../components/layout/Layout';
 
 function Home() {
 
@@ -12,7 +13,7 @@ function Home() {
 
 
     return (
-        <>
+        <Layout description='this is teamer website for tournaments' >
             <div className="container mt-md-5 mt-0  w-100">
                 <div className="row">
                     <div className="col-lg-6 col-md-12 d-flex justify-content-center align-items-center ">
@@ -157,11 +158,11 @@ function Home() {
                 </div>
             </div>
 
-            <div className='w-100 text-center p-5' style={{
+            <div className='w-100 text-center p-md-5' style={{
                 backgroundColor: '#323b4e',
                 color: '#BFBFBF',
             }}>
-                <h1 style={{ fontSize: '3rem' }}>
+                <h1 fs-sm-6 style={{ fontSize: '3rem' }}>
                     Teamer is a free, easy-to-use mobile app;<br />
                     <span style={{ fontWeight: 'bold' }}>
                         Sign up today for instant access!
@@ -177,25 +178,8 @@ function Home() {
                 </button>
             </div>
 
-            <footer className='w-100 text-center py-3' style={{ backgroundColor: '#323b4e', color: '#FFFFFF' }}>
-                <div className="container">
-                    <div className="row">
-                        <div className="col-md-12">
-                            <p>
-                                <Link to="#home" style={{ color: '#FFFFFF', textDecoration: 'none', margin: '0 10px' }}>Home</Link>|
-                                <Link to="#sports" style={{ color: '#FFFFFF', textDecoration: 'none', margin: '0 10px' }}>Sports</Link>|
-                                <Link to="#about" style={{ color: '#FFFFFF', textDecoration: 'none', margin: '0 10px' }}>About</Link>|
-                                <Link to="#advertising" style={{ color: '#FFFFFF', textDecoration: 'none', margin: '0 10px' }}>Advertising</Link>|
-                                <Link to="#support" style={{ color: '#FFFFFF', textDecoration: 'none', margin: '0 10px' }}>Support</Link>|
-                                <Link to="#privacy" style={{ color: '#FFFFFF', textDecoration: 'none', margin: '0 10px' }}>Privacy Policy</Link>
-                            </p>
-                            <p>© Pitch Hero Ltd 2008-2022</p>
-                            <p className='text-md-lg' >Pitch Hero Ltd registered in England | WF3 1DR | Company number - 06361033</p>
-                        </div>
-                    </div>
-                </div>
-            </footer>
-        </>
+
+        </Layout>
     );
 }
 
