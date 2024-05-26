@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 function Home() {
     return (
         <>
-            <div className="container mt-5">
+            <div className="container mt-md-5 mt-0  w-100">
                 <div className="row">
-                    <div className="col-lg-6 col-md-12 d-flex justify-content-center align-items-center">
+                    <div className="col-lg-6 col-md-12 d-flex justify-content-center align-items-center ">
                         <div>
                             <img
                                 src="/hero-banner.png"
@@ -18,7 +18,7 @@ function Home() {
                     </div>
                     <div className="col-lg-6 col-md-12 d-flex flex-column justify-content-center align-items-start p-3">
                         <h1 className="font-weight-bold">Manage your sports team or exercise class with Teamer!</h1>
-                        <p className='my-3 text-large'>Sign up today for instant access!</p>
+                        <p className='my-3' style={{ fontSize: '1.3rem' }}>Sign up today for instant access!</p>
                         <button
                             className="btn btn-success mt-2 px-4 py-3"
                             style={{ backgroundColor: '#5cab84', borderColor: '#5cab84' }}
@@ -32,7 +32,7 @@ function Home() {
                     <h1 className="d-flex justify-content-center font-weight-bold" style={{ fontSize: '3rem' }}>
                         Who is it for?
                     </h1>
-                    <p style={{ fontSize: '1.5rem' }}>
+                    <p className='px-md-5' style={{ fontSize: '1.5rem' }}>
                         Teamer is for anyone organising a sports team, exercise class or coaching session.<br />
                         Easy-to-use, Teamer is the perfect solution to manage attendance<br />
                         and micro-payments online.
@@ -43,7 +43,7 @@ function Home() {
                     <h1 className="d-flex justify-content-center font-weight-bold" style={{ fontSize: '3rem' }}>
                         What can I do?
                     </h1>
-                    <p style={{ fontSize: '1.5rem' }}>
+                    <p className='px-md-xl' style={{ fontSize: '1.5rem' }}>
                         Teamer is a free app for sports teams, sports events and class organisers. <br />
                         Manage teammates and parents, organise events, confirm attendance <br />
                         and accept payments in one brilliant, easy-to-use app.
@@ -53,9 +53,7 @@ function Home() {
                 <div className="row mt-5">
                     <div className="col-lg-6 col-md-12 d-flex flex-column justify-content-center align-items-start p-3">
                         <h1>Create events</h1>
-                        <p className='my-2 text-medium text-muted' style={{
-                            fontSize: '1.3rem'
-                        }}  >
+                        <p className='my-2 text-medium text-muted' style={{ fontSize: '1.3rem' }}>
                             Create your match, training session,<br /> exercise class or social event and promote <br /> it online to your attendees.
                         </p>
                     </div>
@@ -84,9 +82,7 @@ function Home() {
                     </div>
                     <div className="col-lg-6 col-md-12 d-flex flex-column justify-content-center align-items-start p-3">
                         <h1>Confirm attendance</h1>
-                        <p className='my-2 text-medium text-muted' style={{
-                            fontSize: '1.3rem'
-                        }} >
+                        <p className='my-2 text-medium text-muted' style={{ fontSize: '1.3rem' }}>
                             Send invites by mobile prompts and<br />emails. Attendees can confirm attendance<br />
                             within the brilliant Teamer app; no <br />
                             annoying emails or text messages.
@@ -97,9 +93,7 @@ function Home() {
                 <div className="row">
                     <div className="col-lg-6 col-md-12 d-flex flex-column justify-content-center align-items-start p-3">
                         <h1>Accept payments</h1>
-                        <p className='my-2 text-medium text-muted' style={{
-                            fontSize: '1.3rem'
-                        }} >
+                        <p className='my-2 text-medium text-muted' style={{ fontSize: '1.3rem' }}>
                             Collect payment from attendees using<br />
                             Teamer’s seamless online payment<br />
                             feature. Low cost and super fast. Every<br />
@@ -131,9 +125,7 @@ function Home() {
                     </div>
                     <div className="col-lg-6 col-md-12 d-flex flex-column justify-content-center align-items-start p-3">
                         <h1>Instant messaging</h1>
-                        <p className='my-2 text-medium text-muted' style={{
-                            fontSize: '1.3rem'
-                        }} >
+                        <p className='my-2 text-medium text-muted' style={{ fontSize: '1.3rem' }}>
                             Send free in-app messages to attendees<br />and receive instant notifications when<br />
                             they reply. Create private and public group<br />
                             conversations.
@@ -145,9 +137,9 @@ function Home() {
                     <h1 className="d-flex justify-content-center font-weight-bold" style={{ fontSize: '3rem' }}>
                         How much does it cost?
                     </h1>
-                    <p className='my-4' style={{ fontSize: '1.5rem' }} >
+                    <p className='my-4' style={{ fontSize: '1.5rem' }}>
                         Teamer is FREE to download. All team management features are FREE to use, but we<br />
-                        charge a small transaction fee if you collect a payment.
+                        charge a small transaction fee if you collect
                     </p>
                     <div className='d-flex justify-content-center font-weight-bold' style={{ fontSize: '5rem' }}>
                         IT'S FREE
@@ -165,6 +157,7 @@ function Home() {
                         Sign up today for instant access!
                     </span>
                 </h1>
+
                 <button
                     className="btn btn-success mt-5 px-5 py-3"
                     style={{ backgroundColor: '#5cab84', borderColor: '#5cab84', fontSize: '1.5rem' }}
@@ -186,7 +179,7 @@ function Home() {
                                 <Link to="#privacy" style={{ color: '#FFFFFF', textDecoration: 'none', margin: '0 10px' }}>Privacy Policy</Link>
                             </p>
                             <p>© Pitch Hero Ltd 2008-2022</p>
-                            <p>Pitch Hero Ltd registered in England | WF3 1DR | Company number - 06361033</p>
+                            <p className='text-md-lg' >Pitch Hero Ltd registered in England | WF3 1DR | Company number - 06361033</p>
                         </div>
                     </div>
                 </div>
