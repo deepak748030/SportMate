@@ -1,7 +1,16 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Home() {
+
+
+    const navigate = useNavigate();
+
+    const handleSignUpClick = () => {
+        navigate('/signup');
+    };
+
+
     return (
         <>
             <div className="container mt-md-5 mt-0  w-100">
@@ -22,6 +31,7 @@ function Home() {
                         <button
                             className="btn btn-success mt-2 px-4 py-3"
                             style={{ backgroundColor: '#5cab84', borderColor: '#5cab84' }}
+                            onClick={handleSignUpClick}
                         >
                             Free Sign Up
                         </button>
@@ -161,6 +171,7 @@ function Home() {
                 <button
                     className="btn btn-success mt-5 px-5 py-3"
                     style={{ backgroundColor: '#5cab84', borderColor: '#5cab84', fontSize: '1.5rem' }}
+                    onClick={handleSignUpClick}
                 >
                     Free Sign Up
                 </button>
