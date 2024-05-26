@@ -39,7 +39,7 @@ function Signup() {
     };
 
     return (
-        <div className="container mt-5">
+        <div className="container mt-3">
             <h1 className="text-center" style={{
                 fontWeight: 'bold'
             }} >Sign Up</h1>

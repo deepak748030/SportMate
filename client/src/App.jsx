@@ -10,7 +10,11 @@ function App() {
   return (
     <Router>
       <Navbar />
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={
+        <div class="spinner-border spinner-border-lg animate-spin" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      }>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/sports" element={<Sports />} />
