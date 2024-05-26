@@ -6,7 +6,7 @@ function Footer() {
             <div className="container">
                 <div className="row">
                     <div className="col-md-12">
-                        <p>
+                        <p px-ms-4>
                             <Link to="#home" style={{ color: '#FFFFFF', textDecoration: 'none', margin: '0 10px' }}>Home</Link>|
                             <Link to="#sports" style={{ color: '#FFFFFF', textDecoration: 'none', margin: '0 10px' }}>Sports</Link>|
                             <Link to="#about" style={{ color: '#FFFFFF', textDecoration: 'none', margin: '0 10px' }}>About</Link>|
