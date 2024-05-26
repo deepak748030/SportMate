@@ -35,7 +35,7 @@ function Signup() {
             password
         };
         console.log(formData);
-        // Add your form submission logic here
+
     };
 
     return (
@@ -119,6 +119,7 @@ function Signup() {
                         <div className="form-check">
                             <input
                                 className="form-check-input"
+                                style={{ height: "20px" }}
                                 type="checkbox"
                                 id="receiveEmails"
                                 checked={receiveEmails}
@@ -188,6 +189,7 @@ function Signup() {
                         <div className="form-check">
                             <input
                                 className="form-check-input"
+                                style={{ height: "17px" }}
                                 type="checkbox"
                                 id="terms"
                                 required
@@ -201,7 +203,7 @@ function Signup() {
 
                 <div className="form-group row mt-2">
                     <div className="col-sm-10 offset-sm-2">
-                        <button type="submit" className="btn btn-success" style={{
+                        <button type="submit" className="btn btn-success px-sm-5 py-sm-3" style={{
                             fontSize: '1.1rem'
                         }}>
                             Sign Up
