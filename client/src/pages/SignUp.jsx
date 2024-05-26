@@ -119,7 +119,6 @@ function Signup() {
                         <div className="form-check">
                             <input
                                 className="form-check-input"
-                                style={{ height: "20px" }}
                                 type="checkbox"
                                 id="receiveEmails"
                                 checked={receiveEmails}
