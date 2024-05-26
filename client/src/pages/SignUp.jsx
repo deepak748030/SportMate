@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import './Responsive.css'
 
 function Signup() {
     const [firstName, setFirstName] = useState('');
@@ -50,7 +51,7 @@ function Signup() {
                     <div className="col-sm-10">
                         <input
                             type="text"
-                            className="form-control"
+                            className="form-control py-md-3 py-lg-2  "
                             id="firstName"
                             placeholder="First Name"
                             value={firstName}
@@ -67,7 +68,7 @@ function Signup() {
                     <div className="col-sm-10">
                         <input
                             type="text"
-                            className="form-control"
+                            className="form-control py-md-3 py-lg-2 "
                             id="lastName"
                             placeholder="Last Name"
                             value={lastName}
@@ -84,7 +85,7 @@ function Signup() {
                     <div className="col-sm-10">
                         <input
                             type="text"
-                            className="form-control"
+                            className="form-control py-md-3 py-lg-2 "
                             id="location"
                             placeholder="Location"
                             value={location}
@@ -99,7 +100,7 @@ function Signup() {
                     </label>
                     <div className="col-sm-10">
                         <select
-                            className="form-control"
+                            className="form-control py-md-3 py-lg-2 "
                             id="birthYear"
                             value={birthYear}
                             onChange={(e) => setBirthYear(e.target.value)}
@@ -138,7 +139,7 @@ function Signup() {
                     <div className="col-sm-10">
                         <input
                             type="email"
-                            className="form-control"
+                            className="form-control py-md-3 py-lg-2 "
                             id="email"
                             placeholder="Enter email"
                             value={email}
@@ -155,7 +156,7 @@ function Signup() {
                     <div className="col-sm-10">
                         <input
                             type="text"
-                            className="form-control"
+                            className="form-control py-md-3 py-lg-2 "
                             id="phoneNumber"
                             placeholder="99999 99999"
                             value={phoneNumber}
@@ -172,7 +173,7 @@ function Signup() {
                     <div className="col-sm-10">
                         <input
                             type="password"
-                            className="form-control"
+                            className="form-control py-md-3 py-lg-2 "
                             id="password"
                             placeholder="Choose password"
                             value={password}
