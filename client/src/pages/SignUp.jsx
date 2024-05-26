@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Responsive.css'
-import Layout from '../components/layout/Layout';
+import Layout from '../components/layouts/Layout';
 
 function Signup() {
     const [firstName, setFirstName] = useState('');

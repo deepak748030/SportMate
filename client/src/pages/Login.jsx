@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './Responsive.css';
-import Layout from '../components/layout/Layout';
+import Layout from '../components/layouts/Layout';
 
 function Login() {
     const [username, setUsername] = useState('');

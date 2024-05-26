@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import Layout from '../components/layout/Layout';
+import Layout from '../components/layouts/Layout';
 
 function Home() {
 
@@ -162,7 +162,7 @@ function Home() {
                 backgroundColor: '#323b4e',
                 color: '#BFBFBF',
             }}>
-                <h1 fs-sm-6 style={{ fontSize: '3rem' }}>
+                <h1 style={{ fontSize: '3rem' }}>
                     Teamer is a free, easy-to-use mobile app;<br />
                     <span style={{ fontWeight: 'bold' }}>
                         Sign up today for instant access!

@@ -6,13 +6,12 @@ const Sports = lazy(() => import('./pages/Sports'));
 const Signup = lazy(() => import('./pages/SignUp'));  // Ensure the case matches the file name
 const Login = lazy(() => import('./pages/Login'));
 import Navbar from './components/NavBar';
+import Spinner from './components/Spinner';
 function App() {
   return (
     <Router>
       <Suspense fallback={
-        <div class="spinner-border spinner-border-lg animate-spin" role="status">
-          <span class="visually-hidden">Loading...</span>
-        </div>
+        <Spinner />
       }>
         <Routes>
           <Route path="/" element={<Home />} />
