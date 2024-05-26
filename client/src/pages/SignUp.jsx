@@ -189,7 +189,6 @@ function Signup() {
                         <div className="form-check">
                             <input
                                 className="form-check-input"
-                                style={{ height: "17px" }}
                                 type="checkbox"
                                 id="terms"
                                 required

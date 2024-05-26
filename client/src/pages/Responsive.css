@@ -1,7 +1,6 @@
 @media only screen and (max-width: 780px) {
-    input {
-        padding: 3rem 0;
-        font-size: 1.4rem;
-        color: red;
+    .form-check-input {
+        height: auto;
+        width: auto;
     }
 }
