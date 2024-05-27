@@ -7,6 +7,7 @@ const Signup = lazy(() => import('./pages/SignUp'));
 const Login = lazy(() => import('./pages/Login'));
 import Spinner from './components/Spinner';
 import Users from './pages/Users';
+import CreateTeam from './pages/CreateTeam';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/user" element={<Users />} />
+          <Route path="/user/createteam" element={<CreateTeam />} />
         </Routes>
       </Suspense>
     </Router>
