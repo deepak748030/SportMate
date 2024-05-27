@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '..style/Responsive.css';
+import '../cssui/Responsive.css';
 import Layout from '../components/layouts/Layout';
 
 function Login() {
@@ -36,6 +36,7 @@ function Login() {
                                 value={username}
                                 onChange={(e) => setUsername(e.target.value)}
                                 required
+                                autoComplete="current-username"
                             />
                         </div>
                     </div>
@@ -53,6 +54,7 @@ function Login() {
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 required
+                                autoComplete="current-password"
                             />
                         </div>
                     </div>
