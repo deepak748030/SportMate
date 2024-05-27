@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Responsive.css';
+import '..style/Responsive.css';
 import Layout from '../components/layouts/Layout';
 
 function Login() {
