@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import '..style/Responsive.css';
+import '../cssui/Responsive.css';
 import Layout from '../components/layouts/Layout';
 
 function Signup() {
@@ -147,6 +147,7 @@ function Signup() {
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 required
+                                autoComplete='email'
                             />
                         </div>
                     </div>
@@ -160,7 +161,7 @@ function Signup() {
                                 type="text"
                                 className="form-control py-md-3 py-lg-2 "
                                 id="phoneNumber"
-                                placeholder="99999 99999"
+                                placeholder="+91 "
                                 value={phoneNumber}
                                 onChange={(e) => setPhoneNumber(e.target.value)}
                                 required
@@ -181,6 +182,7 @@ function Signup() {
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 required
+                                autoComplete='current-password'
                             />
                         </div>
                     </div>
