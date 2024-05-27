@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './Responsive.css'
+import '..style/Responsive.css';
 import Layout from '../components/layouts/Layout';
 
 function Signup() {
