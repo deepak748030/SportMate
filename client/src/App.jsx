@@ -3,10 +3,11 @@ import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 
 const Home = lazy(() => import('./pages/Home'));
 const Sports = lazy(() => import('./pages/Sports'));
-const Signup = lazy(() => import('./pages/SignUp'));  // Ensure the case matches the file name
+const Signup = lazy(() => import('./pages/SignUp'));
 const Login = lazy(() => import('./pages/Login'));
-import Navbar from './components/NavBar';
 import Spinner from './components/Spinner';
+import Users from './pages/Users';
+
 function App() {
   return (
     <Router>
@@ -18,6 +19,7 @@ function App() {
           <Route path="/sports" element={<Sports />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/user" element={<Users />} />
         </Routes>
       </Suspense>
     </Router>
