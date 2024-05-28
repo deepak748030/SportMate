@@ -8,6 +8,8 @@ const Login = lazy(() => import('./pages/Login'));
 import Spinner from './components/Spinner';
 import Users from './pages/Users';
 import CreateTeam from './pages/CreateTeam';
+import ForgotPassword from './pages/ForgotPassword';
+import Chat from './pages/Chat';
 
 function App() {
   return (
@@ -22,6 +24,8 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/user" element={<Users />} />
           <Route path="/user/createteam" element={<CreateTeam />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/chat" element={<Chat />} />
         </Routes>
       </Suspense>
     </Router>
