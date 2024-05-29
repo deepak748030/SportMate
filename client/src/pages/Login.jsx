@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import '../cssui/Responsive.css';
 import Layout from '../components/layouts/Layout';
+import { Link } from 'react-router-dom';
 
 function Login() {
     const [username, setUsername] = useState('');
@@ -86,9 +87,9 @@ function Login() {
 
                     <div className="form-group row mt-3">
                         <div className="col-sm-10 offset-sm-2">
-                            <a href="/forgot-password" className="text-decoration-none">
+                            <Link to="/forgot-password" className="text-decoration-none">
                                 Forgot Password?
-                            </a>
+                            </Link>
                         </div>
                     </div>
                 </form>
