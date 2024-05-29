@@ -9,9 +9,10 @@ import Spinner from './components/Spinner';
 import Users from './pages/Users';
 import CreateTeam from './pages/CreateTeam';
 import ForgotPassword from './pages/ForgotPassword';
-import Chat from './pages/Chat';
+import Chat from './pages/chatpage/Chat';
 import Profile from './pages/Profile'
 import Error from './pages/Error';
+import Singlechat from './pages/chatpage/Singlechat';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Route path="/user/createteam" element={<CreateTeam />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/chat" element={<Chat />} />
+          <Route path="/chat/:id" element={<Singlechat />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/*" element={<Error />} />
 

@@ -1,13 +1,12 @@
 import React from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { Link } from 'react-router-dom';
-import Layout from '../components/layouts/Layout';
+import Layout from '../../components/layouts/Layout';
+import Chatnav from '../../components/chat/Chatnav';
 
-export default function Chat() {
+export default function Singlechat() {
     return (
         <Layout>
             <div className="container d-flex flex-column flex-md-row border rounded overflow-hidden max-w-4xl w-100 p-0 mt-md-5">
-                <div className="bg-light p-3 border-end d-flex flex-column flex-shrink-0" style={{ minWidth: '300px' }}>
+                <div className="bg-light p-3 border-end d-none d-md-flex flex-column flex-shrink-0  " style={{ minWidth: '300px' }}>
                     <div className="d-flex align-items-center justify-content-between mb-3">
                         <div className="fw-bold">Messenger</div>
                         <Button className="btn btn-outline-secondary rounded-circle p-2">
@@ -20,25 +19,7 @@ export default function Chat() {
                             <input type="text" className="form-control" placeholder="Search" />
                         </form>
                     </div>
-                    <div className="list-group">
-                        {[
-                            { name: 'Sofia Davis', message: "hey what's going on? · 2h", img: '/placeholder-user.jpg', fallback: 'OM' },
-                            { name: 'Alex Johnson', message: 'Just finished a great book! 📚 · 45m', img: '/alex-avatar.jpg', fallback: 'AJ' },
-                            { name: 'Maria Gonzalez', message: 'Excited for the weekend! · 1h', img: '/maria-avatar.jpg', fallback: 'MG' },
-                            { name: 'Kevin Brown', message: "Who's up for a movie night? · 3h", img: '/kevin-avatar.jpg', fallback: 'KB' },
-                            { name: 'Lily White', message: 'Morning coffee is the best! ☕ · 30m', img: '/lily-avatar.jpg', fallback: 'LW' },
-                        ].map((user, index) => (
-                            <Link key={index} to="#" className="list-group-item list-group-item-action d-flex align-items-center gap-3 p-2 rounded">
-                                <i className="bi bi-person-circle fs-2 " style={{
-                                    opacity: '.6'
-                                }}></i>
-                                <div>
-                                    <p className="mb-0 fw-bold">{user.name}</p>
-                                    <p className="mb-0 text-muted small">{user.message}</p>
-                                </div>
-                            </Link>
-                        ))}
-                    </div>
+                    <Chatnav />
                 </div>
                 <div className="flex-grow-1">
                     <div className="p-3 d-flex border-bottom align-items-center">
@@ -62,7 +43,7 @@ export default function Chat() {
                             </Button>
                         </div>
                     </div>
-                    <div className="p-3 d-flex flex-column gap-4">
+                    <div className="p-3 d-flex flex-column gap-4" style={{ height: "60vh" }}>
                         {[
                             { message: "Hey hope you're doing well! We should catch up sometime soon. 🙏", align: 'end', bgColor: 'bg-dark text-white' },
                             { message: "Sure! I'm free this weekend if you want to grab a coffee.", align: 'start', bgColor: 'bg-light' },

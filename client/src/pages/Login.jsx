@@ -78,6 +78,18 @@ function Login() {
                     </div>
 
                     <div className="form-group row mt-3">
+                        <div className="col-sm-10 offset-sm-2 d-flex justify-content-between">
+                            <Link to="/forgot-password" className="text-decoration-none">
+                                Forgot Password?
+                            </Link>
+
+                            <Link to="/signup" className="text-decoration-none">
+                                Create Account
+                            </Link>
+                        </div>
+                    </div>
+
+                    <div className="form-group row mt-3">
                         <div className="col-sm-10 offset-sm-2">
                             <button type="submit" className="btn btn-success px-sm-5 py-sm-3" style={{ fontSize: '1.1rem' }}>
                                 Login
@@ -85,13 +97,7 @@ function Login() {
                         </div>
                     </div>
 
-                    <div className="form-group row mt-3">
-                        <div className="col-sm-10 offset-sm-2">
-                            <Link to="/forgot-password" className="text-decoration-none">
-                                Forgot Password?
-                            </Link>
-                        </div>
-                    </div>
+
                 </form>
             </div>
         </Layout>
