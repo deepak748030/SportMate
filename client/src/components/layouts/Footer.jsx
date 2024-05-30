@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function Footer() {
     return (
-        <footer className='w-100 text-center py-5' style={{ backgroundColor: '#002b5c', color: '#FFFFFF' }}>
+        <footer className='w-100 text-center py-5 bg-dark' style={{ color: '#FFFFFF' }}>
             <div className="container">
                 <div className="row">
                     <div className="col-md-4 mb-3">
