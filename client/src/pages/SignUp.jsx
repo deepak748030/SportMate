@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import '../cssui/Responsive.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import Layout from '../components/layouts/Layout';
+import '../cssui/Responsive.css';
 
 function Signup() {
     const [firstName, setFirstName] = useState('');
@@ -36,24 +38,21 @@ function Signup() {
             password
         };
         console.log(formData);
-
     };
 
     return (
-        <Layout title="SPORTS-MATE - SIGN-UP" description="this is signup page" >
+        <Layout title="SPORTMATE - SIGN-UP" description="This is the signup page">
             <div className="container mt-3 mb-5">
-                <h1 className="text-center" style={{
-                    fontWeight: 'bold'
-                }} >Sign Up</h1>
-                <form onSubmit={handleSubmit} className='d-flex flex-column gap-2 my-5 ' >
+                <h1 className="text-center fw-bold">Sign Up</h1>
+                <form onSubmit={handleSubmit} className="d-flex flex-column gap-4 my-5">
                     <div className="form-group row">
                         <label htmlFor="firstName" className="col-sm-2 col-form-label">
-                            First Name <span className="text-danger">*</span>
+                            <i className="bi bi-person me-2"></i> First Name <span className="text-danger">*</span>
                         </label>
                         <div className="col-sm-10">
                             <input
                                 type="text"
-                                className="form-control py-md-3 py-lg-2  "
+                                className="form-control py-md-3 py-lg-2"
                                 id="firstName"
                                 placeholder="First Name"
                                 value={firstName}
@@ -65,12 +64,12 @@ function Signup() {
 
                     <div className="form-group row">
                         <label htmlFor="lastName" className="col-sm-2 col-form-label">
-                            Last Name <span className="text-danger">*</span>
+                            <i className="bi bi-person me-2"></i> Last Name <span className="text-danger">*</span>
                         </label>
                         <div className="col-sm-10">
                             <input
                                 type="text"
-                                className="form-control py-md-3 py-lg-2 "
+                                className="form-control py-md-3 py-lg-2"
                                 id="lastName"
                                 placeholder="Last Name"
                                 value={lastName}
@@ -82,12 +81,12 @@ function Signup() {
 
                     <div className="form-group row">
                         <label htmlFor="location" className="col-sm-2 col-form-label">
-                            Location <span className="text-danger">*</span>
+                            <i className="bi bi-geo-alt me-2"></i> Location <span className="text-danger">*</span>
                         </label>
                         <div className="col-sm-10">
                             <input
                                 type="text"
-                                className="form-control py-md-3 py-lg-2 "
+                                className="form-control py-md-3 py-lg-2"
                                 id="location"
                                 placeholder="Location"
                                 value={location}
@@ -98,11 +97,11 @@ function Signup() {
 
                     <div className="form-group row">
                         <label htmlFor="birthYear" className="col-sm-2 col-form-label">
-                            Birth Year
+                            <i className="bi bi-calendar me-2"></i> Birth Year
                         </label>
                         <div className="col-sm-10">
                             <select
-                                className="form-control py-md-3 py-lg-2 "
+                                className="form-control py-md-3 py-lg-2"
                                 id="birthYear"
                                 value={birthYear}
                                 onChange={(e) => setBirthYear(e.target.value)}
@@ -127,7 +126,7 @@ function Signup() {
                                     onChange={(e) => setReceiveEmails(e.target.checked)}
                                 />
                                 <label className="form-check-label" htmlFor="receiveEmails">
-                                    I would like to receive Teamer partner emails
+                                    I would like to receive Sportmate partner emails
                                 </label>
                             </div>
                         </div>
@@ -136,32 +135,32 @@ function Signup() {
 
                     <div className="form-group row">
                         <label htmlFor="email" className="col-sm-2 col-form-label">
-                            Email <span className="text-danger">*</span>
+                            <i className="bi bi-envelope me-2"></i> Email <span className="text-danger">*</span>
                         </label>
                         <div className="col-sm-10">
                             <input
                                 type="email"
-                                className="form-control py-md-3 py-lg-2 "
+                                className="form-control py-md-3 py-lg-2"
                                 id="email"
                                 placeholder="Enter email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 required
-                                autoComplete='email'
+                                autoComplete="email"
                             />
                         </div>
                     </div>
 
                     <div className="form-group row">
                         <label htmlFor="phoneNumber" className="col-sm-2 col-form-label">
-                            Phone Number <span className="text-danger">*</span>
+                            <i className="bi bi-telephone me-2"></i> Phone Number <span className="text-danger">*</span>
                         </label>
                         <div className="col-sm-10">
                             <input
                                 type="text"
-                                className="form-control py-md-3 py-lg-2 "
+                                className="form-control py-md-3 py-lg-2"
                                 id="phoneNumber"
-                                placeholder="+91 "
+                                placeholder="Phone Number"
                                 value={phoneNumber}
                                 onChange={(e) => setPhoneNumber(e.target.value)}
                                 required
@@ -171,18 +170,18 @@ function Signup() {
 
                     <div className="form-group row">
                         <label htmlFor="password" className="col-sm-2 col-form-label">
-                            Password <span className="text-danger">*</span>
+                            <i className="bi bi-lock me-2"></i> Password <span className="text-danger">*</span>
                         </label>
                         <div className="col-sm-10">
                             <input
                                 type="password"
-                                className="form-control py-md-3 py-lg-2 "
+                                className="form-control py-md-3 py-lg-2"
                                 id="password"
                                 placeholder="Choose password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 required
-                                autoComplete='current-password'
+                                autoComplete="current-password"
                             />
                         </div>
                     </div>
@@ -205,9 +204,7 @@ function Signup() {
 
                     <div className="form-group row mt-2">
                         <div className="col-sm-10 offset-sm-2">
-                            <button type="submit" className="btn btn-success px-sm-5 py-sm-3" style={{
-                                fontSize: '1.1rem'
-                            }}>
+                            <button type="submit" className="btn btn-success px-sm-5 py-sm-3" style={{ fontSize: '1.1rem' }}>
                                 Sign Up
                             </button>
                         </div>

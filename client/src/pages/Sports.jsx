@@ -1,92 +1,101 @@
 import React from 'react';
 import Layout from '../components/layouts/Layout';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-const imgData = [{
-    title: 'Athletics',
-    description: 'Your athletics club will enjoy using Teamer: Plan training sessions or races and collect membership fees. All fixtures, messages and events in one place for everyone.'
-},
-{
-    title: 'Basketball',
-    description: 'Your basketball team can be easily managed online with Teamer. From availability and selection to collecting payments. All training dates, fixtures, messages and events together. '
-},
-{
-    title: 'Canoeing',
-    description: 'Speed up admin for your canoeing teams: Use Teamer to share events, pick teams, discuss tactics and do payments online. '
-},
-{
-    title: 'Cricket',
-    description: 'Using Teamer can transform how you run your cricket team: Schedule nets sessions or league games, share messages and collect memberships or subs. '
-},
-{
-    title: 'Exercise Class',
-    description: 'Teaching an exercise class indoors or outside? Use Teamer to do the admin easily. Create events, confirm attendance and get paid online. '
-},
-{
-    title: 'Football',
-    description: 'Teamer will help you manage your football team from availability and selection to collecting online payments. All training dates, fixtures, messages and events in one place. '
-},
-{
-    title: 'Gymnastics',
-    description: 'If organising a gymnastics team is challenging then give Teamer a try: Schedule training or competitions, share messages and bring in membership online. '
-},
-{
-    title: 'HIIT Class',
-    description: 'Exercise classes like HIIT can be run like clockwork using Teamer. Share class times and venues and collect payments; convenient for instructors and attendees.'
-},
-{
-    title: 'Hiking',
-    description: 'Do you have a hiking group who meet regularly? Teamer is a great way to keep everyone in the know. Share routes, times and updates in the palm of your hand.'
-},
-{
-    title: 'Hockey',
-    description: 'Hockey teams will get plenty of use from the Teamer experience - Coaches can see who is available for training and pick teams while players can pay subs on their phone.'
-},
-{
-    title: 'Jiu-Jitsu',
-    description: 'Need to plan Jiu-Jitsu classes? Teamer is a simple way to schedule events, share fight times and tournaments, discuss bouts and belts. All the tools you wll need.'
-},
-{
-    title: 'Judo',
-    description: 'Running judo sessions? Create judo classes for different age groups, update your students and collect membership fees. Teamer works well for judo organisers.'
-},
-{
-    title: 'Karate',
-    description: 'Your karate groups can be organised effortlessly with Teamer. From special dan gradings to news from your sensei. All karate events, messages and payments.'
-},
-{
-    title: 'Mixed Martial Arts (MMA)',
-    description: 'Speed up admin for your mixed martial arts teams: Use Teamer to share events, select teams, talk takedowns and tap outs and collect fees online.'
-},
-
-
-
-
-]
-
+const imgData = [
+    {
+        title: 'Athletics',
+        description: 'Join our athletics community and stay on top of your game. Plan training sessions, track progress, and connect with fellow athletes effortlessly.',
+        imgUrl: 'https://images.unsplash.com/photo-1521412644187-c49fa049e84d'
+    },
+    {
+        title: 'Basketball',
+        description: 'Manage your basketball team with ease. Schedule games, track player stats, and communicate with your team all in one place.',
+        imgUrl: 'https://images.unsplash.com/photo-1517649763962-0c623066013b'
+    },
+    {
+        title: 'Canoeing',
+        description: 'Streamline your canoeing adventures. Organize events, share routes, and keep your team informed about training sessions.',
+        imgUrl: 'https://images.unsplash.com/photo-1579679568943-1f67382ccdf4'
+    },
+    {
+        title: 'Cricket',
+        description: 'Take your cricket team management to the next level. Schedule practices, manage matches, and stay connected with your team.',
+        imgUrl: 'https://images.unsplash.com/photo-1531379410505-63bfe8cd7e84'
+    },
+    {
+        title: 'Exercise Class',
+        description: 'Simplify your exercise class management. Create schedules, confirm attendance, and handle payments all from your phone.',
+        imgUrl: 'https://images.unsplash.com/photo-1605296867304-46d5465a13f1'
+    },
+    {
+        title: 'Football',
+        description: 'Keep your football team organized. Manage rosters, schedule games, and communicate with players easily and efficiently.',
+        imgUrl: 'https://images.unsplash.com/photo-1513097844810-1f9b8fd097b8'
+    },
+    {
+        title: 'Gymnastics',
+        description: 'Make gymnastics team management a breeze. Organize practices, communicate with team members, and track performances.',
+        imgUrl: 'https://images.unsplash.com/photo-1519074002996-a69e7ac46a42'
+    },
+    {
+        title: 'HIIT Class',
+        description: 'Manage your HIIT classes effortlessly. Schedule sessions, track attendance, and collect payments with ease.',
+        imgUrl: 'https://images.unsplash.com/photo-1554284126-aa88f21f33d5'
+    },
+    {
+        title: 'Hiking',
+        description: 'Keep your hiking group organized. Share routes, plan hikes, and keep everyone updated with the latest information.',
+        imgUrl: 'https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0'
+    },
+    {
+        title: 'Hockey',
+        description: 'Enhance your hockey team management. Schedule practices, manage games, and keep your team connected and informed.',
+        imgUrl: 'https://images.unsplash.com/photo-1600962864635-3dff7c21d3d4'
+    },
+    {
+        title: 'Jiu-Jitsu',
+        description: 'Organize your Jiu-Jitsu classes efficiently. Schedule events, share updates, and manage memberships all in one place.',
+        imgUrl: 'https://images.unsplash.com/photo-1580645305471-79a9f35f665a'
+    },
+    {
+        title: 'Judo',
+        description: 'Simplify Judo class management. Create schedules, update students, and handle memberships easily and effectively.',
+        imgUrl: 'https://images.unsplash.com/photo-1594137467279-d2d7c5f8b996'
+    },
+    {
+        title: 'Karate',
+        description: 'Manage your karate classes seamlessly. Plan events, share news, and handle payments with a few clicks.',
+        imgUrl: 'https://images.unsplash.com/photo-1606004904453-0e22f66a4740'
+    },
+    {
+        title: 'Mixed Martial Arts (MMA)',
+        description: 'Take control of your MMA team management. Schedule training sessions, share fight updates, and collect fees online.',
+        imgUrl: 'https://images.unsplash.com/photo-1551601651-c583c5efad80'
+    }
+];
 
 function Sports() {
     return (
-        <Layout title="SPORTS_MATE - SPORTS">
+        <Layout title="SPORTMATE - SPORTS">
             <div className="container text-center p-4">
                 <h2 className="fw-bold">SPORTS</h2>
-                <p className="fs-5 fs-md-4">Easy-to-use, Teamer is the perfect solution to manage attendance and micro-payments online.</p>
+                <p className="fs-5 fs-md-4">Sportmate is your ultimate solution for managing sports teams and activities. Organize events, track progress, and stay connected effortlessly.</p>
             </div>
 
-            <div className='container'>
-                <div className='row'>
+            <div className="container">
+                <div className="row">
                     {imgData.map((data, index) => (
-                        <div key={index} className='col-sm-12 col-md-3 mb-4'>
-                            <div className="card mx-auto bg-light" style={{ maxWidth: '430px', backgroundColor: 'rgba(211, 205, 205, 0.467)', height: "450px" }}>
-                                <img src={`sportsimg/${index + 1}.jpg`} className="card-img-top" alt="Card image" />
+                        <div key={index} className="col-sm-12 col-md-6 col-lg-4 mb-4">
+                            <div className="card mx-auto bg-light shadow-sm" style={{ maxWidth: '400px', height: '100%' }}>
+                                <img src={data.imgUrl} className="card-img-top" alt={data.title} style={{ height: '200px', objectFit: 'cover' }} />
                                 <div className="card-body text-center">
-                                    <h3 className="card-title fw-bold text-primary" style={{ opacity: '.6' }} >{data.title}</h3>
+                                    <h3 className="card-title fw-bold text-primary" style={{ opacity: '.8' }}>{data.title}</h3>
                                     <p className="card-text">{data.description}</p>
                                 </div>
                             </div>
                         </div>
                     ))}
-
-
                 </div>
             </div>
         </Layout>

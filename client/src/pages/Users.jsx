@@ -3,51 +3,38 @@ import Layout from '../components/layouts/Layout';
 import { useNavigate } from 'react-router-dom';
 
 function Users() {
-
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     return (
         <Layout title='SPORTS_MATE - DASHBOARD'>
-            <div className='container mt-md-5 mb-5 mb-md-1' style={{ minHeight: '53rem' }}  >
+            <div className='container mt-md-5 mb-5 mb-md-1'>
                 <div className='row m-3'>
                     {/* Left Section */}
-                    <div className='col-md-4 '>
-                        <div className='d-flex align-items-center '>
-
-                            <img src='/logo.png' alt='logo error' height={"70rem"} />
-
-                            <div className='d-md-flex flex-column align-items-center'>
-                                <div className='fw-bold '>DEEPAK KUMAR</div>
-                                <div >EDIT ACCOUNT</div>
-                            </div>
+                    <div className='col-md-4'>
+                        <div className='text-center'>
+                            <img src='/avatar.png' alt='avatar' style={{ width: '120px', borderRadius: '50%' }} />
+                            <h4 className='mt-3'>Welcome Back, Deepak!</h4>
                         </div>
-                        <hr />
-
-                        <div className='d-md-block'>
-                            <h5 className='mt-5 fw-bold'>UPCOMING EVENTS (0)</h5>
-                            <p className='mt-5' >No events scheduled for any teams.</p>
+                        <hr className='mt-4' />
+                        <div>
+                            <h5 className='mt-4'>Upcoming Events</h5>
+                            <p>No upcoming events scheduled.</p>
                         </div>
                         <hr />
                     </div>
                     {/* Right Section */}
                     <div className='col-md-8 col-12 mt-3'>
-                        <div className='d-flex justify-content-between'>
-                            <h2 className='fw-bold fs-md-2'>MY TEAMS</h2>
-                            <button className='btn btn-success' onClick={() => { navigate('/user/createteam') }} >Create new team</button>
+                        <div className='d-flex justify-content-between align-items-center'>
+                            <h2 className='fw-bold fs-md-2'>My Teams</h2>
+                            <button className='btn btn-primary' onClick={() => navigate('/user/createteam')}>Create New Team</button>
                         </div>
-                        <div className='d-flex flex-column h-100 my-5 align-items-center justify-content-center' style={{
-                            border: '.2px dashed black',
-                            opacity: '.4'
-                        }}>
-                            <h3 className='fw-bold' >TEAMS EMPTY</h3>
-                            Create new team
+                        <div className='mt-4 p-4 text-center bg-light rounded'>
+                            <h3 className='fw-bold'>You haven't created any teams yet!</h3>
+                            <p>Start your sports journey by creating your first team.</p>
                         </div>
-
-                        <div>
-
-                            <h2 className='my-4 fw-bold'>ACTIVITY</h2>
-                            <p>There is no recent activity</p>
-
+                        <div className='mt-4'>
+                            <h2 className='fw-bold'>Activity</h2>
+                            <p>No recent activity to display.</p>
                         </div>
                     </div>
                 </div>
