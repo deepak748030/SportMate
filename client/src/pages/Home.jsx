@@ -17,7 +17,7 @@ function Home() {
                     <div className="col-lg-6 col-md-12 d-flex justify-content-center align-items-center">
                         <div>
                             <img
-                                src="https://via.placeholder.com/600x400"  // Replace with actual image URL
+                                src="https://images.unsplash.com/photo-1536697246787-1f7ae568d427"
                                 alt="Sportmate Hero Banner"
                                 className="img-fluid"
                                 style={{ maxWidth: '100%', height: 'auto' }}
@@ -74,7 +74,7 @@ function Home() {
                     <div className="col-lg-6 col-md-12 d-flex justify-content-center align-items-center">
                         <div>
                             <img
-                                src="https://via.placeholder.com/600x400"  // Replace with actual image URL
+                                src="https://images.unsplash.com/photo-1521440631251-8754a5e19885"
                                 alt="Create Events"
                                 className="img-fluid"
                                 style={{ maxWidth: '100%', height: 'auto' }}
@@ -87,7 +87,7 @@ function Home() {
                     <div className="col-lg-6 col-md-12 d-flex justify-content-center align-items-center">
                         <div>
                             <img
-                                src="https://via.placeholder.com/600x400"  // Replace with actual image URL
+                                src="https://images.unsplash.com/photo-1497366672149-e5e4b4d34ebd"
                                 alt="Confirm Attendance"
                                 className="img-fluid"
                                 style={{ maxWidth: '100%', height: 'auto' }}
@@ -112,7 +112,7 @@ function Home() {
                     <div className="col-lg-6 col-md-12 d-flex justify-content-center align-items-center">
                         <div>
                             <img
-                                src="https://via.placeholder.com/600x400"  // Replace with actual image URL
+                                src="https://images.unsplash.com/photo-1563013544-824ae6a7d7a0"
                                 alt="Accept Payments"
                                 className="img-fluid"
                                 style={{ maxWidth: '100%', height: 'auto' }}
@@ -125,7 +125,7 @@ function Home() {
                     <div className="col-lg-6 col-md-12 d-flex justify-content-center align-items-center">
                         <div>
                             <img
-                                src="https://via.placeholder.com/600x400"  // Replace with actual image URL
+                                src="https://images.unsplash.com/photo-1542966541-29ebf4a7e57a"
                                 alt="Instant Messaging"
                                 className="img-fluid"
                                 style={{ maxWidth: '100%', height: 'auto' }}
@@ -145,7 +145,8 @@ function Home() {
                         How Much Does It Cost?
                     </h1>
                     <p className='my-4 text-secondary' style={{ fontSize: '1.5rem' }}>
-                        Sportmate is FREE to download. All team management features are FREE to use, but we charge a small transaction fee if you collect payments through the app.
+                        Sportmate is FREE to download. All team management features are FREE to use,
+                        but we charge a small transaction fee if you collect payments through the app.
                     </p>
                     <div className='d-flex justify-content-center font-weight-bold text-primary' style={{ fontSize: '5rem' }}>
                         IT'S FREE
