@@ -1,181 +1,138 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import Layout from '../components/layouts/Layout';
+import { Link, useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import Layout from '../components/layouts/Layout'
 function Home() {
     const navigate = useNavigate();
-
-    const handleSignUpClick = () => {
-        navigate('/signup');
-    };
+    const login = true
 
     return (
-        <Layout description='Sportmate helps you manage sports teams and exercise classes effortlessly'>
-            <div className="container mt-5 w-100">
-                <div className="row">
-                    <div className="col-lg-6 col-md-12 d-flex justify-content-center align-items-center">
-                        <div>
-                            <img
-                                src="https://images.unsplash.com/photo-1594488132458-b5148f24c26b"
-                                alt="Sportmate Hero Banner"
-                                className="img-fluid"
-                                style={{ maxWidth: '100%', height: 'auto' }}
-                            />
+        <Layout>
+            <div className="d-flex flex-column min-vh-100">
+                <main className="flex-grow-1">
+                    <section className="py-5">
+                        <div className="container">
+                            <div className="row gx-5">
+                                <div className="col-lg-6 d-flex flex-column justify-content-center">
+                                    <h1 className="display-4 fw-bold">Bring Your Sports Events to Life</h1>
+                                    <p className="text-muted my-3">
+                                        Create and manage events for your favorite sports, from football to basketball and beyond. Our platform
+                                        makes it easy to get the word out and bring your community together.
+                                    </p>
+                                    <div className="d-flex gap-2 mb-3">
+                                        <Link to="/login" className="btn btn-primary">
+                                            Create Event
+                                        </Link>
+                                        <Link to="/sports" className="btn btn-outline-primary">
+                                            View Events
+                                        </Link>
+                                    </div>
+                                </div>
+                                <div className="col-lg-6">
+                                    <img
+                                        src=
+                                        {login ? 'https://images.unsplash.com/photo-1579156618335-f6245e05236a?q=80&w=2060&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' : 'https://via.placeholder.com/1200x400'}
+                                        alt="Sports Events"
+                                        className="img-fluid rounded"
+                                    />
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div className="col-lg-6 col-md-12 d-flex flex-column justify-content-center align-items-start p-3">
-                        <h1 className="font-weight-bold text-primary">Manage Your Sports Team or Exercise Class with Sportmate!</h1>
-                        <p className='my-3 text-secondary' style={{ fontSize: '1.3rem' }}>Sign up today and get started in minutes!</p>
-                        <div className='d-flex gap-2'>
-                            <button
-                                className="btn btn-success mt-2 px-4 py-3"
-                                onClick={handleSignUpClick}
-                            >
-                                Free Sign Up
-                            </button>
-                            <button
-                                className="btn btn-primary mt-2 px-4 py-3"
-                                onClick={() => { navigate('login') }}
-                            >
-                                Log In
-                            </button>
+                    </section>
+                    <section className="py-5 bg-light">
+                        <div className="container text-center">
+                            <h2 className="display-5 fw-bold">Create Events for Any Sport</h2>
+                            <p className="text-muted mb-5">
+                                Our platform supports events for a wide range of sports, including football, basketball, cricket, tennis,
+                                and more. Whether you're organizing a local tournament or a professional league, we've got you covered.
+                            </p>
+                            <div className="row gx-5">
+                                <div className="col-md-4">
+                                    <div className="bg-white p-3 rounded shadow-sm">
+                                        <div className="badge bg-secondary mb-2">Football</div>
+                                        <h3 className="h5">Football Events</h3>
+                                        <p className="text-muted">Create and manage events for your local football league or tournament.</p>
+                                    </div>
+                                </div>
+                                <div className="col-md-4">
+                                    <div className="bg-white p-3 rounded shadow-sm">
+                                        <div className="badge bg-secondary mb-2">Basketball</div>
+                                        <h3 className="h5">Basketball Events</h3>
+                                        <p className="text-muted">Organize your community basketball tournaments and events.</p>
+                                    </div>
+                                </div>
+                                <div className="col-md-4">
+                                    <div className="bg-white p-3 rounded shadow-sm">
+                                        <div className="badge bg-secondary mb-2">Cricket</div>
+                                        <h3 className="h5">Cricket Events</h3>
+                                        <p className="text-muted">Manage cricket events, from local matches to regional tournaments.</p>
+                                    </div>
+                                </div>
+                                <div className="col-md-4">
+                                    <div className="bg-white p-3 rounded shadow-sm">
+                                        <div className="badge bg-secondary mb-2">Tennis</div>
+                                        <h3 className="h5">Tennis Events</h3>
+                                        <p className="text-muted">Create and promote tennis tournaments and events in your area.</p>
+                                    </div>
+                                </div>
+                                <div className="col-md-4">
+                                    <div className="bg-white p-3 rounded shadow-sm">
+                                        <div className="badge bg-secondary mb-2">Volleyball</div>
+                                        <h3 className="h5">Volleyball Events</h3>
+                                        <p className="text-muted">Organize volleyball tournaments and events for your local community.</p>
+                                    </div>
+                                </div>
+                                <div className="col-md-4">
+                                    <div className="bg-white p-3 rounded shadow-sm">
+                                        <div className="badge bg-secondary mb-2">Golf</div>
+                                        <h3 className="h5">Golf Events</h3>
+                                        <p className="text-muted">Create and manage golf tournaments and events for players of all levels.</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-
-                <div className="container text-center my-5">
-                    <h1 className="d-flex justify-content-center font-weight-bold text-primary" style={{ fontSize: '3rem' }}>
-                        Who is Sportmate for?
-                    </h1>
-                    <p className='px-md-5 text-secondary' style={{ fontSize: '1.5rem' }}>
-                        Sportmate is perfect for anyone organizing sports teams, exercise classes, or coaching sessions.
-                        Easy to use, Sportmate helps you manage attendance and micro-payments seamlessly.
-                    </p>
-                </div>
-
-                <div className="container text-center my-5">
-                    <h1 className="d-flex justify-content-center font-weight-bold text-primary" style={{ fontSize: '3rem' }}>
-                        What Can You Do with Sportmate?
-                    </h1>
-                    <p className='px-md-5 text-secondary' style={{ fontSize: '1.5rem' }}>
-                        Sportmate is a free app for managing sports teams, events, and classes.
-                        Organize events, confirm attendance, and accept payments all in one easy-to-use app.
-                    </p>
-                </div>
-
-                <div className="row mt-5">
-                    <div className="col-lg-6 col-md-12 d-flex flex-column justify-content-center align-items-start p-3">
-                        <h1 className="text-primary">Create Events</h1>
-                        <p className='my-2 text-muted' style={{ fontSize: '1.3rem' }}>
-                            Create matches, training sessions, exercise classes, or social events and promote them online to your attendees.
-                        </p>
-                    </div>
-                    <div className="col-lg-6 col-md-12 d-flex justify-content-center align-items-center">
-                        <div>
-                            <img
-                                src="https://images.unsplash.com/photo-1523297900563-4d50cefcde13"
-                                alt="Create Events"
-                                className="img-fluid"
-                                style={{ maxWidth: '100%', height: 'auto' }}
-                            />
+                    </section>
+                    <section className="py-5">
+                        <div className="container text-center">
+                            <h2 className="display-5 fw-bold">Start Creating Your Event Today</h2>
+                            <p className="text-muted mb-4">
+                                Our platform makes it easy to get your sports event up and running. Sign up now and start promoting your
+                                event to your community.
+                            </p>
+                            <div className="d-flex justify-content-center gap-2">
+                                <Link to="/login" className="btn btn-primary">
+                                    Create Event
+                                </Link>
+                                <Link to="/sports" className="btn btn-outline-primary">
+                                    View Events
+                                </Link>
+                            </div>
                         </div>
-                    </div>
-                </div>
-
-                <div className="row mt-5">
-                    <div className="col-lg-6 col-md-12 d-flex justify-content-center align-items-center">
-                        <div>
-                            <img
-                                src="https://images.unsplash.com/photo-1591619620130-18d0b84e7c9d"
-                                alt="Confirm Attendance"
-                                className="img-fluid"
-                                style={{ maxWidth: '100%', height: 'auto' }}
-                            />
-                        </div>
-                    </div>
-                    <div className="col-lg-6 col-md-12 d-flex flex-column justify-content-center align-items-start p-3">
-                        <h1 className="text-primary">Confirm Attendance</h1>
-                        <p className='my-2 text-muted' style={{ fontSize: '1.3rem' }}>
-                            Send invites by mobile prompts and emails. Attendees can confirm attendance within the brilliant Sportmate app; no annoying emails or text messages.
-                        </p>
-                    </div>
-                </div>
-
-                <div className="row mt-5">
-                    <div className="col-lg-6 col-md-12 d-flex flex-column justify-content-center -start p-3">
-                        <h1 className="text-primary">Accept Payments</h1>
-                        <p className='my-2 text-muted' style={{ fontSize: '1.3rem' }}>
-                            Collect payment from attendees using Sportmate’s
-                            seamless online payment feature. Low cost and super fast. Every transaction is recorded and stored online.
-                        </p>
-                    </div>
-                    <div className="col-lg-6 col-md-12 d-flex justify-content-center align-items-center">
-                        <div>
-                            <img
-                                src="https://images.unsplash.com/photo-1505575358136-3c6e2774e195"
-                                alt="Accept Payments"
-                                className="img-fluid"
-                                style={{ maxWidth: '100%', height: 'auto' }}
-                            />
-                        </div>
-                    </div>
-                </div>
-
-                <div className="row mt-5">
-                    <div className="col-lg-6 col-md-12 d-flex justify-content-center align-items-center">
-                        <div>
-                            <img
-                                src="https://images.unsplash.com/photo-1503437313881-503a9122645f"
-                                alt="Instant Messaging"
-                                className="img-fluid"
-                                style={{ maxWidth: '100%', height: 'auto' }}
-                            />
-                        </div>
-                    </div>
-                    <div className="col-lg-6 col-md-12 d-flex flex-column justify-content-center align-items-start p-3">
-                        <h1 className="text-primary">Instant Messaging</h1>
-                        <p className='my-2 text-muted' style={{ fontSize: '1.3rem' }}>
-                            Send free in-app messages to attendees and receive instant notifications when they reply. Create private and public group conversations.
-                        </p>
-                    </div>
-                </div>
-
-                <div className="container text-center my-5">
-                    <h1 className="d-flex justify-content-center font-weight-bold text-primary" style={{ fontSize: '3rem' }}>
-                        How Much Does It Cost?
-                    </h1>
-                    <p className='my-4 text-secondary' style={{ fontSize: '1.5rem' }}>
-                        Sportmate is FREE to download. All team management features are FREE to use, but we charge a small transaction fee if you collect
-                    </p>
-                </div>
-
-                <div className="container text-center my-5">
-                    <h1 className="d-flex justify-content-center font-weight-bold text-primary" style={{ fontSize: '3rem' }}>
-                        How Much Does It Cost?
-                    </h1>
-                    <p className='my-4 text-secondary' style={{ fontSize: '1.5rem' }}>
-                        Sportmate is FREE to download. All team management features are FREE to use, but we charge a small transaction fee if you collect payments through the app. It's easy to get started, and we offer competitive rates.
-                    </p>
-
-                </div>
-
-                <div className="container text-center my-5">
-                    <h1 className="d-flex justify-content-center font-weight-bold text-primary" style={{ fontSize: '3rem' }}>
-                        Get Started Today!
-                    </h1>
-                    <p className='my-4 text-secondary' style={{ fontSize: '1.5rem' }}>
-                        Don't wait any longer. Join thousands of others who are already managing their sports teams and classes with ease.
-                    </p>
-                    <button
-                        className="btn btn-success px-5 py-3"
-                        onClick={handleSignUpClick}
-                    >
-                        Sign Up Now
-                    </button>
-                </div>
+                    </section>
+                </main>
             </div>
         </Layout>
+    );
+}
+
+function ClubIcon(props) {
+    return (
+        <svg
+            {...props}
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+        >
+            <path d="M17.28 9.05a5.5 5.5 0 1 0-10.56 0A5.5 5.5 0 1 0 12 17.66a5.5 5.5 0 1 0 5.28-8.6Z" />
+            <path d="M12 17.66L12 22" />
+        </svg>
+
     );
 }
 
