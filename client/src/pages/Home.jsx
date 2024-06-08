@@ -1,18 +1,17 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Layout from '../components/layouts/Layout';
 
 function Home() {
-    const navigate = useNavigate();
     const login = true;
 
     return (
         <Layout>
             <div className="d-flex flex-column min-vh-100">
-                <main className="flex-grow-1">
+                <main className="flex-grow-1" style={{ overflowX: 'hidden' }}>
                     <section className="py-5">
-                        <div className="container">
+                        <div className="container" style={{ maxWidth: '100%' }}>
                             <div className="row gx-5">
                                 <div className="col-lg-6 d-flex flex-column justify-content-center">
                                     <h1 className="display-4 fw-bold">Elevate Your Sports Events with Ease</h1>
@@ -37,6 +36,7 @@ function Home() {
                                         }
                                         alt="Sports Events"
                                         className="img-fluid rounded"
+                                        style={{ maxWidth: '100%' }}
                                     />
                                 </div>
                             </div>
@@ -44,7 +44,7 @@ function Home() {
                     </section>
 
                     <section className="py-5 bg-light">
-                        <div className="container text-center">
+                        <div className="container text-center" style={{ maxWidth: '100%' }}>
                             <h2 className="display-5 fw-bold">Streamline Your Sports Event Management</h2>
                             <p className="text-muted mb-5">
                                 Our platform offers a comprehensive solution to manage your sports teams, classes, and events with ease, all at competitive rates.
@@ -97,7 +97,7 @@ function Home() {
                     </section>
 
                     <section className="py-5">
-                        <div className="container text-center">
+                        <div className="container text-center" style={{ maxWidth: '100%' }}>
                             <h2 className="display-5 fw-bold">Start Creating Your Event Today</h2>
                             <p className="text-muted mb-4">
                                 Our platform makes it easy to get your sports event up and running. Sign up now and start promoting your
@@ -116,7 +116,7 @@ function Home() {
 
                     {/* Additional Content Section */}
                     <section className="py-5 bg-light">
-                        <div className="container text-center">
+                        <div className="container text-center" style={{ maxWidth: '100%' }}>
                             <h2 className="display-5 fw-bold">Why Choose Us?</h2>
                             <p className="text-muted mb-5">
                                 Our platform offers a range of features designed to make organizing and managing sports events as easy as possible.
@@ -150,26 +150,6 @@ function Home() {
                 </main>
             </div>
         </Layout>
-    );
-}
-
-function ClubIcon(props) {
-    return (
-        <svg
-            {...props}
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-        >
-            <path d="M17.28 9.05a5.5 5.5 0 1 0-10.56 0A5.5 5.5 0 1 0 12 17.66a5.5 5.5 0 1 0 5.28-8.6Z" />
-            <path d="M12 17.66L12 22" />
-        </svg>
     );
 }
 

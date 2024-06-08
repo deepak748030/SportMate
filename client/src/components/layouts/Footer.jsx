@@ -1,46 +1,79 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
-function Footer() {
+const Footer = () => {
     return (
-        <footer className='w-100 text-center py-5 bg-dark' style={{ color: '#FFFFFF' }}>
+        <footer className="bg-dark text-light py-5">
             <div className="container">
                 <div className="row">
-                    <div className="col-md-4 mb-3">
-                        <h5>Sportmate</h5>
-                        <p>Your ultimate sports companion</p>
-                    </div>
-                    <div className="col-md-4 mb-3">
-                        <h5>Quick Links</h5>
-                        <ul className='list-unstyled'>
-                            <li><Link to="/" style={{ color: '#FFFFFF', textDecoration: 'none' }}>Home</Link></li>
-                            <li><Link to="/sports" style={{ color: '#FFFFFF', textDecoration: 'none' }}>Sports</Link></li>
-                            <li><Link to="/about" style={{ color: '#FFFFFF', textDecoration: 'none' }}>About Us</Link></li>
-                            <li><Link to="/advertising" style={{ color: '#FFFFFF', textDecoration: 'none' }}>Advertising</Link></li>
-                            <li><Link to="/support" style={{ color: '#FFFFFF', textDecoration: 'none' }}>Support</Link></li>
-                            <li><Link to="/privacy" style={{ color: '#FFFFFF', textDecoration: 'none' }}>Privacy Policy</Link></li>
-                        </ul>
-                    </div>
-                    <div className="col-md-4 mb-3">
-                        <h5>Follow Us</h5>
-                        <div className='d-flex justify-content-center'>
-                            <a href="https://facebook.com" style={{ color: '#FFFFFF', textDecoration: 'none', margin: '0 10px' }}><i className="bi bi-facebook"></i></a>
-                            <a href="https://twitter.com" style={{ color: '#FFFFFF', textDecoration: 'none', margin: '0 10px' }}><i className="bi bi-twitter"></i></a>
-                            <a href="https://instagram.com" style={{ color: '#FFFFFF', textDecoration: 'none', margin: '0 10px' }}><i className="bi bi-instagram"></i></a>
-                            <a href="https://linkedin.com" style={{ color: '#FFFFFF', textDecoration: 'none', margin: '0 10px' }}><i className="bi bi-linkedin"></i></a>
+                    <div className="col-md-4 mb-4">
+                        <div className="d-flex align-items-center mb-3">
+                            <img src='./vite.svg' />
+                            <span className="ml-2 h4">SportsMate</span>
+                        </div>
+                        <p className="text-muted">Discover and create sports events in your local community.</p>
+                        <div className="d-flex gap-3 fs-4">
+                            <Link href="#" className="text-muted mr-3">
+                                <i className="bi bi-messenger"></i>
+                            </Link>
+                            <Link href="#" className="text-muted mr-3">
+                                <i className="bi bi-twitter-x"></i>
+                            </Link>
+                            <Link href="#" className="text-muted">
+                                <i className="bi bi-instagram"></i>
+                            </Link>
                         </div>
                     </div>
-                </div>
-                <div className="row mt-4">
-                    <div className="col-md-12">
-                        <p>© Sportmate Ltd 2024</p>
-                        <p>Sportmate Ltd registered in England | Company number - 12345678</p>
+                    <div className="col-md-4 mb-4">
+                        <h5>Quick Links</h5>
+                        <ul className="list-unstyled">
+                            <li>
+                                <Link href="#" className="text-muted" style={{ textDecoration: 'none' }}>
+                                    About Us
+                                </Link>
+                            </li>
+                            <li>
+                                <Link href="#" className="text-muted" style={{ textDecoration: 'none' }}>
+                                    Events
+                                </Link>
+                            </li>
+                            <li>
+                                <Link href="#" className="text-muted" style={{ textDecoration: 'none' }}>
+                                    Create Event
+                                </Link>
+                            </li>
+                            <li>
+                                <Link href="#" className="text-muted" style={{ textDecoration: 'none' }}>
+                                    Contact Us
+                                </Link>
+                            </li>
+                        </ul>
                     </div>
+                    <div className="col-md-4">
+                        <h5>Contact Us</h5>
+                        <ul className="list-unstyled">
+                            <li className="d-flex align-items-center gap-2 mb-2">
+                                <i className="bi bi-geo-alt text-primary"></i>
+                                <span>123 Main St, Anytown USA</span>
+                            </li>
+                            <li className="d-flex align-items-center gap-2 mb-2">
+                                <i className="bi bi-telephone text-primary"></i>
+                                <span>+1 (555) 555-5555</span>
+                            </li>
+                            <li className="d-flex align-items-center gap-2">
+                                <i className="bi bi-envelope text-primary"></i>
+                                <span>info@sportsmate.com</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div className="mt-4 border-top border-gray pt-4 text-center text-muted">
+                    &copy; 2024 SportsMate. All rights reserved.
                 </div>
             </div>
         </footer>
-    )
-}
+    );
+};
+
 
 export default Footer;
