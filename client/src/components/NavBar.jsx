@@ -11,7 +11,7 @@ const Navbar = () => {
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark py-3">
             <div className="container">
-                <Link className="navbar-brand" to="/">SPORTS-MATE</Link>
+                <Link className="navbar-brand" to="/">SportMate</Link>
                 <button
                     className="navbar-toggler"
                     type="button"
@@ -49,6 +49,9 @@ const Navbar = () => {
                         </li>
                         <li className="nav-item">
                             <Link className="nav-link" to="/dash">Admin</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/main">User</Link>
                         </li>
                     </ul>
                 </div>

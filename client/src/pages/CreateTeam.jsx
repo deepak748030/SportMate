@@ -85,7 +85,7 @@ function CreateTeam() {
                     <div className="col-lg-6">
                         <div className="form-floating">
                             <input type="text" className="form-control" id="hearAbout" placeholder="How did you hear about us?" />
-                            <label htmlFor="hearAbout">How did you hear about Sports-Mate?</label>
+                            <label htmlFor="hearAbout">How did you hear about SportMate?</label>
                         </div>
                     </div>
                     <div className="col-12">

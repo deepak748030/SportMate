@@ -14,6 +14,7 @@ import Profile from './pages/Profile'
 import Error from './pages/Error';
 import Singlechat from './pages/chatpage/Singlechat';
 import AdminDashboard from './pages/Admindashboard';
+import UserDash from './pages/UserDash';
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
           <Route path="/chat/:id" element={<Singlechat />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/dash" element={<AdminDashboard />} />
+          <Route path="/main" element={<UserDash />} />
           <Route path="/*" element={<Error />} />
 
         </Routes>

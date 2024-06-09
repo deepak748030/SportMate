@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet';
 import Navbar from '../NavBar';
 import Footer from './Footer';
 
-const Layout = ({ children, title = 'SPORTS-MATE', description = 'Default description' }) => {
+const Layout = ({ children, title = 'SportMate', description = 'Default description' }) => {
     return (
         <>
             <Navbar />
