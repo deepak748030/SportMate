@@ -13,7 +13,7 @@ function Home() {
 
                 <section className="py-5">
                     <div className="container">
-                        <div className="row gx-5">
+                        <div className="row gx-4">
                             <div className="col-lg-6 d-flex flex-column justify-content-center">
                                 <h1 className="display-4 fw-bold">Elevate my- Your Sports Events with Ease</h1>
                                 <p className="text-muted my-3">
@@ -49,7 +49,7 @@ function Home() {
                         <p className="text-muted mb-5">
                             Our platform offers a comprehensive solution to manage your sports teams, classes, and events with ease, all at competitive rates.
                         </p>
-                        <div className="row gx-5">
+                        <div className="row gx-4">
                             <div className="col-md-4">
                                 <div className="bg-white p-3 rounded shadow-sm">
                                     <div className="badge bg-secondary mb-2">Team Management</div>
@@ -121,7 +121,7 @@ function Home() {
                         <p className="text-muted mb-5">
                             Our platform offers a range of features designed to make organizing and managing sports events as easy as possible.
                         </p>
-                        <div className="row gx-5">
+                        <div className="row gx-4">
                             <div className="col-md-4">
                                 <div className="bg-white p-3 rounded shadow-sm">
                                     <div className="badge bg-secondary mb-2">User-Friendly</div>
