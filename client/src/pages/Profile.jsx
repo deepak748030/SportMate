@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import Layout from '../components/layouts/Layout';
+import { useAuth } from '../context/auth';
 
 export default function Profile() {
     const [selectedPhoto, setSelectedPhoto] = useState(null);
+    const [auth] = useAuth();
 
     const handlePhotoChange = (event) => {
         const file = event.target.files[0];
@@ -27,21 +29,21 @@ export default function Profile() {
                         <div className="row mb-3">
                             <div className="col-md-6 mb-3">
                                 <label htmlFor="firstName" className="form-label">First Name</label>
-                                <input type="text" className="form-control" id="firstName" defaultValue="John" />
+                                <input type="text" className="form-control" id="firstName" defaultValue={auth?.user?.firstName} />
                             </div>
                             <div className="col-md-6 mb-3">
                                 <label htmlFor="lastName" className="form-label">Last Name</label>
-                                <input type="text" className="form-control" id="lastName" defaultValue="Doe" />
+                                <input type="text" className="form-control" id="lastName" defaultValue={auth?.user?.lastName} />
                             </div>
                         </div>
                         <div className="row mb-3">
                             <div className="col-md-6 mb-3">
                                 <label htmlFor="phone" className="form-label">Phone</label>
-                                <input type="text" className="form-control" id="phone" defaultValue="+1 (555) 555-5555" />
+                                <input type="text" className="form-control" id="phone" defaultValue={auth?.user?.phoneNumber} />
                             </div>
                             <div className="col-md-6 mb-3">
                                 <label htmlFor="email" className="form-label">Email</label>
-                                <input type="email" className="form-control" id="email" defaultValue="john@example.com" />
+                                <input type="email" className="form-control" id="email" defaultValue={auth?.user?.email} />
                             </div>
                         </div>
                         <div className="row mb-3">
@@ -51,11 +53,10 @@ export default function Profile() {
                             </div>
                             <div className="col-md-6 mb-3">
                                 <label htmlFor="birthYear" className="form-label">Birth Year</label>
-                                <select className="form-select" id="birthYear" defaultValue="1990">
-                                    <option value="1990">1990</option>
-                                    <option value="1991">1991</option>
-                                    <option value="1992">1992</option>
-                                    {/* Add more options as needed */}
+                                <select className="form-select" id="birthYear" defaultValue={auth?.user?.birthYear}>
+                                    {Array.from({ length: 50 }, (_, i) => 1970 + i).map(year => (
+                                        <option key={year} value={year}>{year}</option>
+                                    ))}
                                 </select>
                             </div>
                         </div>
@@ -75,47 +76,12 @@ export default function Profile() {
                                     <label className="form-check-label" htmlFor="other">Other</label>
                                 </div>
                             </div>
-                            <div className="col-md-6 mb-3">
-                                <label htmlFor="country" className="form-label">Country</label>
-                                <select className="form-select" id="country" defaultValue="usa">
-                                    <option value="usa">United States</option>
-                                    <option value="can">Canada</option>
-                                    <option value="uk">United Kingdom</option>
-                                    <option value="aus">Australia</option>
-                                    <option value="nzl">New Zealand</option>
-                                    {/* Add more options as needed */}
-                                </select>
-                            </div>
+
                         </div>
                         <div className="row mb-3">
                             <div className="col-md-6 mb-3">
-                                <label htmlFor="state" className="form-label">State</label>
-                                <select className="form-select" id="state" defaultValue="ca">
-                                    <option value="ca">California</option>
-                                    <option value="ny">New York</option>
-                                    <option value="tx">Texas</option>
-                                    <option value="fl">Florida</option>
-                                    <option value="il">Illinois</option>
-                                    {/* Add more options as needed */}
-                                </select>
-                            </div>
-                            <div className="col-md-6 mb-3">
-                                <label htmlFor="city" className="form-label">City</label>
-                                <input type="text" className="form-control" id="city" defaultValue="San Francisco" />
-                            </div>
-                        </div>
-                        <div className="row mb-3">
-                            <div className="col-md-6 mb-3">
-                                <div className="form-check">
-                                    <input className="form-check-input" type="checkbox" id="hideContact" />
-                                    <label className="form-check-label" htmlFor="hideContact">Hide Contact Info</label>
-                                </div>
-                            </div>
-                            <div className="col-md-6 mb-3">
-                                <div className="form-check">
-                                    <input className="form-check-input" type="checkbox" id="receiveEmail" defaultChecked />
-                                    <label className="form-check-label" htmlFor="receiveEmail">Receive Email Messages</label>
-                                </div>
+                                <label htmlFor="city" className="form-label">Location</label>
+                                <input type="text" className="form-control" id="city" defaultValue={auth?.user?.location} />
                             </div>
                         </div>
                     </div>
@@ -140,3 +106,4 @@ export default function Profile() {
         </Layout>
     );
 }
+

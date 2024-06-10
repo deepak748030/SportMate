@@ -1,5 +1,5 @@
 const User = require('../models/userModel');
-
+const jwt = require('jsonwebtoken')
 // @desc Register a new user
 // @route POST /api/users/signup
 // @access Public
@@ -47,5 +47,54 @@ const registerUser = async (req, res) => {
     }
 };
 
+const loginUser = async (req, res) => {
+    const { email, password } = req.body;
 
-module.exports = { registerUser };
+    try {
+        // Validate email and password
+        if (!email || !password) {
+            return res.status(400).json({ message: 'Please provide email and password' });
+        }
+
+        // Check if user exists
+        const user = await User.findOne({ email });
+        if (!user) {
+            return res.status(400).json({ message: 'Invalid email or password' });
+        }
+
+        // Check password
+        if (user.password !== password) {
+            return res.status(400).json({ message: 'Invalid email or password' });
+        }
+
+        // Generate JWT
+        const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '30d' });
+
+        // Send token and user data
+        res.json({
+            token,
+            user: {
+                id: user._id,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                email: user.email,
+                phoneNumber: user.phoneNumber,
+                gender: user.gender,
+                gamePosition: user.gamePosition,
+                location: user.location,
+                birthYear: user.birthYear,
+                receiveEmails: user.receiveEmails,
+            },
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            message: 'Server error',
+            error: error.message,
+        });
+    }
+};
+
+
+
+module.exports = { registerUser, loginUser };
