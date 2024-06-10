@@ -6,6 +6,9 @@ import 'animate.css/animate.min.css';
 import Layout from '../components/layouts/Layout';
 import '../cssui/Responsive.css';
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
 
 function Signup() {
     const [firstName, setFirstName] = useState('');
@@ -19,6 +22,8 @@ function Signup() {
     const [gender, setGender] = useState('');
     const [gamePosition, setGamePosition] = useState('');
 
+    const navigate = useNavigate();
+
     useEffect(() => {
         axios.get('https://ipapi.co/json/')
             .then(response => {
@@ -29,11 +34,9 @@ function Signup() {
             });
     }, []);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        const formData = {
-            firstName,
-            lastName,
+        console.log(firstName, lastName,
             location,
             birthYear,
             receiveEmails,
@@ -41,9 +44,40 @@ function Signup() {
             phoneNumber,
             password,
             gender,
-            gamePosition
-        };
-        console.log(formData);
+            gamePosition);
+
+        try {
+            const response = await axios.post('http://localhost:3000/api/users/signup', {
+                firstName,
+                lastName,
+                location,
+                birthYear,
+                receiveEmails,
+                email,
+                phoneNumber,
+                password,
+                gender,
+                gamePosition
+            });
+            console.log('User registered successfully:', response.data);
+            toast.success('User registered successfully!');
+            setTimeout(() => {
+                navigate('/login')
+            }, 3000);
+            // Reset form fields
+            setFirstName('');
+            setLastName('');
+            setBirthYear('');
+            setReceiveEmails(false);
+            setEmail('');
+            setPhoneNumber('');
+            setPassword('');
+            setGender('');
+            setGamePosition('');
+        } catch (error) {
+            console.error('Error registering user:', error);
+            toast.error(error.response?.data?.message || 'Failed to register user');
+        }
     };
 
     return (
@@ -125,7 +159,7 @@ function Signup() {
                                 onChange={(e) => setGamePosition(e.target.value)}
                                 required
                             >
-                                 <option value="">Select your GamePlay Position</option>
+                                <option value="">Select your GamePlay Position</option>
                                 <option value="rightHitter">Right Side Hitter</option>
                                 <option value="middleBlocker">Middle Blocker</option>
                                 <option value="opposite">Opposite</option>
