@@ -35,7 +35,7 @@ const userData = [
 
 const eventData = [
     {
-        id: 1,
+        id: 6,
         event: 'Volleyball Match',
         date: '2023-06-01',
         time: '10:00 AM',
@@ -47,7 +47,7 @@ const eventData = [
         banner: 'https://images.unsplash.com/photo-1521412644187-c49fa049e84d'
     },
     {
-        id: 2,
+        id: 5,
         event: 'Volleyball Game',
         date: '2023-06-02',
         time: '12:00 PM',
@@ -171,10 +171,12 @@ const renderSportsEvents = () => (
 function UserDash() {
     return (
         <Layout title='DASHBOARD'>
-            <Box sx={{ mt: 4 }}>
-                {renderUserCard()}
-                {renderSportsEvents()}
-            </Box>
+            <div className='container' >
+                <Box sx={{ mt: 4 }}>
+                    {renderUserCard()}
+                    {renderSportsEvents()}
+                </Box>
+            </div>
         </Layout>
     );
 }
