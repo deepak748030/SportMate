@@ -8,18 +8,18 @@ const Footer = () => {
                 <div className="row">
                     <div className="col-md-4 mb-4">
                         <div className="d-flex align-items-center mb-3">
-                            <img src='./vite.svg' />
+                            <img src='./vite.svg' alt="SportsMate Logo" />
                             <span className="ml-2 h4">SportsMate</span>
                         </div>
                         <p className="text-muted">Discover and create sports events in your local community.</p>
                         <div className="d-flex gap-3 fs-4">
-                            <Link href="#" className="text-muted mr-3">
+                            <Link to="#" className="text-light mr-3">
                                 <i className="bi bi-messenger"></i>
                             </Link>
-                            <Link href="#" className="text-muted mr-3">
+                            <Link to="#" className="text-light mr-3">
                                 <i className="bi bi-twitter-x"></i>
                             </Link>
-                            <Link href="#" className="text-muted">
+                            <Link to="#" className="text-light">
                                 <i className="bi bi-instagram"></i>
                             </Link>
                         </div>
@@ -28,22 +28,22 @@ const Footer = () => {
                         <h5>Quick Links</h5>
                         <ul className="list-unstyled">
                             <li>
-                                <Link href="#" className="text-muted" style={{ textDecoration: 'none' }}>
+                                <Link to="#" className="text-light" style={{ textDecoration: 'none' }}>
                                     About Us
                                 </Link>
                             </li>
                             <li>
-                                <Link href="#" className="text-muted" style={{ textDecoration: 'none' }}>
+                                <Link to="#" className="text-light" style={{ textDecoration: 'none' }}>
                                     Events
                                 </Link>
                             </li>
                             <li>
-                                <Link href="#" className="text-muted" style={{ textDecoration: 'none' }}>
+                                <Link to="#" className="text-light" style={{ textDecoration: 'none' }}>
                                     Create Event
                                 </Link>
                             </li>
                             <li>
-                                <Link href="#" className="text-muted" style={{ textDecoration: 'none' }}>
+                                <Link to="#" className="text-light" style={{ textDecoration: 'none' }}>
                                     Contact Us
                                 </Link>
                             </li>
@@ -74,6 +74,5 @@ const Footer = () => {
         </footer>
     );
 };
-
 
 export default Footer;

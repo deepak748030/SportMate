@@ -18,6 +18,7 @@ connectDB();
 app.use(express.json());
 app.use(morgan('dev'));
 app.use(cors());
+app.use('/uploads', express.static('uploads'));
 
 // Routes
 app.use('/api/users', userRoutes);

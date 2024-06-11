@@ -74,7 +74,7 @@ const loginUser = async (req, res) => {
         res.json({
             token,
             user: {
-                id: user._id,
+                _id: user._id,
                 firstName: user.firstName,
                 lastName: user.lastName,
                 email: user.email,
@@ -84,6 +84,7 @@ const loginUser = async (req, res) => {
                 location: user.location,
                 birthYear: user.birthYear,
                 receiveEmails: user.receiveEmails,
+                avatar: user.avatar
             },
         });
     } catch (error) {
@@ -96,5 +97,42 @@ const loginUser = async (req, res) => {
 };
 
 
+// Update User Profile
+const profileUser = async (req, res) => {
+    try {
+        const { userId, ...updateFields } = req.body;
 
-module.exports = { registerUser, loginUser };
+        if (!userId) {
+            console.log('User ID not found');
+            return res.status(400).json({ message: 'User ID is required' });
+        }
+
+        const currentUser = await User.findById(userId);
+        if (!currentUser) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        // Only update fields that are provided in the request body
+        const updatedData = {};
+        for (const [key, value] of Object.entries(updateFields)) {
+            if (value !== undefined && value !== '') {
+                updatedData[key] = value;
+            }
+        }
+
+        // If a new avatar is uploaded, update the avatar field
+        if (req.file) {
+            updatedData.avatar = req.file.path;
+        }
+
+        const updatedUser = await User.findByIdAndUpdate(userId, updatedData, { new: true });
+
+        res.json(updatedUser);
+    } catch (err) {
+        res.status(500).json({ message: 'Internal Server Error', error: err.message });
+    }
+};
+
+
+
+module.exports = { registerUser, loginUser, profileUser };
