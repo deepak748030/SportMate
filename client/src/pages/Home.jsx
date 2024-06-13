@@ -5,7 +5,7 @@ import Layout from '../components/layouts/Layout';
 
 function Home() {
 
-    const login = true;
+    const avimg = true;
 
     return (
         <Layout>
@@ -15,15 +15,15 @@ function Home() {
                     <div className="container">
                         <div className="row gx-4">
                             <div className="col-lg-6 d-flex flex-column justify-content-center">
-                                <h1 className="display-4 fw-bold">Elevate my- Your Sports Events with Ease</h1>
+                                <h1 className="display-4 fw-bold">Elevate Your Volleyball Events with Ease</h1>
                                 <p className="text-muted my-3">
-                                    Discover a seamless platform to create, manage, and promote your sports events at competitive rates.
+                                    Discover a seamless platform to create, manage, and promote your volleyball events at competitive rates.
                                 </p>
                                 <div className="d-flex gap-2 mb-3">
                                     <Link to="/login" className="btn btn-primary">
                                         Get Started Today!
                                     </Link>
-                                    <Link to="/sports" className="btn btn-outline-primary">
+                                    <Link to="/volleyball" className="btn btn-outline-primary">
                                         View Events
                                     </Link>
                                 </div>
@@ -31,12 +31,15 @@ function Home() {
                             <div className="col-lg-6">
                                 <img
                                     src={
-                                        login
-                                            ? 'https://images.unsplash.com/photo-1579156618335-f6245e05236a?q=80&w=2060&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+                                        avimg
+                                            ? 'https://cdn.pixabay.com/photo/2018/01/27/11/03/silhouette-3110928_1280.png'
                                             : 'https://via.placeholder.com/1200x400'
                                     }
-                                    alt="Sports Events"
+                                    alt="Volleyball Events"
                                     className="img-fluid rounded"
+                                    style={{
+                                        maxHeight: '30rem'
+                                    }}
                                 />
                             </div>
                         </div>
@@ -45,15 +48,15 @@ function Home() {
 
                 <section className="py-5 bg-light">
                     <div className="container text-center">
-                        <h2 className="display-5 fw-bold">Streamline Your Sports Event Management</h2>
+                        <h2 className="display-5 fw-bold">Streamline Your Volleyball Event Management</h2>
                         <p className="text-muted mb-5">
-                            Our platform offers a comprehensive solution to manage your sports teams, classes, and events with ease, all at competitive rates.
+                            Our platform offers a comprehensive solution to manage your volleyball teams, classes, and events with ease, all at competitive rates.
                         </p>
                         <div className="row gx-4">
                             <div className="col-md-4">
                                 <div className="bg-white p-3 rounded shadow-sm">
                                     <div className="badge bg-secondary mb-2">Team Management</div>
-                                    <h3 className="h5">Easily manage your sports teams</h3>
+                                    <h3 className="h5">Easily manage your volleyball teams</h3>
                                     <p className="text-muted">Including player rosters, schedules, and communication.</p>
                                 </div>
                             </div>
@@ -61,7 +64,7 @@ function Home() {
                                 <div className="bg-white p-3 rounded shadow-sm">
                                     <div className="badge bg-secondary mb-2">Class Scheduling</div>
                                     <h3 className="h5">Streamline scheduling and registration</h3>
-                                    <p className="text-muted">For your sports classes and clinics.</p>
+                                    <p className="text-muted">For your volleyball classes and clinics.</p>
                                 </div>
                             </div>
                             <div className="col-md-4">
@@ -89,7 +92,7 @@ function Home() {
                                 <div className="bg-white p-3 rounded shadow-sm">
                                     <div className="badge bg-secondary mb-2">Reporting and Analytics</div>
                                     <h3 className="h5">Gain valuable insights</h3>
-                                    <p className="text-muted">Into your sports events with comprehensive reporting.</p>
+                                    <p className="text-muted">Into your volleyball events with comprehensive reporting.</p>
                                 </div>
                             </div>
                         </div>
@@ -98,16 +101,16 @@ function Home() {
 
                 <section className="py-5">
                     <div className="container text-center">
-                        <h2 className="display-5 fw-bold">Start Creating Your Event Today</h2>
+                        <h2 className="display-5 fw-bold">Start Creating Your Volleyball Event Today</h2>
                         <p className="text-muted mb-4">
-                            Our platform makes it easy to get your sports event up and running. Sign up now and start promoting your
+                            Our platform makes it easy to get your volleyball event up and running. Sign up now and start promoting your
                             event to your community.
                         </p>
                         <div className="d-flex justify-content-center gap-2">
                             <Link to="/login" className="btn btn-primary">
                                 Create Event
                             </Link>
-                            <Link to="/sports" className="btn btn-outline-primary">
+                            <Link to="/volleyball" className="btn btn-outline-primary">
                                 View Events
                             </Link>
                         </div>
@@ -119,7 +122,7 @@ function Home() {
                     <div className="container text-center">
                         <h2 className="display-5 fw-bold">Why Choose Us?</h2>
                         <p className="text-muted mb-5">
-                            Our platform offers a range of features designed to make organizing and managing sports events as easy as possible.
+                            Our platform offers a range of features designed to make organizing and managing volleyball events as easy as possible.
                         </p>
                         <div className="row gx-4">
                             <div className="col-md-4">
@@ -150,7 +153,5 @@ function Home() {
         </Layout>
     );
 }
-
-
 
 export default Home;
