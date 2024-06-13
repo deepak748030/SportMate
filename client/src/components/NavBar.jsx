@@ -1,30 +1,23 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useAuth } from '../context/auth';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [auth, setAuth] = useAuth();
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
     };
 
     const handleLogout = () => {
-        setAuth({
-            user: null,
-            token: ''
-        })
-        localStorage.removeItem('auth')
-        toast.success('Logout success')
+        localStorage.removeItem('auth');
+        toast.success('Logout success');
         setTimeout(() => {
-            navigate('/login')
+            navigate('/login');
         }, 3000);
-
-    }
+    };
 
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark py-3">
@@ -34,8 +27,6 @@ const Navbar = () => {
                     className="navbar-toggler"
                     type="button"
                     onClick={toggleMenu}
-                    data-bs-toggle="collapse"
-                    data-bs-target="#navbarNav"
                     aria-controls="navbarNav"
                     aria-expanded={isMenuOpen ? "true" : "false"}
                     aria-label="Toggle navigation"
@@ -44,42 +35,36 @@ const Navbar = () => {
                 </button>
                 <div className={`collapse navbar-collapse ${isMenuOpen ? 'show' : ''}`} id="navbarNav">
                     <ul className="navbar-nav ms-auto">
-                        {auth.token ? <>
-                            <li className="nav-item">
-                                <Link className="nav-link" to="/main">User</Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link className="nav-link" to="/profile">Profile</Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link className="nav-link" to="/dash">Admin</Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link className="nav-link" to="/chat">Chat</Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link className="nav-link" to="/sports">Sports</Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link className="nav-link" to="/user">Teams</Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link className="nav-link" onClick={handleLogout}>Log-out</Link>
-                            </li>
-
-                        </> :
-                            <>
-                                <li className="nav-item">
-                                    <Link className="nav-link" to="/login">Login</Link>
-                                </li>
-                                <li className="nav-item">
-                                    <Link className="nav-link" to="/signup">Sign Up</Link>
-                                </li>
-                            </>}
-
-
-
-
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/main">User</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/profile">Profile</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/dash">Admin</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/chat">Chat</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/sports">Sports</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/user">Teams</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" onClick={handleLogout}>Log-out</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/login">Login</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/signup">Sign Up</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/sub">Subscription</Link>
+                        </li>
                     </ul>
                 </div>
             </div>

@@ -15,6 +15,7 @@ import Error from './pages/Error';
 import Singlechat from './pages/chatpage/Singlechat';
 import AdminDashboard from './pages/Admindashboard';
 import UserDash from './pages/UserDash';
+import Subscription from './pages/subscription/Subscription';
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/dash" element={<AdminDashboard />} />
           <Route path="/main" element={<UserDash />} />
+          <Route path="/sub" element={<Subscription />} />
           <Route path="/*" element={<Error />} />
 
         </Routes>
