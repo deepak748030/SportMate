@@ -45,12 +45,6 @@ const Navbar = () => {
                             <Link className="nav-link" to="/dash">Admin</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="/chat">Chat</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/sports">Sports</Link>
-                        </li>
-                        <li className="nav-item">
                             <Link className="nav-link" to="/user">Teams</Link>
                         </li>
                         <li className="nav-item">
