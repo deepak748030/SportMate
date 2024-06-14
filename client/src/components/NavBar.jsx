@@ -66,6 +66,9 @@ const Navbar = () => {
                             <Link className="nav-link" to="/sub">Subscription</Link>
                         </li>
                         <li className="nav-item">
+                            <Link className="nav-link" to="/org">Orgdash</Link>
+                        </li>
+                        <li className="nav-item">
                             <Link className="nav-link" to="/feed">Feedback</Link>
                         </li>
                     </ul>

@@ -17,6 +17,7 @@ import AdminDashboard from './pages/Admindashboard';
 import UserDash from './pages/UserDash';
 import Subscription from './pages/subscription/Subscription';
 import FeedbackForm from './pages/feed/FeedbackForm';
+import OrganizerDash from './pages/organizer/OrganizerDash';
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
           <Route path="/main" element={<UserDash />} />
           <Route path="/sub" element={<Subscription />} />
           <Route path="/feed" element={<FeedbackForm />} />
+          <Route path="/org" element={<OrganizerDash />} />
           <Route path="/*" element={<Error />} />
 
         </Routes>
