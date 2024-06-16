@@ -1,6 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import Layout from '../components/layouts/Layout'
 const AdminDashboard = () => {
     // Sample data for users
     const userData = [
@@ -24,6 +24,7 @@ const AdminDashboard = () => {
     ];
 
     const renderUsersTable = () => (
+
         <div className="table-responsive">
             <table className="table table-hover table-striped">
                 <thead className="thead-dark">
@@ -116,32 +117,34 @@ const AdminDashboard = () => {
     );
 
     return (
-        <div className="container mt-4">
-            <div className="row">
-                <div className="col-12">
-                    <h2 className="mb-4">Users</h2>
-                    {/* Render either table or cards based on screen size */}
-                    <div className="d-none d-md-block">
-                        {renderUsersTable()}
+        <Layout>
+            <div className="container mt-4">
+                <div className="row">
+                    <div className="col-12">
+                        <h2 className="mb-4">Users</h2>
+                        {/* Render either table or cards based on screen size */}
+                        <div className="d-none d-md-block">
+                            {renderUsersTable()}
+                        </div>
+                        <div className="d-md-none">
+                            {renderUserCards()}
+                        </div>
                     </div>
-                    <div className="d-md-none">
-                        {renderUserCards()}
+                </div>
+                <div className="row mt-4">
+                    <div className="col-12">
+                        <h2 className="mb-4">Sports Events</h2>
+                        {/* Render either table or cards based on screen size */}
+                        <div className="d-none d-md-block">
+                            {renderSportsEvents()}
+                        </div>
+                        <div className="d-md-none">
+                            {renderEventCards()}
+                        </div>
                     </div>
                 </div>
             </div>
-            <div className="row mt-4">
-                <div className="col-12">
-                    <h2 className="mb-4">Sports Events</h2>
-                    {/* Render either table or cards based on screen size */}
-                    <div className="d-none d-md-block">
-                        {renderSportsEvents()}
-                    </div>
-                    <div className="d-md-none">
-                        {renderEventCards()}
-                    </div>
-                </div>
-            </div>
-        </div>
+        </Layout>
     );
 };
 
