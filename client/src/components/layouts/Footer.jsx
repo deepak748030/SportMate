@@ -11,7 +11,7 @@ const Footer = () => {
                             <img src='./vite.svg' alt="SportsMate Logo" />
                             <span className="ml-2 h4">SportsMate</span>
                         </div>
-                        <p className="text-muted">Discover and create sports events in your local community.</p>
+                        <p className=" text-light ">Discover and create sports events in your local community.</p>
                         <div className="d-flex gap-3 fs-4">
                             <Link to="#" className="text-light mr-3">
                                 <i className="bi bi-messenger"></i>
