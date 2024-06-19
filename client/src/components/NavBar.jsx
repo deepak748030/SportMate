@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import './NavBar.css';
 
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -22,7 +23,7 @@ const Navbar = () => {
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark py-3">
             <div className="container">
-                <Link className="navbar-brand" to="/">SportMate</Link>
+                <Link className="navbar-brand text-warning" to="/">SportMate</Link>
                 <button
                     className="navbar-toggler"
                     type="button"

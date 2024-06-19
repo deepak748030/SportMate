@@ -6,12 +6,12 @@ body {
 
 h1,
 .font-weight-bold {
-    color: #007bff;
+    color: #e2bd68;
     /* Primary color */
 }
 
 .text-primary {
-    color: #007bff !important;
+    color: #e2bd68 !important;
 }
 
 .text-secondary {
@@ -28,6 +28,6 @@ h1,
 }
 
 .btn-primary {
-    background-color: #007bff;
-    border-color: #007bff;
+    background-color: #e2bd68;
+    border-color: #e2bd68;
 }
