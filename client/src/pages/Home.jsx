@@ -2,7 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Layout from '../components/layouts/Layout';
-import './Home.css';
+import './Home.css'; 
+
 
 function Home() {
 
