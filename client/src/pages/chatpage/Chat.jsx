@@ -48,7 +48,7 @@ export default function Chat() {
                             { message: "Hey hope you're doing well! We should catch up sometime soon. 🙏", align: 'end', bgColor: 'bg-dark text-white' },
                             { message: "Sure! I'm free this weekend if you want to grab a coffee.", align: 'start', bgColor: 'bg-light' },
                             {
-                                message: <img alt="photo" className="img-fluid rounded" src="/placeholder.svg" style={{ maxWidth: '200px' }} />,
+                                message: <img alt="photo" className="img-fluid rounded" src="/logo.png" style={{ maxWidth: '200px' }} />,
                                 align: 'end',
                                 bgColor: '',
                             },
@@ -63,7 +63,7 @@ export default function Chat() {
                     <div className="border-top p-3">
                         <form className="d-flex w-100 align-items-center">
                             <input type="text" className="form-control me-2" placeholder="Type your message..." />
-                            <Button className="btn btn-primary" type="submit">
+                            <Button className="btn btn-warning" type="submit">
                                 <span className="visually-hidden">Send</span>
                                 <SendIcon className="bi bi-send" />
                             </Button>

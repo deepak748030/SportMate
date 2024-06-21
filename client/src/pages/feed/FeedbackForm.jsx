@@ -34,16 +34,16 @@ const FeedbackForm = () => {
                     <div className="col-lg-8 text-center">
                         {!submitted && (
                             <>
-                                <h2>SportsMate Feedback</h2>
+                                <h2 className='fw-bold text-warning'>SportsMate Feedback</h2>
                                 <p>We'd love to hear what went well or how we can improve the product experience.</p>
-                                <button className="btn btn-primary" onClick={openModal}>
+                                <button className="btn btn-outline-warning" onClick={openModal}>
                                     Leave Feedback
                                 </button>
                             </>
                         )}
                         {submitted && (
                             <>
-                                <h2>Thank you for your feedback!</h2>
+                                <h2 className='fw-bold text-warning my-1'>Thank you for your feedback!</h2>
                                 <p>Your input helps us improve.</p>
                             </>
                         )}
@@ -101,7 +101,7 @@ const FeedbackForm = () => {
                                                 👍
                                             </span>
                                         </div>
-                                        <button type="submit" className="btn btn-primary w-100">
+                                        <button type="submit" className="btn btn-warning w-100">
                                             Submit Feedback
                                         </button>
                                     </form>

@@ -6,7 +6,7 @@ export default function UserDash() {
     const userData = [
         {
             avatar: 'https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-1.png',
-            name: 'Robert Wolfkisser',
+            name: 'Robert Wolf',
             job: 'Engineer',
             email: 'rob_wolf@gmail.com',
             phone: '+44 (452) 886 09 12',
