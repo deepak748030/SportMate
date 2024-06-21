@@ -9,7 +9,7 @@ const Subscription = () => {
                     <div className="row g-4 g-lg-5">
                         <div className="col-lg-6">
                             <div className="mb-4">
-                                <h1 className="display-4 fw-bold">Subscribe to our plan</h1>
+                                <h1 className="display-4 fw-bold text-warning">Subscribe to our plan</h1>
                                 <p className="text-muted lead">
                                     Get access to our premium features and support the development of our platform.
                                 </p>
@@ -29,7 +29,7 @@ const Subscription = () => {
                                         </div>
                                     </div>
                                     <div className="mt-4">
-                                        <button className="btn btn-primary w-100">Subscribe</button>
+                                        <button className="btn btn-warning w-100 fw-bold">Subscribe</button>
                                     </div>
                                 </div>
                             </div>
@@ -46,7 +46,7 @@ const Subscription = () => {
                                         </div>
                                     </div>
                                     <div className="mt-4">
-                                        <button className="btn btn-primary w-100">Subscribe</button>
+                                        <button className="btn btn-warning w-100 fw-bold">Subscribe</button>
                                     </div>
                                 </div>
                             </div>
