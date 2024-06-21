@@ -8,7 +8,7 @@ const Footer = () => {
                 <div className="row">
                     <div className="col-md-4 mb-4">
                         <div className="d-flex align-items-center mb-3">
-                            <img src='./vite.svg' alt="SportsMate Logo" />
+                            <img src='/vite.svg' alt="SportsMate Logo" />
                             <span className="ml-2 h4">SportsMate</span>
                         </div>
                         <p className=" text-light ">Discover and create sports events in your local community.</p>

@@ -12,8 +12,8 @@ function Users() {
                     {/* Left Section */}
                     <div className='col-md-4'>
                         <div className='text-center'>
-                            <img src='/avatar.png' alt='avatar' style={{ width: '120px', borderRadius: '50%' }} />
-                            <h4 className='mt-3'>Welcome Back, Deepak!</h4>
+                            <img src='/logo.png' alt='avatar' style={{ width: '120px', borderRadius: '50%' }} />
+                            <h4 className='mt-3 fw-bold'>Welcome Back, John!</h4>
                         </div>
                         <hr className='mt-4' />
                         <div>
@@ -26,10 +26,10 @@ function Users() {
                     <div className='col-md-8 col-12 mt-3'>
                         <div className='d-flex justify-content-between align-items-center'>
                             <h2 className='fw-bold fs-md-2'>My Teams</h2>
-                            <button className='btn btn-primary' onClick={() => navigate('/user/createteam')}>Create New Team</button>
+                            <button className='btn btn-outline-warning' onClick={() => navigate('/user/createteam')}>Create New Team</button>
                         </div>
                         <div className='mt-4 p-4 text-center bg-light rounded'>
-                            <h3 className='fw-bold'>You haven't created any teams yet!</h3>
+                            <h3 className='fw-bold text-warning'>You haven't created any teams yet!</h3>
                             <p>Start your sports journey by creating your first team.</p>
                         </div>
                         <div className='mt-4'>
