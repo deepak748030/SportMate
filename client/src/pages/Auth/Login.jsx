@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import '../cssui/Responsive.css';
-import Layout from '../components/layouts/Layout';
+import '../..//cssui/Responsive.css';
+import Layout from '../../components/layouts/Layout';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { useAuth } from '../context/auth';
+import { useAuth } from '../../context/auth';
 
 function Login() {
     const [email, setEmail] = useState('');

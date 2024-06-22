@@ -3,21 +3,21 @@ import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 
 const Home = lazy(() => import('./pages/Home'));
 const Sports = lazy(() => import('./pages/Sports'));
-const Signup = lazy(() => import('./pages/SignUp'));
-const Login = lazy(() => import('./pages/Login'));
+const Signup = lazy(() => import('./pages/Auth/SignUp'));
+const Login = lazy(() => import('./pages/Auth/Login'));
 import Spinner from './components/Spinner';
 import Users from './pages/Users';
 import CreateTeam from './pages/CreateTeam';
-import ForgotPassword from './pages/ForgotPassword';
+import ForgotPassword from './pages/Auth/ForgotPassword';
 import Chat from './pages/chatpage/Chat';
 import Profile from './pages/Profile'
 import Error from './pages/Error';
 import Singlechat from './pages/chatpage/Singlechat';
-import AdminDashboard from './pages/Admindashboard';
-import UserDash from './pages/UserDash';
+import AdminDashboard from './pages/dashboard/Admindashboard';
+import UserDash from './pages/Auth/UserDash';
 import Subscription from './pages/subscription/Subscription';
-import FeedbackForm from './pages/feed/FeedbackForm';
-import OrganizerDash from './pages/organizer/OrganizerDash';
+import FeedbackForm from './pages/feedback/FeedbackForm';
+import OrganizerDash from './pages/dashboard/OrganizerDash';
 
 function App() {
   return (

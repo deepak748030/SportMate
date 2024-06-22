@@ -1,6 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Layout from '../components/layouts/Layout'
+import Layout from '../../components/layouts/Layout'
 const AdminDashboard = () => {
     // Sample data for users
     const userData = [
@@ -49,19 +49,19 @@ const AdminDashboard = () => {
             id: 1,
             event: 'Football Match',
             date: '2023-06-01',
-            organizer:'Prat Foe',
+            organizer: 'Prat Foe',
         },
         {
             id: 2,
             event: 'Football Match',
             date: '2023-08-01',
-            organizer:'Rank Drn',
+            organizer: 'Rank Drn',
         },
         {
             id: 3,
             event: 'Football Match',
             date: '2023-07-01',
-            organizer:'Frank Doe',
+            organizer: 'Frank Doe',
         },
         // ... more events
     ];
