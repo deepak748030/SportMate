@@ -13,6 +13,24 @@ const Subscription = () => {
                                 <p className="text-muted lead">
                                     Get access to our premium features and support the development of our platform.
                                 </p>
+                                <ul className="list-unstyled">
+                                    <li className="mb-2">
+                                        <span className="text-success fw-bold">✔</span> No ads
+                                    </li>
+                                    <li className="mb-2">
+                                        <span className="text-success fw-bold">✔</span> Early access to events
+                                    </li>
+                                    <li className="mb-2">
+                                        <span className="text-success fw-bold">✔</span> 24*7 Customer Support
+                                    </li>
+                                    <li className="mb-2">
+                                        <span className="text-success fw-bold">✔</span> VIP Events
+                                    </li>
+                                    <li className="mb-2">
+                                        <span className="text-success fw-bold">✔</span> Group Chats and Messaging
+                                    </li>
+                                </ul>
+                                <p className="text-muted"><small>* Free trial for a week</small></p>
                             </div>
                         </div>
                         <div className="col-lg-6">

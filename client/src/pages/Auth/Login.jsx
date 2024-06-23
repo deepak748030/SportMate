@@ -46,7 +46,7 @@ function Login() {
     return (
         <Layout title="SPORTMATE - LOGIN" description="This is the login page">
             <div className="container mt-3 mb-5">
-                <h1 className="text-center fw-bold">Login</h1>
+                <h1 className="text-center fw-bold text-warning">Login</h1>
                 <form onSubmit={handleSubmit} className="d-flex flex-column gap-4 my-5">
                     <div className="form-group row">
                         <label htmlFor="email" className="col-sm-2 col-form-label">
@@ -95,7 +95,7 @@ function Login() {
                                     onChange={(e) => setRememberMe(e.target.checked)}
                                 />
                                 <label className="form-check-label" htmlFor="rememberMe">
-                                    <i className="bi bi-check-square me-2"></i> Remember Me
+                                    <i className="bi me-2"></i> Remember Me
                                 </label>
                             </div>
                         </div>
@@ -115,7 +115,7 @@ function Login() {
 
                     <div className="form-group row mt-3">
                         <div className="col-sm-10 offset-sm-2">
-                            <button type="submit" className="btn btn-success px-sm-5 py-sm-3" style={{ fontSize: '1.1rem' }}>
+                            <button type="submit" className="btn btn-warning px-sm-4 py-sm-3" style={{ fontSize: '1.1rem' }}>
                                 <i className="bi bi-box-arrow-in-right me-2"></i> Login
                             </button>
                         </div>

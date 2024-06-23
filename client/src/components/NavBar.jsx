@@ -23,7 +23,7 @@ const Navbar = () => {
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark py-3">
             <div className="container">
-                <Link className="navbar-brand text-warning" to="/">SportMate</Link>
+                <Link className="navbar-brand text-warning fw-semibold" to="/">SportMate</Link>
                 <button
                     className="navbar-toggler"
                     type="button"

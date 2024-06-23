@@ -83,7 +83,7 @@ function Signup() {
     return (
         <Layout title="SPORTMATE - SIGN-UP" description="This is the signup page">
             <Container className="mt-3 mb-5 animate__animated animate__fadeIn">
-                <h1 className="text-center fw-bold">Sign Up</h1>
+                <h1 className="text-center fw-bold text-warning" >Sign Up</h1>
                 <Form onSubmit={handleSubmit} className="my-5">
                     <Form.Group as={Row} className="mb-3" controlId="firstName">
                         <Form.Label column sm={2}>
@@ -260,7 +260,7 @@ function Signup() {
 
                     <Form.Group as={Row} className="mt-2">
                         <Col sm={{ span: 10, offset: 2 }}>
-                            <Button type="submit" className="px-5 py-3" style={{ fontSize: '1.1rem' }} variant="success">
+                            <Button type="submit" className="px-5 py-3" style={{ fontSize: '1.1rem' }} variant="warning">
                                 Sign Up
                             </Button>
                         </Col>

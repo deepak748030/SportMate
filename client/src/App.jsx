@@ -14,7 +14,7 @@ import Profile from './pages/Profile'
 import Error from './pages/Error';
 import Singlechat from './pages/chatpage/Singlechat';
 import AdminDashboard from './pages/dashboard/Admindashboard';
-import UserDash from './pages/Auth/UserDash';
+import UserDash from './pages/dashboard/UserDash';
 import Subscription from './pages/subscription/Subscription';
 import FeedbackForm from './pages/feedback/FeedbackForm';
 import OrganizerDash from './pages/dashboard/OrganizerDash';

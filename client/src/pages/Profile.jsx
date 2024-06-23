@@ -174,7 +174,7 @@ export default function Profile() {
                     <div className="card-footer d-flex justify-content-between flex-column flex-md-row mt-5 gap-5">
                         <div className="d-flex align-items-center gap-4">
                             <div className="avatar">
-                                <img src={selectedPhoto || (formData.avatar ? `http://localhost:3000/${formData.avatar}` : "/placeholder-avatar.jpg")} alt="no img" className="rounded-circle " height={'60rem'} width={'60rem'} />
+                                <img src={selectedPhoto || (formData.avatar ? `http://localhost:3000/${formData.avatar}` : "/logo.png")} alt="no img" className="rounded-circle " height={'60rem'} width={'60rem'} />
                             </div>
                             <label className="btn btn-outline-secondary">
 
@@ -182,7 +182,7 @@ export default function Profile() {
                                 <input type="file" accept="image/*" onChange={handlePhotoChange} hidden />
                             </label>
                         </div>
-                        <button type="submit" className="btn btn-primary align-self-center">Save Changes</button>
+                        <button type="submit" className="btn btn-warning align-self-center">Save Changes</button>
                     </div>
                 </div>
             </form>
