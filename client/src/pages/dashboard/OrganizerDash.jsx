@@ -1,9 +1,15 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Layout from '../../components/layouts/Layout';
+import { Modal, Button, Form } from 'react-bootstrap';
 
 export default function OrganizerDash() {
+    const [showModal, setShowModal] = useState(false);
+
+    const handleShow = () => setShowModal(true);
+    const handleClose = () => setShowModal(false);
+
     const organizerData = [
         {
             avatar: 'https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-1.png',
@@ -119,10 +125,10 @@ export default function OrganizerDash() {
                             <div className="card mt-4">
                                 <div className="card-body">
                                     <h5 className="card-title">Upload Event</h5>
-                                    <Link to="/upload-event" className="btn btn-primary">
+                                    <Button variant="primary" onClick={handleShow}>
                                         <TicketIcon className="me-2" />
                                         Upload New Event
-                                    </Link>
+                                    </Button>
                                 </div>
                             </div>
                         </div>
@@ -156,108 +162,93 @@ export default function OrganizerDash() {
                     </div>
                 </div>
             </div>
+
+            {/* Modal for Uploading Event */}
+            <Modal show={showModal} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Upload New Event</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form>
+                        <Form.Group className="mb-3" controlId="eventName">
+                            <Form.Label>Event Name</Form.Label>
+                            <Form.Control type="text" placeholder="Enter event name" required />
+                        </Form.Group>
+                        <Form.Group className="mb-3" controlId="place">
+                            <Form.Label>Place</Form.Label>
+                            <Form.Control type="text" placeholder="Enter event place" required />
+                        </Form.Group>
+                        <Form.Group className="mb-3" controlId="date">
+                            <Form.Label>Date</Form.Label>
+                            <Form.Control type="date" required />
+                        </Form.Group>
+                        <Form.Group className="mb-3" controlId="price">
+                            <Form.Label>Price</Form.Label>
+                            <Form.Control type="number" placeholder="Enter event price" required />
+                        </Form.Group>
+                        <Form.Group className="mb-3" controlId="numTeams">
+                            <Form.Label>Number of Teams</Form.Label>
+                            <Form.Control type="number" placeholder="Enter number of teams" required />
+                        </Form.Group>
+                        <Form.Group className="mb-3" controlId="winningPrize">
+                            <Form.Label>Winning Prize</Form.Label>
+                            <Form.Control type="text" placeholder="Enter winning prize" required />
+                        </Form.Group>
+                    </Form>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>
+                        Close
+                    </Button>
+                    <Button variant="primary" onClick={handleClose}>
+                        Save Changes
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </Layout>
     );
 }
 
 function SettingsIcon(props) {
-    return (
-        <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <circle cx="12" cy="12" r="3" />
-            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2v-1a2 2 0 0 1 2-2h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h.09a1.65 1.65 0 0 0 1-.33V3a2 2 0 0 1 2-2h1a2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v.09a1.65 1.65 0 0 0 1.51 1h.09a2 2 0 0 1 2 2v1a2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
-        </svg>
-    );
-}
-
-
-function CalendarIcon(props) {
-    return (
-        <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M8 2v4" />
-            <path d="M16 2v4" />
-            <rect width="18" height="18" x="3" y="4" rx="2" />
-            <path d="M3 10h18" />
-        </svg>
-    );
-}
-
-function ClockIcon(props) {
-    return (
-        <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <circle cx="12" cy="12" r="10" />
-            <polyline points="12 6 12 12 16 14" />
-        </svg>
-    );
-}
-
-function DollarSignIcon(props) {
-    return (
-        <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <line x1="12" x2="12" y1="1" y2="23" />
-            <path d="M17 5H9a3 3 0 0 0 0 6h6a3 3 0 0 1 0 6H7" />
-        </svg>
-    );
+    return <i className="bi bi-gear-fill" {...props}></i>;
 }
 
 function MailOpenIcon(props) {
-    return (
-        <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M3 8l9-6 9 6-9 6-9-6z" />
-            <path d="M21 22H3a2 2 0 0 1-2-2V8a2 2 0 0 1 1-1.73" />
-            <path d="M3 8v13h18V8" />
-        </svg>
-    );
-}
-
-function MapPinIcon(props) {
-    return (
-        <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M21 10c0 5.25-9 12-9 12s-9-6.75-9-12a9 9 0 1 1 18 0z" />
-            <circle cx="12" cy="10" r="3" />
-        </svg>
-    );
+    return <i className="bi bi-envelope-fill" {...props}></i>;
 }
 
 function PhoneIcon(props) {
-    return (
-        <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M22 16.92V21a2 2 0 0 1-2.18 2A19.68 19.68 0 0 1 3 3.18 2 2 0 0 1 5 1h4.09a2 2 0 0 1 2 1.72 13.47 13.47 0 0 0 .48 2.79 2 2 0 0 1-.45 2L10 8.91a16 16 0 0 0 6.09 6.09l1.4-1.4a2 2 0 0 1 2-.45 13.47 13.47 0 0 0 2.79.48 2 2 0 0 1 1.72 2.07z" />
-        </svg>
-    );
-}
-
-function UserIcon(props) {
-    return (
-        <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-            <circle cx="12" cy="7" r="4" />
-        </svg>
-    );
-}
-
-function UsersIcon(props) {
-    return (
-        <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-            <circle cx="9" cy="7" r="4" />
-            <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-        </svg>
-    );
+    return <i className="bi bi-telephone-fill" {...props}></i>;
 }
 
 function TicketIcon(props) {
-    return (
-        <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M22 10h-6.18A3 3 0 0 0 13 7.82V2H7a2 2 0 0 0-2 2v6.18A3 3 0 0 0 2.82 13H2v4h.82A3 3 0 0 0 5 16.18V22h6v-6.18A3 3 0 0 0 13 13h6v-6h-6.18A3 3 0 0 0 16.18 2H22v8z" />
-        </svg>
-    );
+    return <i className="bi bi-ticket-fill" {...props}></i>;
+}
+
+function CalendarIcon(props) {
+    return <i className="bi bi-calendar-fill" {...props}></i>;
+}
+
+function ClockIcon(props) {
+    return <i className="bi bi-clock-fill" {...props}></i>;
+}
+
+function MapPinIcon(props) {
+    return <i className="bi bi-geo-alt-fill" {...props}></i>;
+}
+
+function DollarSignIcon(props) {
+    return <i className="bi bi-currency-dollar" {...props}></i>;
+}
+
+function UsersIcon(props) {
+    return <i className="bi bi-people-fill" {...props}></i>;
+}
+
+function UserIcon(props) {
+    return <i className="bi bi-person-fill" {...props}></i>;
 }
 
 function ChatIcon(props) {
-    return (
-        <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h15a2 2 0 0 1 2 2z" />
-        </svg>
-    );
+    return <i className="bi bi-chat-fill" {...props}></i>;
 }
