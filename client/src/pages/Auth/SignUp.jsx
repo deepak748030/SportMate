@@ -9,6 +9,7 @@ import { Form, Button, Container, Row, Col } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
+import apiUrl from '../../api/config'
 
 function Signup() {
     const [firstName, setFirstName] = useState('');
@@ -47,7 +48,7 @@ function Signup() {
             gamePosition);
 
         try {
-            const response = await axios.post('http://localhost:3000/api/users/signup', {
+            const response = await axios.post(`${apiUrl}/signup`, {
                 firstName,
                 lastName,
                 location,

@@ -1,14 +1,88 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Layout from '../../components/layouts/Layout';
 import { Modal, Button, Form } from 'react-bootstrap';
+import axios from 'axios';
+import apiUrl from '../../api/config'
+import { useAuth } from '../../context/auth'
+import { toast } from 'react-toastify';
+
+
 
 export default function OrganizerDash() {
+
+    const [auth, setAuth] = useAuth();
+
     const [showModal, setShowModal] = useState(false);
 
     const handleShow = () => setShowModal(true);
     const handleClose = () => setShowModal(false);
+
+    const [eventName, setEventName] = useState('');
+    const [place, setPlace] = useState('');
+    const [date, setDate] = useState('');
+    const [time, setTime] = useState('');
+    const [price, setPrice] = useState('');
+    const [numTeams, setNumTeams] = useState('');
+    const [winningPrize, setWinningPrize] = useState('');
+
+    const [myEventsData, setEventsData] = useState([])
+
+    // console.log(user)
+
+
+    const handleSaveChanges = async (e) => {
+
+        try {
+            const user = await auth?.user?._id;
+            const priceNum = parseFloat(price);
+            const winningPrizeNum = parseFloat(winningPrize);
+            const numTeamsNum = parseFloat(numTeams)
+            const res = await axios.post(`${apiUrl}/create`, {
+                user: user,
+                eventName,
+                place,
+                date,
+                time,
+                price: priceNum,
+                numTeams: numTeamsNum,
+                winningPrize: winningPrizeNum
+            })
+            if (res?.data) {
+                handleClose();
+                toast.success('event created')
+                await getData()
+                console.log(myEventsData)
+
+            }
+
+
+        } catch (error) {
+            console.log(error)
+        }
+    };
+
+    const getData = async () => {
+        try {
+            const res = await axios.get(`${apiUrl}/events`);
+            // console.log('res:', res)
+            if (res?.data) {
+                await setEventsData(res?.data)
+
+
+
+            }
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    useEffect(() => {
+        getData()
+    }, [])
+
 
     const organizerData = [
         {
@@ -80,41 +154,41 @@ export default function OrganizerDash() {
                             <div className="card">
                                 <div className="card-body">
                                     <h5 className="card-title">My Events</h5>
-                                    {myEventData.map((event) => (
-                                        <div className="row mb-4" key={event.id}>
+                                    {myEventsData.map(({ date, eventName, numTeams, place, price, time, _id, user }) => (
+                                        <div className="row mb-4" key={_id}>
                                             <div className="col-md-4">
-                                                <img src={event.banner} alt="Event Banner" className="img-fluid rounded" />
+                                                <img src={'https://media.istockphoto.com/id/1904589046/photo/two-adult-football-players-running-and-kicking-a-soccer-ball-legs-of-two-young-football.jpg?s=2048x2048&w=is&k=20&c=CSTkGc00q6A1VXG8YaHuBbLO58EeHFHkM5uEPoyMYZc='} alt="Event Banner" className="img-fluid rounded" />
                                             </div>
                                             <div className="col-md-8">
-                                                <h6 className="mt-2">{event.event}</h6>
+                                                <h6 className="mt-2">{eventName}</h6>
                                                 <div className="d-flex flex-column flex-sm-row justify-content-between">
                                                     <div className="d-flex align-items-center mb-2">
                                                         <CalendarIcon className="me-2" />
-                                                        <span>{event.date}</span>
+                                                        <span>{date.slice(0, 10)}</span>
                                                     </div>
                                                     <div className="d-flex align-items-center mb-2">
                                                         <ClockIcon className="me-2" />
-                                                        <span>{event.time}</span>
+                                                        <span>{time}</span>
                                                     </div>
                                                 </div>
                                                 <div className="d-flex flex-column flex-sm-row justify-content-between">
                                                     <div className="d-flex align-items-center mb-2">
                                                         <MapPinIcon className="me-2" />
-                                                        <span>{event.location}</span>
+                                                        <span>{place}</span>
                                                     </div>
                                                     <div className="d-flex align-items-center mb-2">
                                                         <DollarSignIcon className="me-2" />
-                                                        <span>{event.fee}</span>
+                                                        <span>{price}</span>
                                                     </div>
                                                 </div>
                                                 <div className="d-flex flex-column flex-sm-row justify-content-between">
                                                     <div className="d-flex align-items-center mb-2">
                                                         <UsersIcon className="me-2" />
-                                                        <span>{event.availableSlots} / {event.slots}</span>
+                                                        <span>{numTeams} / {numTeams}</span>
                                                     </div>
                                                     <div className="d-flex align-items-center mb-2">
                                                         <UserIcon className="me-2" />
-                                                        <span>{event.hostedBy}</span>
+                                                        <span>{user.firstName}</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -172,27 +246,72 @@ export default function OrganizerDash() {
                     <Form>
                         <Form.Group className="mb-3" controlId="eventName">
                             <Form.Label>Event Name</Form.Label>
-                            <Form.Control type="text" placeholder="Enter event name" required />
+                            <Form.Control
+                                type="text"
+                                placeholder="Enter event name"
+                                value={eventName}
+                                onChange={(e) => setEventName(e.target.value)}
+                                required
+                            />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="place">
                             <Form.Label>Place</Form.Label>
-                            <Form.Control type="text" placeholder="Enter event place" required />
+                            <Form.Control
+                                type="text"
+                                placeholder="Enter event place"
+                                value={place}
+                                onChange={(e) => setPlace(e.target.value)}
+                                required
+                            />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="date">
                             <Form.Label>Date</Form.Label>
-                            <Form.Control type="date" required />
+                            <Form.Control
+                                type="date"
+                                value={date}
+                                onChange={(e) => setDate(e.target.value)}
+                                required
+                            />
+                        </Form.Group>
+                        <Form.Group className="mb-3" controlId="time">
+                            <Form.Label>Event Time</Form.Label>
+                            <Form.Control
+                                type="time"
+                                placeholder="Enter event time"
+                                value={time}
+                                onChange={(e) => setTime(e.target.value)}
+                                required
+                            />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="price">
                             <Form.Label>Price</Form.Label>
-                            <Form.Control type="number" placeholder="Enter event price" required />
+                            <Form.Control
+                                type="number"
+                                placeholder="Enter event price"
+                                value={price}
+                                onChange={(e) => setPrice(e.target.value)}
+                                required
+                            />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="numTeams">
                             <Form.Label>Number of Teams</Form.Label>
-                            <Form.Control type="number" placeholder="Enter number of teams" required />
+                            <Form.Control
+                                type="number"
+                                placeholder="Enter number of teams"
+                                value={numTeams}
+                                onChange={(e) => setNumTeams(e.target.value)}
+                                required
+                            />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="winningPrize">
                             <Form.Label>Winning Prize</Form.Label>
-                            <Form.Control type="text" placeholder="Enter winning prize" required />
+                            <Form.Control
+                                type="text"
+                                placeholder="Enter winning prize"
+                                value={winningPrize}
+                                onChange={(e) => setWinningPrize(e.target.value)}
+                                required
+                            />
                         </Form.Group>
                     </Form>
                 </Modal.Body>
@@ -200,7 +319,7 @@ export default function OrganizerDash() {
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={handleClose}>
+                    <Button variant="primary" onClick={handleSaveChanges}>
                         Save Changes
                     </Button>
                 </Modal.Footer>

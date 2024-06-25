@@ -7,6 +7,7 @@ import Layout from '../../components/layouts/Layout';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useAuth } from '../../context/auth';
+import apiUrl from '../../api/config'
 
 function Login() {
     const [email, setEmail] = useState('');
@@ -22,8 +23,7 @@ function Login() {
         };
 
         try {
-            const response = await axios.post('http://localhost:3000/api/users/login', loginData);
-            console.log(response.data);
+            const response = await axios.post(`${apiUrl}/login`, loginData);
             toast.success('Logged in successfully!');
 
             localStorage.setItem('auth', JSON.stringify(response.data));

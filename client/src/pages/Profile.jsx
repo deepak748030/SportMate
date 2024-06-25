@@ -3,6 +3,7 @@ import Layout from '../components/layouts/Layout';
 import { useAuth } from '../context/auth';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import apiUrl from '../api/config'
 
 export default function Profile() {
     const [selectedPhoto, setSelectedPhoto] = useState(null);
@@ -77,7 +78,7 @@ export default function Profile() {
                 updateData.append('avatar', photoFile);
             }
 
-            const response = await axios.put('http://localhost:3000/api/users/profile', updateData, {
+            const response = await axios.put(`${apiUrl}/profile`, updateData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }

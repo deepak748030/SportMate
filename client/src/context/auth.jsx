@@ -8,13 +8,16 @@ const AuthProvider = ({ children }) => {
         user: null,
         token: ''
     });
+    axios.defaults.headers.common['Authorization'] = auth?.token;
 
     useEffect(() => {
         const data = localStorage.getItem('auth');
         if (data) {
             const parseData = JSON.parse(data);
-            axios.defaults.headers.common['Authorization'] = `Bearer ${parseData.token}`;
-            setAuth(parseData); // Update the auth state with parsed data
+            setAuth({
+                user: parseData.user,
+                token: parseData.token
+            })
         }
     }, []); // Empty dependency array to run only once on component mount
 

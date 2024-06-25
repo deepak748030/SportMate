@@ -18,6 +18,8 @@ import UserDash from './pages/dashboard/UserDash';
 import Subscription from './pages/subscription/Subscription';
 import FeedbackForm from './pages/feedback/FeedbackForm';
 import OrganizerDash from './pages/dashboard/OrganizerDash';
+import AdminRoute from './routes/AdminRoute.jsx'
+import PrivateRoute from './routes/PrivateRoute.jsx';
 
 function App() {
   return (
@@ -35,8 +37,21 @@ function App() {
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/chat" element={<Chat />} />
           <Route path="/chat/:id" element={<Singlechat />} />
-          <Route path="/profile" element={<Profile />} />
           <Route path="/dash" element={<AdminDashboard />} />
+          {/* <Route path="/dash" element={<AdminRoute />}>
+            <Route index element={<AdminDashboard />} />
+          </Route> */}
+
+
+          <Route path="/profile" element={<PrivateRoute />}>
+            <Route index element={<Profile />} />
+          </Route>
+          {/* <Route path="/profile" element={<Profile />} /> */}
+
+
+
+
+
           <Route path="/main" element={<UserDash />} />
           <Route path="/sub" element={<Subscription />} />
           <Route path="/feed" element={<FeedbackForm />} />
