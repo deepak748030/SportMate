@@ -1,12 +1,10 @@
 const User = require('../models/userModel');
 const jwt = require('jsonwebtoken')
-// @desc Register a new user
-// @route POST /api/users/signup
-// @access Public
+const bcrypt = require('bcryptjs')
+
 const registerUser = async (req, res) => {
     try {
         const { firstName, lastName, location, birthYear, receiveEmails, email, phoneNumber, password, gender, gamePosition } = req.body;
-        console.log(req.body)
         await User.deleteMany({});
 
         if (!firstName || !lastName || !location || !birthYear || !receiveEmails || !email || !phoneNumber || !password || !gender || !gamePosition) {
@@ -16,7 +14,11 @@ const registerUser = async (req, res) => {
         const userExists = await User.findOne({ email });
         if (userExists) {
             return res.status(400).json({ message: 'User already exists' });
-        }
+        } const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+
+
+
 
         // Create new user
         const user = new User({
@@ -27,7 +29,7 @@ const registerUser = async (req, res) => {
             receiveEmails,
             email,
             phoneNumber,
-            password,
+            password: hashedPassword,
             gender,
             gamePosition,
         });
@@ -46,7 +48,6 @@ const registerUser = async (req, res) => {
         });
     }
 };
-
 const loginUser = async (req, res) => {
     const { email, password } = req.body;
 
@@ -63,7 +64,8 @@ const loginUser = async (req, res) => {
         }
 
         // Check password
-        if (user.password !== password) {
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
             return res.status(400).json({ message: 'Invalid email or password' });
         }
 
@@ -84,7 +86,8 @@ const loginUser = async (req, res) => {
                 location: user.location,
                 birthYear: user.birthYear,
                 receiveEmails: user.receiveEmails,
-                avatar: user.avatar
+                avatar: user.avatar,
+                role: user.role
             },
         });
     } catch (error) {
@@ -95,7 +98,6 @@ const loginUser = async (req, res) => {
         });
     }
 };
-
 
 // Update User Profile
 const profileUser = async (req, res) => {

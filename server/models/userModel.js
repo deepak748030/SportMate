@@ -12,6 +12,10 @@ const userSchema = new mongoose.Schema({
     gender: { type: String, required: true },
     gamePosition: { type: String, required: true },
     avatar: { type: String },
+    role: {
+        type: String,
+        default: 'user'
+    }
 }, {
     timestamps: true,
 });

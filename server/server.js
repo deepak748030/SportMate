@@ -3,6 +3,7 @@ const dotenv = require('dotenv');
 const cors = require('cors');
 const morgan = require('morgan');
 const userRoutes = require('./routes/userRoutes');
+const organizerRoutes = require('./routes/organizerRoutes')
 const connectDB = require('./config/db');
 
 // Load environment variables from .env file
@@ -21,7 +22,8 @@ app.use(cors());
 app.use('/uploads', express.static('uploads'));
 
 // Routes
-app.use('/api/users', userRoutes);
+app.use('/api/v1', userRoutes);
+app.use('/api/v1', organizerRoutes)
 
 // Root route
 app.get('/', (req, res) => {
