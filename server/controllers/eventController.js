@@ -32,6 +32,7 @@ const createEvent = async (req, res) => {
 const getEvents = async (req, res) => {
     try {
         const events = await Event.find().populate('user', 'firstName lastName email'); // Populate user details
+        // console.log(events)
         res.json(events);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -43,7 +44,8 @@ const getEventById = async (req, res) => {
     const eventId = req.params.id;
 
     try {
-        const event = await Event.findById(eventId).populate('user', 'firstName lastName email'); // Populate user details
+        const event = await Event.findById(eventId).populate('user', 'firstName lastName email');
+
         if (!event) {
             return res.status(404).json({ message: 'Event not found' });
         }
@@ -53,29 +55,30 @@ const getEventById = async (req, res) => {
     }
 };
 
-// @desc    Update an event by ID
-// @route   PUT /api/events/:id
-// @access  Public
+
 const updateEvent = async (req, res) => {
     const eventId = req.params.id;
-    const { user, eventName, place, date, price, numTeams, winningPrize } = req.body;
+    console.log(eventId)
 
     try {
         const updatedEvent = await Event.findByIdAndUpdate(
             eventId,
-            { user, eventName, place, date, price, numTeams, winningPrize },
+            { accepted: true },
             { new: true }
         );
 
         if (!updatedEvent) {
+            console.log('event not found')
             return res.status(404).json({ message: 'Event not found' });
         }
 
         res.json(updatedEvent);
     } catch (error) {
+        console.log(error)
         res.status(500).json({ message: error.message });
     }
 };
+
 
 
 

@@ -37,15 +37,6 @@ function Signup() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(firstName, lastName,
-            location,
-            birthYear,
-            receiveEmails,
-            email,
-            phoneNumber,
-            password,
-            gender,
-            gamePosition);
 
         try {
             const response = await axios.post(`${apiUrl}/signup`, {
@@ -60,7 +51,6 @@ function Signup() {
                 gender,
                 gamePosition
             });
-            console.log('User registered successfully:', response.data);
             toast.success('User registered successfully!');
             setTimeout(() => {
                 navigate('/login')

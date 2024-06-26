@@ -63,7 +63,7 @@ export default function OrganizerDash() {
         }
     };
 
-    const getData = async () => {
+    const getEventData = async () => {
         try {
             const res = await axios.get(`${apiUrl}/events`);
             // console.log('res:', res)
@@ -80,7 +80,7 @@ export default function OrganizerDash() {
     }
 
     useEffect(() => {
-        getData()
+        getEventData()
     }, [])
 
 
@@ -93,33 +93,8 @@ export default function OrganizerDash() {
             phone: '+44 (452) 886 09 12',
         },
     ];
+    console.log(myEventsData)
 
-    const myEventData = [
-        {
-            id: 1,
-            event: 'Volleyball Match',
-            date: '2023-06-01',
-            time: '10:00 AM',
-            location: 'Stadium',
-            fee: '100$',
-            slots: 24,
-            availableSlots: 18,
-            hostedBy: 'Robert TukKuk',
-            banner: 'https://media.istockphoto.com/id/1371823675/photo/bad-shot.jpg?s=612x612&w=0&k=20&c=JK8hNxPDZ1CQKLHCm17-KrLrb0KOcT3D5jbzYtkk40c=',
-        },
-        {
-            id: 2,
-            event: 'Volleyball Game',
-            date: '2023-06-02',
-            time: '12:00 PM',
-            location: 'Arena',
-            fee: '50$',
-            slots: 30,
-            availableSlots: 25,
-            hostedBy: 'Jane Doe',
-            banner: 'https://media.istockphoto.com/id/1371823675/photo/bad-shot.jpg?s=612x612&w=0&k=20&c=JK8hNxPDZ1CQKLHCm17-KrLrb0KOcT3D5jbzYtkk40c=',
-        },
-    ];
 
     return (
         <Layout>
@@ -188,7 +163,7 @@ export default function OrganizerDash() {
                                                     </div>
                                                     <div className="d-flex align-items-center mb-2">
                                                         <UserIcon className="me-2" />
-                                                        <span>{user.firstName}</span>
+                                                        <span>{user?.firstName}</span>
                                                     </div>
                                                 </div>
                                             </div>

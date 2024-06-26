@@ -2,10 +2,10 @@ const User = require('../models/userModel');
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 
+
 const registerUser = async (req, res) => {
     try {
         const { firstName, lastName, location, birthYear, receiveEmails, email, phoneNumber, password, gender, gamePosition } = req.body;
-        await User.deleteMany({});
 
         if (!firstName || !lastName || !location || !birthYear || !receiveEmails || !email || !phoneNumber || !password || !gender || !gamePosition) {
             return res.status(400).json({ message: 'fill all fields properly' });
@@ -99,6 +99,41 @@ const loginUser = async (req, res) => {
     }
 };
 
+const deleteUser = async (req, res) => {
+    const eventId = req.params.id;
+
+    try {
+        const deletedEvent = await User.findByIdAndDelete(eventId);
+
+        if (!deletedEvent) {
+            return res.status(404).json({ message: 'user not found' });
+        }
+
+        res.json({ message: 'user deleted successfully' });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+
+const getAllUsers = async (req, res) => {
+    try {
+        const users = await User.find({}).select('-password');
+        res.json(users);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            message: 'Server error',
+            error: error.message,
+        });
+    }
+};
+
+
+
+
+
+
 // Update User Profile
 const profileUser = async (req, res) => {
     try {
@@ -137,4 +172,4 @@ const profileUser = async (req, res) => {
 
 
 
-module.exports = { registerUser, loginUser, profileUser };
+module.exports = { registerUser, loginUser, profileUser, deleteUser, getAllUsers };

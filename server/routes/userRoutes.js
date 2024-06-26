@@ -1,7 +1,7 @@
 const express = require('express');
 const multer = require('multer');
 const mongoose = require('mongoose'); // Import mongoose
-const { registerUser, loginUser, profileUser } = require('../controllers/userController');
+const { registerUser, loginUser, profileUser, deleteUser, getAllUsers } = require('../controllers/userController');
 const router = express.Router();
 const { requireSignIn, isAdmin } = require('../middlewares/authMiddleware');
 
@@ -17,6 +17,9 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
+
+router.get('/users', getAllUsers);
+router.delete('/userdelete/:id', deleteUser);
 router.post('/signup', registerUser);
 router.post('/login', loginUser);
 router.put('/profile', requireSignIn, upload.single('avatar'), profileUser);

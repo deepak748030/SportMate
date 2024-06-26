@@ -3,8 +3,12 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import './NavBar.css';
+import { useAuth } from '../context/auth'
 
 const Navbar = () => {
+
+    const [auth, setAuth] = useAuth();
+
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const navigate = useNavigate();
 
@@ -36,33 +40,46 @@ const Navbar = () => {
                 </button>
                 <div className={`collapse navbar-collapse ${isMenuOpen ? 'show' : ''}`} id="navbarNav">
                     <ul className="navbar-nav ms-auto">
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/main">User</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/profile">Profile</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/dash">Admin</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/user">Teams</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" onClick={handleLogout}>Log-out</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/login">Login</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/signup">Sign Up</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/sub">Subscription</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/org">Orgdash</Link>
-                        </li>
+                        {auth?.user ? (
+
+                            <>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/main">User</Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/profile">Profile</Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/dash">Admin</Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/user">Teams</Link>
+                                </li>
+
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/sub">Subscription</Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/org">Orgdash</Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link className="nav-link" onClick={handleLogout}>Log-out</Link>
+                                </li>
+                            </>
+                        ) : (
+                            <>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/login">Login</Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/signup">Sign Up</Link>
+                                </li>
+
+                            </>
+                        )}
+
+
+
                         <li className="nav-item">
                             <Link className="nav-link" to="/feed">Feedback</Link>
                         </li>

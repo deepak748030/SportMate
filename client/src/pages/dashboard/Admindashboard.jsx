@@ -1,29 +1,56 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Layout from '../../components/layouts/Layout'
+import axios from 'axios';
+import apiUrl from '../../api/config';
+import { toast } from 'react-toastify';
+
 const AdminDashboard = () => {
-    // Sample data for users
-    const userData = [
-        {
-            name: 'Robert Wolfkisser',
-            job: 'Engineer',
-            email: 'rob_wolf@gmail.com',
-            phone: '+44 (452) 886 09 12',
-        },
-        {
-            name: 'John Doe',
-            job: 'Engineer',
-            email: 'doe_@gmail.com',
-            phone: '+44 (452) 886 09 12',
-        },
-        {
-            name: 'Mae Frank',
-            job: 'Engineer',
-            email: 'ma_fr@gmail.com',
-            phone: '+44 (452) 886 09 12',
-        },
-        // ... more users
-    ];
+
+    const [eventData, setEventData] = useState([])
+    const [userData, setUserData] = useState([]);
+
+
+    // users all
+    const getAllUser = async () => {
+        try {
+            const res = await axios.get(`${apiUrl}/users`);
+            setUserData(res.data);
+        } catch (error) {
+            console.error("Error fetching user data:", error);
+        }
+    };
+
+    const suspendUser = async (id) => {
+        try {
+            const res = await axios.put(`${apiUrl}/`);
+            if (res) {
+                toast.success('accepted')
+                getAllUser()
+            } else {
+                toast.success('error')
+            }
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const deleteUser = async (id) => {
+        try {
+            const res = await axios.delete(`${apiUrl}/userdelete/${id}`);
+            if (res) {
+                toast.success('deleted')
+                getAllUser()
+            } else {
+                toast.success('error')
+            }
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     const organizerData = [
         {
             name: 'John Doe',
@@ -43,28 +70,55 @@ const AdminDashboard = () => {
         // ... more users
     ];
 
-    // Sample data for sports events
-    const eventData = [
-        {
-            id: 1,
-            event: 'Football Match',
-            date: '2023-06-01',
-            organizer: 'Prat Foe',
-        },
-        {
-            id: 2,
-            event: 'Football Match',
-            date: '2023-08-01',
-            organizer: 'Rank Drn',
-        },
-        {
-            id: 3,
-            event: 'Football Match',
-            date: '2023-07-01',
-            organizer: 'Frank Doe',
-        },
-        // ... more events
-    ];
+    // sports events
+
+    const getEventData = async () => {
+        try {
+            const res = await axios.get(`${apiUrl}/events`);
+            // console.log('res:', res)
+            if (res?.data) {
+                await setEventData(res?.data)
+            }
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const acceptEvent = async (id) => {
+        try {
+            const res = await axios.put(`${apiUrl}/events/${id}`);
+            if (res) {
+                toast.success('accepted')
+                getEventData()
+            } else {
+                toast.success('error')
+            }
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const deleteEvent = async (id) => {
+        try {
+            const res = await axios.delete(`${apiUrl}/events/${id}`);
+            if (res) {
+                toast.success('deleted')
+                getEventData()
+            } else {
+                toast.success('error')
+            }
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    useEffect(() => {
+        getEventData()
+        getAllUser()
+    }, [])
 
     const renderUsersTable = () => (
 
@@ -82,13 +136,13 @@ const AdminDashboard = () => {
                 <tbody>
                     {userData.map((user, index) => (
                         <tr key={index}>
-                            <td className="align-middle">{user.name}</td>
-                            <td className="align-middle">{user.job}</td>
+                            <td className="align-middle">{`${user.firstName} ${user.lastName}`}</td>
+                            <td className="align-middle">{user.role}</td>
                             <td className="align-middle">{user.email}</td>
-                            <td className="align-middle">{user.phone}</td>
+                            <td className="align-middle">{user.phoneNumber}</td>
                             <td className="align-middle">
-                                <button className="btn btn-outline-danger btn-sm">Delete</button>
-                                <button className="btn btn-outline-warning btn-sm ms-1">Suspend</button>
+                                <button className="btn btn-outline-danger btn-sm" onClick={() => { deleteUser(user?._id) }} >Delete</button>
+                                <button className="btn btn-outline-warning btn-sm ms-1" onClick={() => { suspendUser(user?._id) }} >Suspend</button>
                             </td>
                         </tr>
                     ))}
@@ -138,15 +192,15 @@ const AdminDashboard = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {eventData.map((event, index) => (
-                        <tr key={index}>
+                    {eventData?.map((event, index) => (
+                        <tr key={event?._id}>
                             <td>{index + 1}</td>
-                            <td>{event.event}</td>
-                            <td>{event.date}</td>
-                            <td>{event.organizer}</td>
+                            <td>{event?.eventName}</td>
+                            <td>{event?.date.slice(0, 10)}</td>
+                            <td>{event?.user?.firstName}</td>
                             <td>
-                                <button className="btn btn-success btn-sm">Approve</button>{' '}
-                                <button className="btn btn-danger btn-sm">Decline</button>
+                                <button className="btn btn-success btn-sm" onClick={() => { acceptEvent(event?._id) }}>Approve</button>{' '}
+                                <button className="btn btn-danger btn-sm" onClick={() => { deleteEvent(event?._id) }}>Decline</button>
                             </td>
                         </tr>
                     ))}
@@ -224,18 +278,22 @@ const AdminDashboard = () => {
                         </div>
                     </div>
                 </div>
+
+
                 <div className="row mt-4">
                     <div className="col-12">
-                        <h2 className="mb-3">Organizers</h2>
+                        {/* <h2 className="mb-3">Organizers</h2> */}
                         {/* Render either table or cards based on screen size */}
                         <div className="d-none d-md-block">
-                            {renderOrganizerTable()}
+                            {/* {renderOrganizerTable()} */}
                         </div>
                         <div className="d-md-none">
-                            {renderOrganizerCards()}
+                            {/* {renderOrganizerCards()} */}
                         </div>
                     </div>
                 </div>
+
+
                 <div className="row mt-4">
                     <div className="col-12">
                         <h2 className="mb-3">Sports Events</h2>

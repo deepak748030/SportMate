@@ -15,7 +15,8 @@ const userSchema = new mongoose.Schema({
     role: {
         type: String,
         default: 'user'
-    }
+    },
+    joinedEvents: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Event' }]
 }, {
     timestamps: true,
 });

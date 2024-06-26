@@ -4,6 +4,7 @@ const cors = require('cors');
 const morgan = require('morgan');
 const userRoutes = require('./routes/userRoutes');
 const organizerRoutes = require('./routes/organizerRoutes')
+const eventJoinRoutes = require('./routes/joineventRoutes')
 const connectDB = require('./config/db');
 
 // Load environment variables from .env file
@@ -24,6 +25,7 @@ app.use('/uploads', express.static('uploads'));
 // Routes
 app.use('/api/v1', userRoutes);
 app.use('/api/v1', organizerRoutes)
+app.use('/api/v1', eventJoinRoutes)
 
 // Root route
 app.get('/', (req, res) => {
