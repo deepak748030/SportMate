@@ -41,19 +41,19 @@ const getEvents = async (req, res) => {
 
 
 const getEventById = async (req, res) => {
-    const eventId = req.params.id;
+    const userId = req.params.id; // Assuming you're passing user ID as a parameter
 
     try {
-        const event = await Event.findById(eventId).populate('user', 'firstName lastName email');
-
-        if (!event) {
-            return res.status(404).json({ message: 'Event not found' });
+        const events = await Event.find({ user: userId }).populate('user', 'firstName lastName email');
+        if (!events || events.length === 0) {
+            return res.status(404).json({ message: 'No events found for this user' });
         }
-        res.json(event);
+        res.json(events);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 };
+
 
 
 const updateEvent = async (req, res) => {

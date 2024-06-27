@@ -2,23 +2,18 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Layout from '../../components/layouts/Layout';
-import { Modal, Button, Form } from 'react-bootstrap';
+import { Modal, Button, Form, Spinner } from 'react-bootstrap'; // Added Spinner for loading indicator
 import axios from 'axios';
-import apiUrl from '../../api/config'
-import { useAuth } from '../../context/auth'
+import apiUrl from '../../api/config';
+import { useAuth } from '../../context/auth';
 import { toast } from 'react-toastify';
 
-
-
 export default function OrganizerDash() {
-
     const [auth, setAuth] = useAuth();
+    const userId = auth?.user?._id;
 
     const [showModal, setShowModal] = useState(false);
-
-    const handleShow = () => setShowModal(true);
-    const handleClose = () => setShowModal(false);
-
+    const [loading, setLoading] = useState(false); // State to track loading state
     const [eventName, setEventName] = useState('');
     const [place, setPlace] = useState('');
     const [date, setDate] = useState('');
@@ -26,19 +21,22 @@ export default function OrganizerDash() {
     const [price, setPrice] = useState('');
     const [numTeams, setNumTeams] = useState('');
     const [winningPrize, setWinningPrize] = useState('');
+    const [myEventsData, setEventsData] = useState([]);
 
-    const [myEventsData, setEventsData] = useState([])
+    const handleShow = () => setShowModal(true);
+    const handleClose = () => setShowModal(false);
 
-    // console.log(user)
+
 
 
     const handleSaveChanges = async (e) => {
-
+        e.preventDefault(); // Prevent default form submission
         try {
-            const user = await auth?.user?._id;
+            setLoading(true); // Set loading state to true
+            const user = auth?.user?._id;
             const priceNum = parseFloat(price);
             const winningPrizeNum = parseFloat(winningPrize);
-            const numTeamsNum = parseFloat(numTeams)
+            const numTeamsNum = parseFloat(numTeams);
             const res = await axios.post(`${apiUrl}/create`, {
                 user: user,
                 eventName,
@@ -48,41 +46,37 @@ export default function OrganizerDash() {
                 price: priceNum,
                 numTeams: numTeamsNum,
                 winningPrize: winningPrizeNum
-            })
+            });
             if (res?.data) {
                 handleClose();
-                toast.success('event created')
-                await getData()
-                console.log(myEventsData)
-
+                toast.success('Event created');
+                await getEventData(); // Refresh events data after creation
             }
-
-
         } catch (error) {
-            console.log(error)
+            console.error('Error creating event:', error);
+        } finally {
+            setLoading(false); // Set loading state to false after operation completes
         }
     };
 
     const getEventData = async () => {
         try {
-            const res = await axios.get(`${apiUrl}/events`);
-            // console.log('res:', res)
+            await userId;
+            setLoading(true); // Set loading state to true
+            const res = await axios.get(`${apiUrl}/events/${userId}`);
             if (res?.data) {
-                await setEventsData(res?.data)
-
-
-
+                setEventsData(res?.data);
             }
-
         } catch (error) {
-            console.log(error)
+            console.error('Error fetching events:', error);
+        } finally {
+            setLoading(false); // Set loading state to false after operation completes
         }
-    }
+    };
 
     useEffect(() => {
-        getEventData()
-    }, [])
-
+        getEventData();
+    }, [userId]);
 
     const organizerData = [
         {
@@ -93,8 +87,6 @@ export default function OrganizerDash() {
             phone: '+44 (452) 886 09 12',
         },
     ];
-    console.log(myEventsData)
-
 
     return (
         <Layout>
@@ -129,46 +121,54 @@ export default function OrganizerDash() {
                             <div className="card">
                                 <div className="card-body">
                                     <h5 className="card-title">My Events</h5>
-                                    {myEventsData.map(({ date, eventName, numTeams, place, price, time, _id, user }) => (
-                                        <div className="row mb-4" key={_id}>
-                                            <div className="col-md-4">
-                                                <img src={'https://media.istockphoto.com/id/1904589046/photo/two-adult-football-players-running-and-kicking-a-soccer-ball-legs-of-two-young-football.jpg?s=2048x2048&w=is&k=20&c=CSTkGc00q6A1VXG8YaHuBbLO58EeHFHkM5uEPoyMYZc='} alt="Event Banner" className="img-fluid rounded" />
-                                            </div>
-                                            <div className="col-md-8">
-                                                <h6 className="mt-2">{eventName}</h6>
-                                                <div className="d-flex flex-column flex-sm-row justify-content-between">
-                                                    <div className="d-flex align-items-center mb-2">
-                                                        <CalendarIcon className="me-2" />
-                                                        <span>{date.slice(0, 10)}</span>
-                                                    </div>
-                                                    <div className="d-flex align-items-center mb-2">
-                                                        <ClockIcon className="me-2" />
-                                                        <span>{time}</span>
-                                                    </div>
-                                                </div>
-                                                <div className="d-flex flex-column flex-sm-row justify-content-between">
-                                                    <div className="d-flex align-items-center mb-2">
-                                                        <MapPinIcon className="me-2" />
-                                                        <span>{place}</span>
-                                                    </div>
-                                                    <div className="d-flex align-items-center mb-2">
-                                                        <DollarSignIcon className="me-2" />
-                                                        <span>{price}</span>
-                                                    </div>
-                                                </div>
-                                                <div className="d-flex flex-column flex-sm-row justify-content-between">
-                                                    <div className="d-flex align-items-center mb-2">
-                                                        <UsersIcon className="me-2" />
-                                                        <span>{numTeams} / {numTeams}</span>
-                                                    </div>
-                                                    <div className="d-flex align-items-center mb-2">
-                                                        <UserIcon className="me-2" />
-                                                        <span>{user?.firstName}</span>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                    {loading ? (
+                                        <div className="text-center">
+                                            <Spinner animation="border" role="status">
+                                                <span className="visually-hidden">Loading...</span>
+                                            </Spinner>
                                         </div>
-                                    ))}
+                                    ) : (
+                                        myEventsData.map(({ date, eventName, numTeams, place, price, time, _id, user }) => (
+                                            <div className="row mb-4" key={_id}>
+                                                <div className="col-md-4">
+                                                    <img src={'https://media.istockphoto.com/id/1904589046/photo/two-adult-football-players-running-and-kicking-a-soccer-ball-legs-of-two-young-football.jpg?s=2048x2048&w=is&k=20&c=CSTkGc00q6A1VXG8YaHuBbLO58EeHFHkM5uEPoyMYZc='} alt="Event Banner" className="img-fluid rounded" />
+                                                </div>
+                                                <div className="col-md-8">
+                                                    <h6 className="mt-2">{eventName}</h6>
+                                                    <div className="d-flex flex-column flex-sm-row justify-content-between">
+                                                        <div className="d-flex align-items-center mb-2">
+                                                            <CalendarIcon className="me-2" />
+                                                            <span>{date.slice(0, 10)}</span>
+                                                        </div>
+                                                        <div className="d-flex align-items-center mb-2">
+                                                            <ClockIcon className="me-2" />
+                                                            <span>{time}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div className="d-flex flex-column flex-sm-row justify-content-between">
+                                                        <div className="d-flex align-items-center mb-2">
+                                                            <MapPinIcon className="me-2" />
+                                                            <span>{place}</span>
+                                                        </div>
+                                                        <div className="d-flex align-items-center mb-2">
+                                                            <DollarSignIcon className="me-2" />
+                                                            <span>{price}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div className="d-flex flex-column flex-sm-row justify-content-between">
+                                                        <div className="d-flex align-items-center mb-2">
+                                                            <UsersIcon className="me-2" />
+                                                            <span>{numTeams} / {numTeams}</span>
+                                                        </div>
+                                                        <div className="d-flex align-items-center mb-2">
+                                                            <UserIcon className="me-2" />
+                                                            <span>{user?.firstName}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        ))
+                                    )}
                                 </div>
                             </div>
                             <div className="card mt-4">
@@ -218,7 +218,7 @@ export default function OrganizerDash() {
                     <Modal.Title>Upload New Event</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Form>
+                    <Form onSubmit={handleSaveChanges}> {/* Added onSubmit to Form to handle form submission */}
                         <Form.Group className="mb-3" controlId="eventName">
                             <Form.Label>Event Name</Form.Label>
                             <Form.Control
@@ -295,7 +295,7 @@ export default function OrganizerDash() {
                         Close
                     </Button>
                     <Button variant="primary" onClick={handleSaveChanges}>
-                        Save Changes
+                        {loading ? 'Saving...' : 'Save Changes'} {/* Dynamically change button text based on loading state */}
                     </Button>
                 </Modal.Footer>
             </Modal>
