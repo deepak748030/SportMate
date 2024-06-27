@@ -58,24 +58,23 @@ const getEventById = async (req, res) => {
 
 const updateEvent = async (req, res) => {
     const eventId = req.params.id;
-    console.log(eventId)
+    const { eventName, place, date, time, price, numTeams, winningPrize } = req.body;
 
     try {
         const updatedEvent = await Event.findByIdAndUpdate(
             eventId,
-            { accepted: true },
-            { new: true }
+            { eventName, place, date, time, price, numTeams, winningPrize },
+            { new: true } // To return the updated document
         );
 
         if (!updatedEvent) {
-            console.log('event not found')
             return res.status(404).json({ message: 'Event not found' });
         }
 
         res.json(updatedEvent);
     } catch (error) {
-        console.log(error)
-        res.status(500).json({ message: error.message });
+        console.error('Error updating event:', error);
+        res.status(500).json({ message: 'Failed to update event' });
     }
 };
 

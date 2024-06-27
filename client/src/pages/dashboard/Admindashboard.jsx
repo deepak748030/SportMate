@@ -114,7 +114,7 @@ const AdminDashboard = () => {
     }, []);
 
     const renderUsersTable = () => (
-        <div className="table-responsive">
+        <div className="table-responsive d-none d-md-block">
             <table className="table table-hover table-striped">
                 <thead className="thead-dark">
                     <tr>
@@ -153,8 +153,33 @@ const AdminDashboard = () => {
         </div>
     );
 
-    const renderSportsEvents = () => (
-        <div className="table-responsive">
+    const renderUsersCards = () => (
+        <div className="d-block d-md-none">
+            {loadingUsers ? (
+                <div className="text-center">
+                    <div className="spinner-border text-primary" role="status">
+                        <span className="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+            ) : (
+                userData.map((user, index) => (
+                    <div className="card mb-3" key={index}>
+                        <div className="card-body">
+                            <h5 className="card-title">{`${user.firstName} ${user.lastName}`}</h5>
+                            <h6 className="card-subtitle mb-2 text-muted">{user.role}</h6>
+                            <p className="card-text">Email: {user.email}</p>
+                            <p className="card-text">Phone: {user.phoneNumber}</p>
+                            <button className="btn btn-outline-danger btn-sm" onClick={() => deleteUser(user?._id)}>Delete</button>
+                            <button className="btn btn-outline-warning btn-sm ms-1" onClick={() => suspendUser(user?._id)}>Suspend</button>
+                        </div>
+                    </div>
+                ))
+            )}
+        </div>
+    );
+
+    const renderSportsEventsTable = () => (
+        <div className="table-responsive d-none d-md-block">
             <table className="table table-hover table-striped">
                 <thead className="thead-dark">
                     <tr>
@@ -193,6 +218,30 @@ const AdminDashboard = () => {
         </div>
     );
 
+    const renderSportsEventsCards = () => (
+        <div className="d-block d-md-none">
+            {loadingEvents ? (
+                <div className="text-center">
+                    <div className="spinner-border text-primary" role="status">
+                        <span className="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+            ) : (
+                eventData.map((event, index) => (
+                    <div className="card mb-3" key={event?._id}>
+                        <div className="card-body">
+                            <h5 className="card-title">{event?.eventName}</h5>
+                            <h6 className="card-subtitle mb-2 text-muted">{event?.date?.slice(0, 10)}</h6>
+                            <p className="card-text">Organizer: {event?.user?.firstName}</p>
+                            <button className="btn btn-success btn-sm" onClick={() => acceptEvent(event?._id)}>Approve</button>{' '}
+                            <button className="btn btn-danger btn-sm" onClick={() => deleteEvent(event?._id)}>Decline</button>
+                        </div>
+                    </div>
+                ))
+            )}
+        </div>
+    );
+
     return (
         <Layout>
             <div className="container mt-4">
@@ -200,13 +249,15 @@ const AdminDashboard = () => {
                     <div className="col-12">
                         <h2 className="mb-3">Users</h2>
                         {renderUsersTable()}
+                        {renderUsersCards()}
                     </div>
                 </div>
 
                 <div className="row mt-4">
                     <div className="col-12">
                         <h2 className="mb-3">Sports Events</h2>
-                        {renderSportsEvents()}
+                        {renderSportsEventsTable()}
+                        {renderSportsEventsCards()}
                     </div>
                 </div>
             </div>
