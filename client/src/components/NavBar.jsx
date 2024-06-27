@@ -16,8 +16,9 @@ const Navbar = () => {
         setIsMenuOpen(!isMenuOpen);
     };
 
-    const handleLogout = () => {
-        localStorage.removeItem('auth');
+    const handleLogout = async () => {
+        await localStorage.removeItem('auth');
+        await setAuth("")
         toast.success('Logout success');
         setTimeout(() => {
             navigate('/login');

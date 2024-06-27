@@ -175,12 +175,12 @@ export default function OrganizerDash() {
                                             </div>
                                         </div>
                                         <hr />
-                                        <div className=" d-flex flex-column flex-md-row">
-                                            <div className="col-6 d-flex align-items-center mb-2">
+                                        <div className=" d-flex flex-column flex-sm-row justify-content-between">
+                                            <div className="d-flex align-items-center mb-2">
                                                 <i className="bi bi-envelope-fill me-2"></i>
                                                 <span>{organizer.email}</span>
                                             </div>
-                                            <div className="col-6 d-flex align-items-center mb-2 flex-wrap">
+                                            <div className="d-flex align-items-center mb-2">
                                                 <i className="bi bi-telephone-fill me-2"></i>
                                                 <span>{organizer.phone}</span>
                                             </div>
