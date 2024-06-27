@@ -137,7 +137,7 @@ const getAllUsers = async (req, res) => {
 // Update User Profile
 const profileUser = async (req, res) => {
     try {
-        const { userId, ...updateFields } = req.body;
+        const { userId, password, ...updateFields } = req.body;
 
         if (!userId) {
             console.log('User ID not found');
@@ -147,6 +147,13 @@ const profileUser = async (req, res) => {
         const currentUser = await User.findById(userId);
         if (!currentUser) {
             return res.status(404).json({ message: 'User not found' });
+        }
+
+        // Check if password is provided and hash it
+        if (password) {
+            const salt = await bcrypt.genSalt(10);
+            const hashedPassword = await bcrypt.hash(password, salt);
+            updateFields.password = hashedPassword;
         }
 
         // Only update fields that are provided in the request body
@@ -169,6 +176,7 @@ const profileUser = async (req, res) => {
         res.status(500).json({ message: 'Internal Server Error', error: err.message });
     }
 };
+
 
 
 
