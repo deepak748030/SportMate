@@ -1,9 +1,27 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Layout from '../components/layouts/Layout';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import apiUrl from '../api/config'
 
 function Users() {
     const navigate = useNavigate();
+    const [teams, setTeams] = useState([]);
+
+
+
+    const fetchTeams = async () => {
+        try {
+            const response = await axios.get(`${apiUrl}/teams`); // Replace with your actual API endpoint
+            setTeams(response.data);
+        } catch (error) {
+            console.error('Error fetching teams:', error);
+        }
+    };
+
+    useEffect(() => {
+        fetchTeams();
+    }, []);
 
     return (
         <Layout title='SPORTS_MATE - DASHBOARD'>
@@ -28,14 +46,28 @@ function Users() {
                             <h2 className='fw-bold fs-md-2'>My Teams</h2>
                             <button className='btn btn-outline-warning' onClick={() => navigate('/user/createteam')}>Create New Team</button>
                         </div>
-                        <div className='mt-4 p-4 text-center bg-light rounded'>
-                            <h3 className='fw-bold text-warning'>You haven't created any teams yet!</h3>
-                            <p>Start your sports journey by creating your first team.</p>
-                        </div>
+
+                        {/* Display Teams */}
                         <div className='mt-4'>
-                            <h2 className='fw-bold'>Activity</h2>
-                            <p>No recent activity to display.</p>
+                            {teams.length > 0 ? (
+                                teams.map(team => (
+                                    <div key={team._id} className='card mb-3'>
+                                        <div className='card-body'>
+                                            <h5 className='card-title'>{team.teamName}</h5>
+                                            <p className='card-text'>{team.sport}</p>
+                                            <p className='card-text'>{team.city}, {team.state}</p>
+                                            {/* Add more details as needed */}
+                                        </div>
+                                    </div>
+                                ))
+                            ) : (
+                                <div className='p-4 text-center bg-light rounded'>
+                                    <h3 className='fw-bold text-warning'>You haven't created any teams yet!</h3>
+                                    <p>Start your sports journey by creating your first team.</p>
+                                </div>
+                            )}
                         </div>
+
                     </div>
                 </div>
             </div>

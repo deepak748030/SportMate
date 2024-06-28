@@ -1,10 +1,13 @@
 const express = require('express');
 const dotenv = require('dotenv');
+const http = require('http')
 const cors = require('cors');
 const morgan = require('morgan');
 const userRoutes = require('./routes/userRoutes');
 const organizerRoutes = require('./routes/organizerRoutes')
 const eventJoinRoutes = require('./routes/joineventRoutes')
+const teamRoutes = require('./routes/teamRoutes')
+const { initializeSocket } = require('./sockets/chat')
 const connectDB = require('./config/db');
 
 // Load environment variables from .env file
@@ -12,6 +15,10 @@ dotenv.config();
 
 // Initialize Express app
 const app = express();
+const server = http.createServer(app);
+
+
+
 
 // Connect to the database
 connectDB();
@@ -22,10 +29,14 @@ app.use(morgan('dev'));
 app.use(cors());
 app.use('/uploads', express.static('uploads'));
 
+//socketIo setup
+initializeSocket(server)
+
 // Routes
 app.use('/api/v1', userRoutes);
 app.use('/api/v1', organizerRoutes)
 app.use('/api/v1', eventJoinRoutes)
+app.use('/api/v1', teamRoutes)
 
 // Root route
 app.get('/', (req, res) => {
@@ -39,7 +50,7 @@ app.use((err, req, res, next) => {
 });
 
 
-app.listen(process.env.PORT, () => {
+server.listen(process.env.PORT, () => {
     console.log(`Server is running on port ${process.env.PORT}`);
 });
 

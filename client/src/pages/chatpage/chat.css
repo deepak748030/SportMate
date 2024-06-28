@@ -1,0 +1,9 @@
+.left {
+    border-radius: .5rem 1.5rem 0 .5rem;
+    max-width: 90%;
+}
+
+.right {
+    border-radius: 1.5rem .5rem .5rem 0;
+    max-width: 90%;
+}
