@@ -3,7 +3,7 @@ import Layout from '../components/layouts/Layout';
 import { useAuth } from '../context/auth';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import apiUrl from '../api/config'
+import apiUrl from '../api/config';
 
 export default function Profile() {
     const [selectedPhoto, setSelectedPhoto] = useState(null);
@@ -22,6 +22,8 @@ export default function Profile() {
             gender: auth?.user?.gender || '',
             location: auth?.user?.location || '',
             avatar: auth?.user?.avatar || '',
+            role: auth?.user?.role || '',
+            ranking: auth?.user?.ranking || ''
         });
     }, [auth]);
 
@@ -35,7 +37,9 @@ export default function Profile() {
         birthYear: '',
         gender: '',
         location: '',
-        avatar: ''
+        avatar: '',
+        role: '',
+        ranking: 'Beginner'
     });
 
     const handlePhotoChange = (event) => {
@@ -62,7 +66,6 @@ export default function Profile() {
         e.preventDefault();
 
         try {
-            // Ensure that the user ID is set in the formData state
             if (!formData.userId) {
                 console.error('User ID is missing');
                 toast.error('User ID is missing');
@@ -87,11 +90,10 @@ export default function Profile() {
             if (response.data) {
                 setAuth({
                     ...auth,
-                    user: response?.data,
-                    token: auth?.token
+                    user: response.data,
+                    token: auth.token
                 });
                 await localStorage.removeItem("auth");
-                // Store the updated auth object in local storage
                 await localStorage.setItem('auth', JSON.stringify({
                     user: response.data,
                     token: auth.token
@@ -103,7 +105,6 @@ export default function Profile() {
             toast.error('Failed to update profile');
         }
     };
-
 
     return (
         <Layout>
@@ -126,8 +127,8 @@ export default function Profile() {
                         </div>
                         <div className="row mb-3">
                             <div className="col-md-6 mb-3">
-                                <label htmlFor="phone" className="form-label">Phone</label>
-                                <input type="text" className="form-control" id="phone" value={formData.phoneNumber} onChange={handleChange} />
+                                <label htmlFor="phoneNumber" className="form-label">Phone Number</label>
+                                <input type="text" className="form-control" id="phoneNumber" value={formData.phoneNumber} onChange={handleChange} />
                             </div>
                             <div className="col-md-6 mb-3">
                                 <label htmlFor="email" className="form-label">Email</label>
@@ -164,11 +165,19 @@ export default function Profile() {
                                     <label className="form-check-label" htmlFor="other">Other</label>
                                 </div>
                             </div>
-                        </div>
-                        <div className="row mb-3">
                             <div className="col-md-6 mb-3">
                                 <label htmlFor="location" className="form-label">Location</label>
                                 <input type="text" className="form-control" id="location" value={formData.location} onChange={handleChange} />
+                            </div>
+                        </div>
+                        <div className="row mb-3">
+                            <div className="col-md-6 mb-3">
+                                <label className="form-label">Role</label>
+                                <input type="text" className="form-control" id="role" value={formData.role} readOnly />
+                            </div>
+                            <div className="col-md-6 mb-3">
+                                <label className="form-label">Ranking</label>
+                                <input type="text" className="form-control" id="ranking" value={formData.ranking} readOnly />
                             </div>
                         </div>
                     </div>
@@ -178,7 +187,6 @@ export default function Profile() {
                                 <img src={selectedPhoto || (formData.avatar ? `http://localhost:3000/${formData.avatar}` : "/logo.png")} alt="no img" className="rounded-circle " height={'60rem'} width={'60rem'} />
                             </div>
                             <label className="btn btn-outline-secondary">
-
                                 Change Photo
                                 <input type="file" accept="image/*" onChange={handlePhotoChange} hidden />
                             </label>

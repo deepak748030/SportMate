@@ -118,8 +118,8 @@ const AdminDashboard = () => {
             <table className="table table-hover table-striped">
                 <thead className="thead-dark">
                     <tr>
-                        <th>Employee</th>
-                        <th>Job Title</th>
+                        <th>Users</th>
+                        <th>Role</th>
                         <th>Email</th>
                         <th>Phone</th>
                         <th>Actions</th>
@@ -217,6 +217,8 @@ const AdminDashboard = () => {
             </table>
         </div>
     );
+
+
 
     const renderSportsEventsCards = () => (
         <div className="d-block d-md-none">

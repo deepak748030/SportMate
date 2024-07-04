@@ -5,41 +5,59 @@ const bcrypt = require('bcryptjs')
 
 const registerUser = async (req, res) => {
     try {
-        const { firstName, lastName, location, birthYear, receiveEmails, email, phoneNumber, password, gender, gamePosition } = req.body;
-
-        if (!firstName || !lastName || !location || !birthYear || !receiveEmails || !email || !phoneNumber || !password || !gender || !gamePosition) {
-            return res.status(400).json({ message: 'fill all fields properly' });
-        }
-        // Check if user already exists
-        const userExists = await User.findOne({ email });
-        if (userExists) {
-            return res.status(400).json({ message: 'User already exists' });
-        } const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(password, salt);
-
-
-
-
-        // Create new user
-        const user = new User({
+        const {
+            role,
             firstName,
             lastName,
             location,
             birthYear,
-            receiveEmails,
+            email,
+            phoneNumber,
+            password,
+            gender,
+            gamePosition
+        } = req.body;
+
+
+        // Check if all required fields are filled
+        if (!role || !firstName || !lastName || !location || !birthYear || !email || !phoneNumber || !password || !gender) {
+            return res.status(400).json({ message: 'Please fill all fields properly' });
+        }
+
+        // Additional check for gamePosition if the role is 'player'
+        if (role === 'player' && !gamePosition) {
+            return res.status(400).json({ message: 'Game position is required for players' });
+        }
+
+        // Check if user already exists
+        const userExists = await User.findOne({ email });
+        if (userExists) {
+            return res.status(400).json({ message: 'User already exists' });
+        }
+
+        // Hash the password
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+
+        // Create new user
+        const user = new User({
+            role,
+            firstName,
+            lastName,
+            location,
+            birthYear,
             email,
             phoneNumber,
             password: hashedPassword,
             gender,
-            gamePosition,
+            gamePosition: role === 'player' ? gamePosition : undefined  // Set gamePosition only if role is 'player'
         });
-
+        // console.log(user)
         // Save user to database
         const createdUser = await user.save();
 
         // Send response with created user
-        res.status(201).json(createdUser);
-
+        res.status(201).json('user registered');
     } catch (error) {
         console.error(error);
         res.status(500).json({
@@ -48,6 +66,8 @@ const registerUser = async (req, res) => {
         });
     }
 };
+
+
 const loginUser = async (req, res) => {
     const { email, password } = req.body;
 
@@ -85,9 +105,10 @@ const loginUser = async (req, res) => {
                 gamePosition: user.gamePosition,
                 location: user.location,
                 birthYear: user.birthYear,
-                receiveEmails: user.receiveEmails,
                 avatar: user.avatar,
-                role: user.role
+                role: user.role,
+                ranking: user.ranking
+
             },
         });
     } catch (error) {

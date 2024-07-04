@@ -1,21 +1,18 @@
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
+    role: { type: String, required: true },  // Added role field
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
     location: { type: String, required: true },
     birthYear: { type: Number },
-    receiveEmails: { type: Boolean, default: false },
     email: { type: String, required: true, unique: true },
     phoneNumber: { type: String, required: true },
     password: { type: String, required: true },
     gender: { type: String, required: true },
-    gamePosition: { type: String, required: true },
+    gamePosition: { type: String },  // gamePosition is optional
     avatar: { type: String },
-    role: {
-        type: String,
-        default: 'user'
-    },
+    ranking: { type: String, default: 'Beginner' },
     joinedEvents: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Event' }]
 }, {
     timestamps: true,
