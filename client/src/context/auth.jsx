@@ -8,7 +8,6 @@ const AuthProvider = ({ children }) => {
         user: null,
         token: ''
     });
-    axios.defaults.headers.common['Authorization'] = auth?.token;
 
     useEffect(() => {
         const data = localStorage.getItem('auth');
@@ -17,9 +16,19 @@ const AuthProvider = ({ children }) => {
             setAuth({
                 user: parseData.user,
                 token: parseData.token
-            })
+            });
+            axios.defaults.headers.common['Authorization'] = parseData.token; // Set the token after retrieving it from localStorage
         }
     }, []); // Empty dependency array to run only once on component mount
+
+    // Update axios header when auth changes
+    useEffect(() => {
+        if (auth.token) {
+            axios.defaults.headers.common['Authorization'] = auth.token;
+        } else {
+            delete axios.defaults.headers.common['Authorization'];
+        }
+    }, [auth.token]);
 
     return (
         <AuthContext.Provider value={[auth, setAuth]}>
