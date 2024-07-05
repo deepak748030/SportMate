@@ -7,6 +7,8 @@ const userRoutes = require('./routes/userRoutes');
 const organizerRoutes = require('./routes/organizerRoutes')
 const eventJoinRoutes = require('./routes/joineventRoutes')
 const teamRoutes = require('./routes/teamRoutes')
+const subscriptionRoutes = require('./routes/subscription');
+
 const { initializeSocket } = require('./sockets/chat')
 const connectDB = require('./config/db');
 
@@ -29,6 +31,7 @@ app.use(morgan('dev'));
 app.use(cors());
 app.use('/uploads', express.static('uploads'));
 
+
 //socketIo setup
 initializeSocket(server)
 
@@ -37,6 +40,7 @@ app.use('/api/v1', userRoutes);
 app.use('/api/v1', organizerRoutes)
 app.use('/api/v1', eventJoinRoutes)
 app.use('/api/v1', teamRoutes)
+app.use('/api/v1', subscriptionRoutes);
 
 // Root route
 app.get('/', (req, res) => {

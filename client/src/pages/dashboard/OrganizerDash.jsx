@@ -25,7 +25,33 @@ export default function OrganizerDash() {
     const [selectedEvent, setSelectedEvent] = useState(null); // State to hold the selected event for update/delete
     const [userId, setUserId] = useState('')
 
-    const handleShow = () => setShowModal(true);
+    const handleShow = async () => {
+        const hasActiveSubscription = await checkSubscriptionStatus();
+        if (hasActiveSubscription) {
+            setShowModal(true);
+        } else {
+            navigate('/subscription');
+        }
+    };
+
+
+    const checkSubscriptionStatus = async () => {
+        try {
+            const user = auth?.user?._id;
+            const res = await axios.get(`${apiUrl}/subscription/${user}`);
+            if (res?.data?.active) {
+                return true;
+            } else {
+                toast.warning('Your subscription has ended. Please renew to upload events.');
+                return false;
+            }
+        } catch (error) {
+            console.error('Error checking subscription status:', error);
+            // toast.error('Failed to check subscription status');
+            return false;
+        }
+    };
+
     const handleClose = () => {
         setShowModal(false);
         setSelectedEvent(null); // Reset selected event when modal is closed
@@ -61,6 +87,10 @@ export default function OrganizerDash() {
             setLoading(false);
         }
     };
+
+
+
+
 
     const handleUpdateEvent = async (e) => {
         e.preventDefault();
