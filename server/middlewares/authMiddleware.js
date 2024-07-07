@@ -26,7 +26,7 @@ const requireSignIn = (req, res, next) => {
 
 const isAdmin = async (req, res, next) => {
     try {
-        const user = await userModel.findById(req.user._id);
+        const user = await userModel.findById(req.user.userId);
         if (!user) {
             return res.json({
                 success: false,
