@@ -200,5 +200,32 @@ const profileUser = async (req, res) => {
 
 
 
+const getUserEvents = async (req, res) => {
+    const { userId } = req.params;
 
-module.exports = { registerUser, loginUser, profileUser, deleteUser, getAllUsers };
+    try {
+        // Validate userId
+        if (!userId) {
+            return res.status(400).json({ message: 'User ID is required' });
+        }
+
+        // Find the user by ID and populate the joinedEvents field
+        const user = await User.findById(userId).populate('joinedEvents');
+
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        // Send the user and their joined events
+        res.json(user.joinedEvents);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            message: 'Server error',
+            error: error.message,
+        });
+    }
+};
+
+module.exports = { registerUser, loginUser, profileUser, deleteUser, getAllUsers, getUserEvents };
+
