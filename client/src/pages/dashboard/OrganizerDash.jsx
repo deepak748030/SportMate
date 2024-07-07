@@ -41,7 +41,7 @@ export default function OrganizerDash() {
             if (res?.data?.active) {
                 return true;
             } else {
-                toast.warning('Your subscription has ended. Please renew to upload events.');
+                toast.warning('Your subscription has ended. Please renew to create events.');
                 return false;
             }
         } catch (error) {

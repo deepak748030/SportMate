@@ -34,7 +34,7 @@ const isAdmin = async (req, res, next) => {
             });
         }
 
-        if (user.role === '1') {
+        if (user.role == 'admin') {
             next();
         } else {
             return res.json({
