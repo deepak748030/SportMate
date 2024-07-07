@@ -8,6 +8,7 @@ const organizerRoutes = require('./routes/organizerRoutes')
 const eventJoinRoutes = require('./routes/joineventRoutes')
 const teamRoutes = require('./routes/teamRoutes')
 const subscriptionRoutes = require('./routes/subscription');
+const statsRoutes = require('./routes/statsRoutes');
 
 const { initializeSocket } = require('./sockets/chat')
 const connectDB = require('./config/db');
@@ -41,6 +42,7 @@ app.use('/api/v1', organizerRoutes)
 app.use('/api/v1', eventJoinRoutes)
 app.use('/api/v1', teamRoutes)
 app.use('/api/v1', subscriptionRoutes);
+app.use('/api/v1', statsRoutes);
 
 // Root route
 app.get('/', (req, res) => {

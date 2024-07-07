@@ -44,15 +44,26 @@ const Navbar = () => {
                         {auth?.user ? (
 
                             <>
-                                <li className="nav-item">
-                                    <Link className="nav-link" to="/main">User</Link>
-                                </li>
+
                                 <li className="nav-item">
                                     <Link className="nav-link" to="/profile">Profile</Link>
                                 </li>
-                                <li className="nav-item">
-                                    <Link className="nav-link" to="/dash">Admin</Link>
-                                </li>
+                                {auth?.user?.role == 'admin' && (
+                                    <li className="nav-item">
+                                        <Link className="nav-link" to="/dash">Admin</Link>
+                                    </li>
+                                )}
+                                {auth?.user?.role == 'organizer' && (
+                                    <li className="nav-item">
+                                        <Link className="nav-link" to="/org">Orgdash</Link>
+                                    </li>
+                                )}
+                                {auth?.user?.role == 'player' && (
+                                    <li className="nav-item">
+                                        <Link className="nav-link" to="/main">User</Link>
+                                    </li>
+                                )}
+
                                 <li className="nav-item">
                                     <Link className="nav-link" to="/user">Teams</Link>
                                 </li>
@@ -60,9 +71,7 @@ const Navbar = () => {
                                 <li className="nav-item">
                                     <Link className="nav-link" to="/sub">Subscription</Link>
                                 </li>
-                                <li className="nav-item">
-                                    <Link className="nav-link" to="/org">Orgdash</Link>
-                                </li>
+
                                 <li className="nav-item">
                                     <Link className="nav-link" onClick={handleLogout}>Log-out</Link>
                                 </li>

@@ -29,20 +29,9 @@ const createEvent = async (req, res) => {
 };
 
 
-const getEvents = async (req, res) => {
-    try {
-        const events = await Event.find().populate('user', 'firstName lastName email'); // Populate user details
-        // console.log(events)
-        res.json(events);
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-};
-
 
 const getEventById = async (req, res) => {
     const userId = req.params.id; // Assuming you're passing user ID as a parameter
-
     try {
         const events = await Event.find({ user: userId }).populate('user', 'firstName lastName email');
         if (!events || events.length === 0) {
@@ -54,6 +43,24 @@ const getEventById = async (req, res) => {
     }
 };
 
+
+const getEvents = async (req, res) => {
+    try {
+        const events = await Event.find({}).populate('user', 'firstName lastName email'); // Populate user details
+        res.json(events);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+const getApprovedEvents = async (req, res) => {
+    try {
+        const events = await Event.find({ accepted: true }).populate('user', 'firstName lastName email'); // Populate user details
+        res.json(events);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
 
 
 const updateEvent = async (req, res) => {
@@ -97,10 +104,32 @@ const deleteEvent = async (req, res) => {
     }
 };
 
+const acceptEvent = async (req, res) => {
+    const eventId = req.params.id;
+
+    try {
+        const updatedEvent = await Event.findByIdAndUpdate(
+            eventId,
+            { accepted: true },
+            { new: true } // To return the updated document
+        );
+
+        if (!updatedEvent) {
+            return res.status(404).json({ message: 'Event not found' });
+        }
+
+        res.json({ message: 'Event accepted successfully', event: updatedEvent });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
 module.exports = {
     createEvent,
     getEvents,
     getEventById,
     updateEvent,
     deleteEvent,
+    getApprovedEvents,
+    acceptEvent
 };

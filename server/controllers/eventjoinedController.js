@@ -15,14 +15,17 @@ const joinEvent = async (req, res) => {
             return res.status(404).json({ message: 'User or Event not found' });
         }
 
-        if (user.joinedEvents.includes(eventId)) {
+        if (user.joinedEvents.includes(eventId) || event.joinedEvents.includes(userId)) {
             return res.status(400).json({ message: 'User already joined this event' });
         }
 
         user.joinedEvents.push(eventId);
         await user.save();
 
-        res.status(200).json({ message: 'Event joined successfully', joinedEvents: user.joinedEvents });
+        event.participants.push(userId);
+        await event.save();
+
+        res.status(200).json({ message: 'Event joined successfully', joinedEvents: user.joinedEvents, participants: event.participants });
     } catch (error) {
         console.error(error);
         res.status(500).json({
@@ -31,7 +34,6 @@ const joinEvent = async (req, res) => {
         });
     }
 };
-
 
 
 const getAllJoinEvents = async (req, res) => {

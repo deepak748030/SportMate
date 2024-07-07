@@ -19,6 +19,11 @@ import FeedbackForm from './pages/feedback/FeedbackForm';
 import OrganizerDash from './pages/dashboard/OrganizerDash';
 import AdminRoute from './routes/AdminRoute.jsx'
 import PrivateRoute from './routes/PrivateRoute.jsx';
+import RecordStats from './pages/records/RecordStats.jsx';
+import PerformanceReport from './pages/records/PerformanceReport.jsx';
+import EventDetail from './pages/events/EventDetail.jsx';
+import EventSingle from './pages/events/EventSingle.jsx';
+import AllEvents from './pages/AllEvents.jsx';
 
 function App() {
   return (
@@ -29,6 +34,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/sports" element={<Sports />} />
+          <Route path="/stats" element={<RecordStats />} />
+          <Route path="/report" element={<PerformanceReport />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/user" element={<Users />} />
@@ -36,16 +43,19 @@ function App() {
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/chat" element={<Singlechat />} />
           {/* <Route path="/chat/:id" element={<Singlechat />} /> */}
-          <Route path="/dash" element={<AdminDashboard />} />
-          {/* <Route path="/dash" element={<AdminRoute />}>
+          <Route path="/volleyball" element={<AllEvents />} />
+          <Route path="/dash" element={<AdminRoute />}>
             <Route index element={<AdminDashboard />} />
-          </Route> */}
+          </Route>
+          <Route path="/admin" element={<AdminDashboard />} />
 
+          <Route path="/events" element={<EventDetail />} />
+          <Route path="/event/:eventId" element={<EventSingle />} />
+          <Route path="/events/:eventId/:playerId" element={<Users />} />
 
           <Route path="/profile" element={<PrivateRoute />}>
             <Route index element={<Profile />} />
           </Route>
-          {/* <Route path="/profile" element={<Profile />} /> */}
 
 
 

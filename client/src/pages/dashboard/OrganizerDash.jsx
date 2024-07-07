@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom'; // Added useNavigate
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Layout from '../../components/layouts/Layout';
 import { Modal, Button, Form, Spinner } from 'react-bootstrap';
@@ -9,8 +9,8 @@ import { useAuth } from '../../context/auth';
 import { toast } from 'react-toastify';
 
 export default function OrganizerDash() {
-    const [auth, setAuth] = useAuth();
-
+    const [auth] = useAuth();
+    const navigate = useNavigate(); // Added navigate hook
 
     const [showModal, setShowModal] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -22,8 +22,8 @@ export default function OrganizerDash() {
     const [numTeams, setNumTeams] = useState('');
     const [winningPrize, setWinningPrize] = useState('');
     const [myEventsData, setEventsData] = useState([]);
-    const [selectedEvent, setSelectedEvent] = useState(null); // State to hold the selected event for update/delete
-    const [userId, setUserId] = useState('')
+    const [selectedEvent, setSelectedEvent] = useState(null);
+    const [userId, setUserId] = useState('');
 
     const handleShow = async () => {
         const hasActiveSubscription = await checkSubscriptionStatus();
@@ -33,7 +33,6 @@ export default function OrganizerDash() {
             navigate('/subscription');
         }
     };
-
 
     const checkSubscriptionStatus = async () => {
         try {
@@ -47,14 +46,13 @@ export default function OrganizerDash() {
             }
         } catch (error) {
             console.error('Error checking subscription status:', error);
-            // toast.error('Failed to check subscription status');
             return false;
         }
     };
 
     const handleClose = () => {
         setShowModal(false);
-        setSelectedEvent(null); // Reset selected event when modal is closed
+        setSelectedEvent(null);
     };
 
     const handleSaveChanges = async (e) => {
@@ -88,10 +86,6 @@ export default function OrganizerDash() {
         }
     };
 
-
-
-
-
     const handleUpdateEvent = async (e) => {
         e.preventDefault();
         try {
@@ -99,8 +93,6 @@ export default function OrganizerDash() {
             const priceNum = parseFloat(price);
             const winningPrizeNum = parseFloat(winningPrize);
             const numTeamsNum = parseFloat(numTeams);
-            console.log(selectedEvent._id)
-
             const res = await axios.put(`${apiUrl}/events/${selectedEvent._id}`, {
                 eventName,
                 place,
@@ -110,13 +102,6 @@ export default function OrganizerDash() {
                 numTeams: numTeamsNum,
                 winningPrize: winningPrizeNum
             });
-            console.log(eventName,
-                place,
-                date,
-                time,
-                priceNum,
-                numTeamsNum,
-                winningPrizeNum)
             if (res?.data) {
                 handleClose();
                 toast.success('Event updated');
@@ -150,10 +135,12 @@ export default function OrganizerDash() {
     const getEventData = async () => {
         try {
             setLoading(true);
-            await setUserId(auth?.user?._id)
-            const res = await axios.get(`${apiUrl}/events/${userId}`);
+            const user = auth?.user?._id;
+            const res = await axios.get(`${apiUrl}/events/${user}`);
             if (res?.data) {
-                await setEventsData(res.data);
+                setEventsData(res.data);
+            } else {
+                setEventsData([]); // Ensure myEventsData is set to an empty array if no data is returned
             }
         } catch (error) {
             console.error('Error fetching events:', error);
@@ -164,7 +151,7 @@ export default function OrganizerDash() {
 
     useEffect(() => {
         getEventData();
-    }, [userId]);
+    }, [auth?.user?._id]);
 
     const organizerData = [
         {
@@ -184,7 +171,7 @@ export default function OrganizerDash() {
         setTime(event.time || '');
         setPrice(event.price?.toString() || '');
         setNumTeams(event.numTeams?.toString() || '');
-        setWinningPrize(event.winningPrize?.toString() || ''); // Ensure winningPrize is properly set or defaults to an empty string
+        setWinningPrize(event.winningPrize?.toString() || '');
         handleShow();
     };
 
@@ -227,7 +214,7 @@ export default function OrganizerDash() {
                                                 <span className="visually-hidden">Loading...</span>
                                             </Spinner>
                                         </div>
-                                    ) : (
+                                    ) : myEventsData.length > 0 ? (
                                         myEventsData.map(({ date, eventName, numTeams, place, price, time, _id, user, winningPrize }) => (
                                             <div className="row mb-4" key={_id} onClick={() => handleEditEvent({ _id, eventName, place, date, time, price, numTeams, user, winningPrize })}>
                                                 <div className="col-md-4">
@@ -244,109 +231,143 @@ export default function OrganizerDash() {
                                                             <i className="bi bi-clock-fill me-2"></i>
                                                             <span>{time}</span>
                                                         </div>
-                                                    </div>
-                                                    <div className="row">
                                                         <div className="col-6 d-flex align-items-center mb-2">
                                                             <i className="bi bi-geo-alt-fill me-2"></i>
                                                             <span>{place}</span>
                                                         </div>
                                                         <div className="col-6 d-flex align-items-center mb-2">
-                                                            <i className="bi bi-currency-dollar me-2"></i>
-                                                            <span>{price}</span>
-                                                        </div>
-                                                    </div>
-                                                    <div className="row">
-                                                        <div className="col-6 d-flex align-items-center mb-2">
                                                             <i className="bi bi-people-fill me-2"></i>
-                                                            <span>{numTeams} / {numTeams}</span>
+                                                            <span>{numTeams} Teams</span>
                                                         </div>
                                                         <div className="col-6 d-flex align-items-center mb-2">
-                                                            <i className="bi bi-person-fill me-2"></i>
-                                                            <span>{user?.firstName}</span>
+                                                            <i className="bi bi-currency-dollar me-2"></i>
+                                                            <span>{price} INR</span>
+                                                        </div>
+                                                        <div className="col-6 d-flex align-items-center mb-2">
+                                                            <i className="bi bi-trophy-fill me-2"></i>
+                                                            <span>{winningPrize} INR Prize</span>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         ))
+                                    ) : (
+                                        <div className="text-center mt-4">
+                                            <p>No events found. Click on "Create Event" to add a new event.</p>
+                                        </div>
                                     )}
-                                </div>
-                            </div>
-                            <div className="card mt-4">
-                                <div className="card-body">
-                                    <h5 className="card-title">Upload Event</h5>
-                                    <Button variant="primary" onClick={handleShow}>
-                                        <i className="bi bi-ticket-fill me-2"></i>
-                                        Upload Event
-                                    </Button>
+                                    <div className="text-center mt-4">
+                                        <Button variant="primary" onClick={handleShow}>Create Event</Button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div className="col-lg-4">
-                            <div className="card">
-                                <div className="card-body">
-                                    <h5 className="card-title">Event Stats</h5>
-                                    <p className="card-text">Track your event stats and manage them efficiently.</p>
-                                    <Link to="#" className="btn btn-primary">
-                                        <i className="bi bi-bar-chart-fill me-2"></i>
-                                        View Stats
-                                    </Link>
-                                </div>
-                            </div>
+                            <h5 className="mb-3">Statistics</h5>
+                            <ul className="list-group mb-4">
+                                <li className="list-group-item d-flex justify-content-between align-items-center">
+                                    Total Events
+                                    <span className="badge bg-primary rounded-pill">{myEventsData.length}</span>
+                                </li>
+                                <li className="list-group-item d-flex justify-content-between align-items-center">
+                                    Total Teams Participated
+                                    <span className="badge bg-primary rounded-pill">{myEventsData.reduce((total, event) => total + event.numTeams, 0)}</span>
+                                </li>
+                                <li className="list-group-item d-flex justify-content-between align-items-center">
+                                    Total Prize Money
+                                    <span className="badge bg-primary rounded-pill">{myEventsData.reduce((total, event) => total + event.winningPrize, 0)} INR</span>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
-
-            {/* Modal for Event Creation/Update */}
             <Modal show={showModal} onHide={handleClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>{selectedEvent ? 'Edit Event' : 'Create New Event'}</Modal.Title>
+                    <Modal.Title>{selectedEvent ? 'Edit Event' : 'Create Event'}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Form onSubmit={selectedEvent ? handleUpdateEvent : handleSaveChanges}>
-                        <Form.Group className="mb-3" controlId="eventName">
+                        <Form.Group className="mb-3" controlId="formEventName">
                             <Form.Label>Event Name</Form.Label>
-                            <Form.Control type="text" placeholder="Enter event name" value={eventName} onChange={(e) => setEventName(e.target.value)} required />
+                            <Form.Control
+                                type="text"
+                                placeholder="Enter event name"
+                                value={eventName}
+                                onChange={(e) => setEventName(e.target.value)}
+                                required
+                            />
                         </Form.Group>
-                        <Form.Group className="mb-3" controlId="place">
+                        <Form.Group className="mb-3" controlId="formPlace">
                             <Form.Label>Place</Form.Label>
-                            <Form.Control type="text" placeholder="Enter place" value={place} onChange={(e) => setPlace(e.target.value)} required />
+                            <Form.Control
+                                type="text"
+                                placeholder="Enter place"
+                                value={place}
+                                onChange={(e) => setPlace(e.target.value)}
+                                required
+                            />
                         </Form.Group>
-                        <Form.Group className="mb-3" controlId="date">
+                        <Form.Group className="mb-3" controlId="formDate">
                             <Form.Label>Date</Form.Label>
-                            <Form.Control type="date" placeholder="Enter date" value={date} onChange={(e) => setDate(e.target.value)} required />
+                            <Form.Control
+                                type="date"
+                                value={date}
+                                onChange={(e) => setDate(e.target.value)}
+                                required
+                            />
                         </Form.Group>
-                        <Form.Group className="mb-3" controlId="time">
+                        <Form.Group className="mb-3" controlId="formTime">
                             <Form.Label>Time</Form.Label>
-                            <Form.Control type="time" placeholder="Enter time" value={time} onChange={(e) => setTime(e.target.value)} required />
+                            <Form.Control
+                                type="time"
+                                value={time}
+                                onChange={(e) => setTime(e.target.value)}
+                                required
+                            />
                         </Form.Group>
-                        <Form.Group className="mb-3" controlId="price">
-                            <Form.Label>Price</Form.Label>
-                            <Form.Control type="number" placeholder="Enter price" value={price} onChange={(e) => setPrice(e.target.value)} required />
+                        <Form.Group className="mb-3" controlId="formPrice">
+                            <Form.Label>Price (INR)</Form.Label>
+                            <Form.Control
+                                type="number"
+                                placeholder="Enter price"
+                                value={price}
+                                onChange={(e) => setPrice(e.target.value)}
+                                required
+                            />
                         </Form.Group>
-                        <Form.Group className="mb-3" controlId="numTeams">
+                        <Form.Group className="mb-3" controlId="formNumTeams">
                             <Form.Label>Number of Teams</Form.Label>
-                            <Form.Control type="number" placeholder="Enter number of teams" value={numTeams} onChange={(e) => setNumTeams(e.target.value)} required />
+                            <Form.Control
+                                type="number"
+                                placeholder="Enter number of teams"
+                                value={numTeams}
+                                onChange={(e) => setNumTeams(e.target.value)}
+                                required
+                            />
                         </Form.Group>
-                        <Form.Group className="mb-3" controlId="winningPrize">
-                            <Form.Label>Winning Prize</Form.Label>
-                            <Form.Control type="number" placeholder="Enter winning prize" value={winningPrize} onChange={(e) => setWinningPrize(e.target.value)} required />
+                        <Form.Group className="mb-3" controlId="formWinningPrize">
+                            <Form.Label>Winning Prize (INR)</Form.Label>
+                            <Form.Control
+                                type="number"
+                                placeholder="Enter winning prize"
+                                value={winningPrize}
+                                onChange={(e) => setWinningPrize(e.target.value)}
+                                required
+                            />
                         </Form.Group>
-                        <Button variant="primary" type="submit">
-                            {selectedEvent ? 'Update Event' : 'Create Event'}
-                        </Button>
-                        {selectedEvent && (
-                            <Button variant="danger" className="ms-2" onClick={handleDeleteEvent}>
-                                Delete Event
+                        <div className="d-grid gap-2">
+                            <Button variant="primary" type="submit" disabled={loading}>
+                                {loading ? 'Saving...' : selectedEvent ? 'Update Event' : 'Create Event'}
                             </Button>
-                        )}
+                            {selectedEvent && (
+                                <Button variant="danger" onClick={handleDeleteEvent} disabled={loading}>
+                                    {loading ? 'Deleting...' : 'Delete Event'}
+                                </Button>
+                            )}
+                        </div>
                     </Form>
                 </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-                        Close
-                    </Button>
-                </Modal.Footer>
             </Modal>
         </Layout>
     );

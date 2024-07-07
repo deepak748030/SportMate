@@ -9,14 +9,18 @@ const eventSchema = new mongoose.Schema({
     eventName: { type: String, required: true },
     place: { type: String, required: true },
     date: { type: String, required: true },
-    time: { type: String, required: true },  // Add time field
-    price: { type: Number, required: true }, // Change to Number
-    numTeams: { type: Number, required: true }, // Change to Number
-    winningPrize: { type: Number, required: true }, // Change to Number
+    time: { type: String, required: true },
+    price: { type: Number, required: true },
+    numTeams: { type: Number, required: true },
+    winningPrize: { type: Number, required: true },
     accepted: {
         type: Boolean,
         default: false
-    }
+    },
+    participants: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }]
 }, {
     timestamps: true,
 });

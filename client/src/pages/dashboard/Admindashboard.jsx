@@ -72,7 +72,7 @@ const AdminDashboard = () => {
     // Accept event
     const acceptEvent = async (id) => {
         try {
-            const res = await axios.put(`${apiUrl}/events/${id}`);
+            const res = await axios.put(`${apiUrl}/accept/${id}`);
             if (res) {
                 toast.success('Event accepted');
                 getEventData();

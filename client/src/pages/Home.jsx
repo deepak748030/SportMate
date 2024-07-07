@@ -2,11 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Layout from '../components/layouts/Layout';
-import './Home.css'; 
-
+import './Home.css';
+import { useAuth } from '../context/auth';
 
 function Home() {
-
+    const [auth] = useAuth();
     const avimg = true;
 
     return (
@@ -22,7 +22,7 @@ function Home() {
                                     Discover a seamless platform to create, manage, and promote your volleyball events at competitive rates.
                                 </p>
                                 <div className="d-flex gap-2 mb-3">
-                                    <Link to="/login" className="btn btn-warning">
+                                    <Link to={auth?.user ? '/user' : '/login'} className="btn btn-warning">
                                         Get Started Today!
                                     </Link>
                                     <Link to="/volleyball" className="btn btn-outline-warning">
@@ -64,35 +64,35 @@ function Home() {
                             </div>
                             <div className="col-md-4">
                                 <div className=" p-3 rounded shadow-sm card" >
-                                <div className="badge   m-3 pt-2 pb-2 ps-4 pe-4"><h6 className="h5 ">Class Scheduling</h6></div>
+                                    <div className="badge   m-3 pt-2 pb-2 ps-4 pe-4"><h6 className="h5 ">Class Scheduling</h6></div>
                                     <h3 className="h5">Streamline scheduling and registration</h3>
                                     <p className="text-muted">For your volleyball classes and clinics.</p>
                                 </div>
                             </div>
                             <div className="col-md-4">
                                 <div className=" p-3 rounded shadow-sm card">
-                                <div className="badge   m-3 pt-2 pb-2 ps-4 pe-4"><h6 className="h5 ">Event Organization</h6></div>
+                                    <div className="badge   m-3 pt-2 pb-2 ps-4 pe-4"><h6 className="h5 ">Event Organization</h6></div>
                                     <h3 className="h5">Effortlessly create and manage events</h3>
                                     <p className="text-muted">From tournaments to leagues.</p>
                                 </div>
                             </div>
                             <div className="col-md-4">
                                 <div className=" p-3 rounded shadow-sm card">
-                                <div className="badge   m-3 pt-2 pb-2 ps-4 pe-4"><h6 className="h5 ">Competitive Rates</h6></div>
+                                    <div className="badge   m-3 pt-2 pb-2 ps-4 pe-4"><h6 className="h5 ">Competitive Rates</h6></div>
                                     <h3 className="h5">Enjoy our competitive pricing</h3>
                                     <p className="text-muted">To maximize your budget.</p>
                                 </div>
                             </div>
                             <div className="col-md-4">
                                 <div className=" p-3 rounded shadow-sm card">
-                                <div className="badge   m-3 pt-2 pb-2 ps-4 pe-4"><h6 className="h5 ">Participant Engagement</h6></div>
+                                    <div className="badge   m-3 pt-2 pb-2 ps-4 pe-4"><h6 className="h5 ">Participant Engagement</h6></div>
                                     <h3 className="h5">Engage your participants</h3>
                                     <p className="text-muted">With features like online registration and real-time leaderboards.</p>
                                 </div>
                             </div>
                             <div className="col-md-4">
                                 <div className=" p-3 rounded shadow-sm card">
-                                <div className="badge   m-3 pt-2 pb-2 ps-4 pe-4"><h6 className="h5 ">Reporting and Analytics</h6></div>
+                                    <div className="badge   m-3 pt-2 pb-2 ps-4 pe-4"><h6 className="h5 ">Reporting and Analytics</h6></div>
                                     <h3 className="h5">Gain valuable insights</h3>
                                     <p className="text-muted">Into your volleyball events with comprehensive reporting.</p>
                                 </div>
@@ -109,7 +109,7 @@ function Home() {
                             event to your community.
                         </p>
                         <div className="d-flex justify-content-center gap-2">
-                            <Link to="/login" className="btn btn-warning">
+                            <Link to={auth?.user ? '/user' : '/login'} className="btn btn-warning">
                                 Create Event
                             </Link>
                             <Link to="/volleyball" className="btn btn-outline-warning">
@@ -129,21 +129,21 @@ function Home() {
                         <div className="row gx-4">
                             <div className="col-md-4">
                                 <div className="p-3 rounded shadow-sm card">
-                                <div className="badge m-3 pt-2 pb-2 ps-4 pe-4"><h6 className="h5">User-Friendly</h6></div>
+                                    <div className="badge m-3 pt-2 pb-2 ps-4 pe-4"><h6 className="h5">User-Friendly</h6></div>
                                     <h3 className="h5">Easy to Use</h3>
                                     <p className="text-muted">Our intuitive interface makes it easy to create and manage events.</p>
                                 </div>
                             </div>
                             <div className="col-md-4">
                                 <div className=" p-3 rounded shadow-sm card">
-                                <div className="badge   m-3 pt-2 pb-2 ps-4 pe-4"><h6 className="h5">Comprehensive</h6></div>
+                                    <div className="badge   m-3 pt-2 pb-2 ps-4 pe-4"><h6 className="h5">Comprehensive</h6></div>
                                     <h3 className="h5">All-In-One Solution</h3>
                                     <p className="text-muted">From event creation to management, we have all the tools you need.</p>
                                 </div>
                             </div>
                             <div className="col-md-4">
                                 <div className=" p-3 rounded shadow-sm card">
-                                <div className="badge   m-3 pt-2 pb-2 ps-4 pe-4"><h6 className="h5">Support</h6></div>
+                                    <div className="badge   m-3 pt-2 pb-2 ps-4 pe-4"><h6 className="h5">Support</h6></div>
                                     <h3 className="h5">24/7 Support</h3>
                                     <p className="text-muted">Our team is here to help you at any time with any issues you may face.</p>
                                 </div>
