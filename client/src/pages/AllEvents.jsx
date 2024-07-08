@@ -30,24 +30,19 @@ export default function AllEvents() {
         getEventData();
     }, []);
 
-    const handleEditEvent = (event) => {
-        // Handle event edit logic here
-        console.log("Editing event:", event);
-    };
 
     const handleJoinEvent = async (event) => {
-        const userId = "your-user-id"; // Replace with the actual user ID
         try {
             const res = await axios.post(`${apiUrl}/users/${auth?.user?._id}/join/${event._id}`);
             if (res?.data) {
                 toast.success('Joined event successfully');
                 getEventData();
             } else {
-                toast.error('Error joining event');
+                toast.error('Already joined event');
             }
         } catch (error) {
             console.error(error);
-            toast.error('Error joining event');
+            toast.error('Already joined event');
         }
     };
 
@@ -60,6 +55,9 @@ export default function AllEvents() {
             <div className="container-fluid bg-light p-4 md:p-8 lg:p-12">
                 <div className="container">
                     <div className="row">
+                        <div className="col-12 mb-4">
+                            <h1 className="text-center">All Events</h1>
+                        </div>
                         <div className="col-lg-8 col-sm-12 mb-4">
                             {eventData.length === 0 ? (
                                 <div className="text-center">
@@ -118,7 +116,6 @@ export default function AllEvents() {
                                 ))
                             )}
                         </div>
-                        {/* Removed Quick Links section */}
                     </div>
                 </div>
             </div>

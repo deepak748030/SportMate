@@ -31,13 +31,32 @@ const createEvent = async (req, res) => {
 
 
 const getEventById = async (req, res) => {
-    const userId = req.params.id; // Assuming you're passing user ID as a parameter
+    const userId = req.params.id;
+
     try {
         const events = await Event.find({ user: userId }).populate('user', 'firstName lastName email');
+        // console.log(events)
         if (!events || events.length === 0) {
             return res.status(404).json({ message: 'No events found for this user' });
         }
         res.json(events);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+
+const getEventByUserId = async (req, res) => {
+    const userId = req.params.id;
+
+    try {
+        const events = await Event.findById(userId).populate('participants', 'firstName lastName email phoneNumber email');
+        // console.log(events)
+        if (!events || events.user.length === 0) {
+            return res.status(404).json({ message: 'No events user' });
+        }
+
+        res.json(events.participants);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -131,5 +150,6 @@ module.exports = {
     updateEvent,
     deleteEvent,
     getApprovedEvents,
-    acceptEvent
+    acceptEvent,
+    getEventByUserId
 };

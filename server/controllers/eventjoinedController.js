@@ -6,16 +6,30 @@ const Event = require('../models/organizerModel');
 // Join an event
 const joinEvent = async (req, res) => {
     const { userId, eventId } = req.params;
+    console.log(req.params);
 
     try {
         const user = await User.findById(userId);
         const event = await Event.findById(eventId);
 
-        if (!user || !event) {
-            return res.status(404).json({ message: 'User or Event not found' });
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
         }
 
-        if (user.joinedEvents.includes(eventId) || event.joinedEvents.includes(userId)) {
+        if (!event) {
+            return res.status(404).json({ message: 'Event not found' });
+        }
+
+        // Initialize joinedEvents and participants arrays if they are undefined
+        if (!user.joinedEvents) {
+            user.joinedEvents = [];
+        }
+
+        if (!event.participants) {
+            event.participants = [];
+        }
+
+        if (user.joinedEvents.includes(eventId) || event.participants.includes(userId)) {
             return res.status(400).json({ message: 'User already joined this event' });
         }
 
@@ -34,6 +48,7 @@ const joinEvent = async (req, res) => {
         });
     }
 };
+
 
 
 const getAllJoinEvents = async (req, res) => {

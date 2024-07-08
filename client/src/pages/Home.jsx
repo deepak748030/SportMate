@@ -22,7 +22,7 @@ function Home() {
                                     Discover a seamless platform to create, manage, and promote your volleyball events at competitive rates.
                                 </p>
                                 <div className="d-flex gap-2 mb-3">
-                                    <Link to={auth?.user ? '/user' : '/login'} className="btn btn-warning">
+                                    <Link to={auth?.user ? '/events' : '/login'} className="btn btn-warning">
                                         Get Started Today!
                                     </Link>
                                     <Link to="/volleyball" className="btn btn-outline-warning">
@@ -109,10 +109,10 @@ function Home() {
                             event to your community.
                         </p>
                         <div className="d-flex justify-content-center gap-2">
-                            <Link to={auth?.user ? '/user' : '/login'} className="btn btn-warning">
+                            <Link to={auth?.user ? '/users' : '/login'} className="btn btn-warning">
                                 Create Event
                             </Link>
-                            <Link to="/volleyball" className="btn btn-outline-warning">
+                            <Link to="/events" className="btn btn-outline-warning">
                                 View Events
                             </Link>
                         </div>

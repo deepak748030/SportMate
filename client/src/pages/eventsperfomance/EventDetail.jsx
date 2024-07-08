@@ -17,19 +17,18 @@ export default function EventDetail() {
     useEffect(() => {
         const fetchEvents = async () => {
             try {
-                const userId = auth?.user?._id;
-                if (userId) {
-                    console.log(userId);
-                    const res = await axios.get(`${apiUrl}/events/${userId}`);
+                if (auth?.user?._id) {
+                    const res = await axios.get(`${apiUrl}/events/${auth?.user?._id}`);
+                    // console.log(res?.data)
                     if (res?.data?.length) {
                         setEvents(res.data);
                     } else {
-                        toast.error('No events found');
+                        toast.error(res?.data?.message);
                     }
                 }
             } catch (error) {
                 console.error('Error fetching events:', error);
-                toast.error('Error fetching events');
+                // toast.error('Error fetching events');
             } finally {
                 setLoading(false);
             }
@@ -64,6 +63,7 @@ export default function EventDetail() {
         <Layout>
             <div className="container-fluid bg-light p-4 md:p-8 lg:p-12">
                 <div className="container">
+                    <h1 className="display-4 text-center mb-4">Event Details</h1>
                     {events.map(event => (
                         <div className="card mb-4" key={event._id}>
                             <div className="card-body" onClick={() => { navigate(`/event/${event._id}`) }} >
@@ -79,7 +79,7 @@ export default function EventDetail() {
                                         />
                                     </div>
                                     <div className="col-md-8">
-                                        <div className="row">
+                                        <div className="row my-3">
                                             <div className="col-6 d-flex align-items-center mb-2">
                                                 <i className="bi bi-calendar-fill me-2"></i>
                                                 <span>{event.date ? event.date.slice(0, 10) : 'Date not available'}</span>
@@ -104,10 +104,7 @@ export default function EventDetail() {
                                                 <i className="bi bi-trophy-fill me-2"></i>
                                                 <span>{event.winningPrize ? `${event.winningPrize} INR Prize` : 'Prize not available'}</span>
                                             </div>
-                                            <div className="col-12 d-flex align-items-center mb-2">
-                                                <i className="bi bi-person-fill me-2"></i>
-                                                <span>{`${event.user.firstName} ${event.user.lastName} (${event.user.email})`}</span>
-                                            </div>
+
                                         </div>
                                     </div>
                                 </div>

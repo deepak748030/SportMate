@@ -1,72 +1,81 @@
 import React, { Suspense, lazy } from 'react';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Spinner from './components/Spinner';
+import AdminRoute from './routes/AdminRoute';
+import PrivateRoute from './routes/PrivateRoute';
 
 const Home = lazy(() => import('./pages/Home'));
 const Sports = lazy(() => import('./pages/Sports'));
 const Signup = lazy(() => import('./pages/Auth/SignUp'));
 const Login = lazy(() => import('./pages/Auth/Login'));
-import Spinner from './components/Spinner';
-import Users from './pages/Users';
-import CreateTeam from './pages/CreateTeam';
-import ForgotPassword from './pages/Auth/ForgotPassword';
-import Profile from './pages/Profile'
-import Error from './pages/Error';
-import Singlechat from './pages/chatpage/Singlechat';
-import AdminDashboard from './pages/dashboard/Admindashboard';
-import UserDash from './pages/dashboard/UserDash';
-import Subscription from './pages/subscription/Subscription';
-import FeedbackForm from './pages/feedback/FeedbackForm';
-import OrganizerDash from './pages/dashboard/OrganizerDash';
-import AdminRoute from './routes/AdminRoute.jsx'
-import PrivateRoute from './routes/PrivateRoute.jsx';
-import RecordStats from './pages/records/RecordStats.jsx';
-import PerformanceReport from './pages/records/PerformanceReport.jsx';
-import EventDetail from './pages/events/EventDetail.jsx';
-import EventSingle from './pages/events/EventSingle.jsx';
-import AllEvents from './pages/AllEvents.jsx';
+const ForgotPassword = lazy(() => import('./pages/Auth/ForgotPassword'));
+const Users = lazy(() => import('./pages/Users'));
+const CreateTeam = lazy(() => import('./pages/CreateTeam'));
+const Profile = lazy(() => import('./pages/Profile'));
+const Singlechat = lazy(() => import('./pages/chatpage/Singlechat'));
+const AdminDashboard = lazy(() => import('./pages/dashboard/Admindashboard'));
+const UserDash = lazy(() => import('./pages/dashboard/UserDash'));
+const Subscription = lazy(() => import('./pages/subscription/Subscription'));
+const FeedbackForm = lazy(() => import('./pages/feedback/FeedbackForm'));
+const OrganizerDash = lazy(() => import('./pages/dashboard/OrganizerDash'));
+const RecordStats = lazy(() => import('./pages/records/RecordStats'));
+const PerformanceReport = lazy(() => import('./pages/records/PerformanceReport'));
+const EventDetail = lazy(() => import('./pages/eventsperfomance/EventDetail'));
+const EventSingle = lazy(() => import('./pages/eventsperfomance/EventSingle'));
+const AllEvents = lazy(() => import('./pages/AllEvents'));
+const ErrorPage = lazy(() => import('./pages/Error'));
 
 function App() {
   return (
     <Router>
-      <Suspense fallback={
-        <Spinner />
-      }>
+      <Suspense fallback={<Spinner />}>
         <Routes>
+          {/* Public Routes */}
           <Route path="/" element={<Home />} />
           <Route path="/sports" element={<Sports />} />
-          <Route path="/stats" element={<RecordStats />} />
-          <Route path="/report" element={<PerformanceReport />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/user" element={<Users />} />
-          <Route path="/user/createteam" element={<CreateTeam />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/events" element={<AllEvents />} />
+
+          <Route path="/events/detail" element={<EventDetail />} />
+          <Route path="/event/:eventId" element={<EventSingle />} />
+
+          <Route path="/users" element={<Users />} />
+          <Route path="/create-team" element={<CreateTeam />} />
           <Route path="/chat" element={<Singlechat />} />
           {/* <Route path="/chat/:id" element={<Singlechat />} /> */}
-          <Route path="/volleyball" element={<AllEvents />} />
-          <Route path="/dash" element={<AdminRoute />}>
-            <Route index element={<AdminDashboard />} />
-          </Route>
-          <Route path="/admin" element={<AdminDashboard />} />
 
-          <Route path="/events" element={<EventDetail />} />
-          <Route path="/event/:eventId" element={<EventSingle />} />
-          <Route path="/events/:eventId/:playerId" element={<Users />} />
-
+          {/* Private Routes */}
           <Route path="/profile" element={<PrivateRoute />}>
             <Route index element={<Profile />} />
           </Route>
+          <Route path="/user-dashboard" element={<PrivateRoute />}>
+            <Route index element={<UserDash />} />
+          </Route>
+          <Route path="/subscription" element={<PrivateRoute />}>
+            <Route index element={<Subscription />} />
+          </Route>
+          <Route path="/feedback" element={<PrivateRoute />}>
+            <Route index element={<FeedbackForm />} />
+          </Route>
+          <Route path="/organizer-dashboard" element={<PrivateRoute />}>
+            <Route index element={<OrganizerDash />} />
+          </Route>
+          <Route path="/record-stats" element={<PrivateRoute />}>
+            <Route index element={<RecordStats />} />
+          </Route>
+          <Route path="/performance-report" element={<PrivateRoute />}>
+            <Route index element={<PerformanceReport />} />
+          </Route>
 
+          {/* Admin Routes */}
+          <Route path="/admin-dashboard" element={<AdminRoute />}>
+            <Route index element={<AdminDashboard />} />
+          </Route>
 
-
-
-
-          <Route path="/main" element={<UserDash />} />
-          <Route path="/sub" element={<Subscription />} />
-          <Route path="/feed" element={<FeedbackForm />} />
-          <Route path="/org" element={<OrganizerDash />} />
-          <Route path="/*" element={<Error />} />
-
+          {/* Catch-all Route */}
+          <Route path="*" element={<ErrorPage />} />
         </Routes>
       </Suspense>
     </Router>
