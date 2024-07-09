@@ -6,8 +6,10 @@ import { Spinner, Modal } from 'react-bootstrap';
 import axios from 'axios';
 import apiUrl from '../../api/config';
 import { toast } from 'react-toastify';
+import { useAuth } from '../../context/auth';
 
 const EventSingle = () => {
+    const [auth] = useAuth();
     const navigate = useNavigate();
     const { eventId } = useParams();
     const [participants, setParticipants] = useState(null);
@@ -83,7 +85,7 @@ const EventSingle = () => {
     // Handle statistics input changes
     const handleStatChange = (e) => {
         const { name, value } = e.target;
-        const [category, statField] = name.split('.'); // e.g., 'attack', 'kills'
+        const [category, statField] = name.split('.');
 
         setFormData({
             ...formData,
@@ -97,13 +99,24 @@ const EventSingle = () => {
     // Handle form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log(selectedParticipant._id,
+            eventId, formData)
         try {
-            const res = await axios.post(`${apiUrl}/stats/create`, formData);
-            console.log(res.data);
-            // Handle success or navigate to another page
+            if (auth?.user?._id) {
+                const res = await axios.post(`${apiUrl}/stats/record`, {
+                    playerId: auth?.user?._id,
+                    eventId,
+                    stats: formData
+                });
+
+                console.log(res.data);
+                toast.success('Stats recorded successfully');
+                handleCloseModal(); // Close modal after successful submission or navigate to another page
+            }
+
         } catch (error) {
             console.error('Error saving stats:', error);
-            // Handle error
+            toast.error('Error saving stats');
         }
     };
 
@@ -139,7 +152,7 @@ const EventSingle = () => {
                             <div className="row">
                                 {participants.map(participant => (
                                     <div key={participant._id} className="col-md-4 mb-3">
-                                        <div className="card h-100" onClick={() => handleOpenModal(participant)}>
+                                        <div className="card h-100">
                                             <img
                                                 src="https://via.placeholder.com/150"
                                                 alt="User"
@@ -158,6 +171,22 @@ const EventSingle = () => {
                                                     <i className="bi bi-phone-fill me-2"></i>
                                                     {participant.phoneNumber}
                                                 </p>
+                                                <div className='d-flex'>
+                                                    <button
+                                                        className="btn btn-primary "
+                                                        onClick={() => handleOpenModal(participant)}
+                                                    >
+                                                        Fill Stats
+                                                    </button>
+                                                    <button
+                                                        className="btn btn-primary mx-2"
+                                                        onClick={() => navigate(`/stats/${auth?.user?._id}/${eventId}`)}
+                                                    >
+                                                        View Stats
+                                                    </button>
+
+                                                </div>
+
                                             </div>
                                         </div>
                                     </div>
@@ -174,9 +203,8 @@ const EventSingle = () => {
                     <Modal.Title>Enter Player Statistics</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-
                     <form onSubmit={handleSubmit}>
-
+                        {/* Attacks Statistics */}
                         <div className="mb-3">
                             <label htmlFor="kills" className="form-label">Kills</label>
                             <input
@@ -202,7 +230,7 @@ const EventSingle = () => {
                             />
                         </div>
 
-
+                        {/* Setting Statistics */}
                         <div className="mb-3">
                             <label htmlFor="assists" className="form-label">Assists</label>
                             <input
@@ -228,7 +256,7 @@ const EventSingle = () => {
                             />
                         </div>
 
-
+                        {/* Serving Statistics */}
                         <div className="mb-3">
                             <label htmlFor="serviceAces" className="form-label">Service Aces</label>
                             <input
@@ -254,7 +282,7 @@ const EventSingle = () => {
                             />
                         </div>
 
-
+                        {/* Passing Statistics */}
                         <div className="mb-3">
                             <label htmlFor="receptionErrors" className="form-label">Reception Errors</label>
                             <input
@@ -280,7 +308,7 @@ const EventSingle = () => {
                             />
                         </div>
 
-
+                        {/* Defense Statistics */}
                         <div className="mb-3">
                             <label htmlFor="digs" className="form-label">Digs</label>
                             <input
@@ -294,7 +322,7 @@ const EventSingle = () => {
                             />
                         </div>
 
-
+                        {/* Blocking Statistics */}
                         <div className="mb-3">
                             <label htmlFor="blockSolos" className="form-label">Block Solos</label>
                             <input
@@ -332,7 +360,7 @@ const EventSingle = () => {
                             />
                         </div>
 
-
+                        {/* Miscellaneous Statistics */}
                         <div className="mb-3">
                             <label htmlFor="points" className="form-label">Points</label>
                             <input
@@ -348,7 +376,6 @@ const EventSingle = () => {
 
                         <button type="submit" className="btn btn-primary">Save Stats</button>
                     </form>
-
                 </Modal.Body>
             </Modal>
         </Layout>

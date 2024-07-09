@@ -19,7 +19,6 @@ export default function EventDetail() {
             try {
                 if (auth?.user?._id) {
                     const res = await axios.get(`${apiUrl}/events/${auth?.user?._id}`);
-                    // console.log(res?.data)
                     if (res?.data?.length) {
                         setEvents(res.data);
                     } else {

@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Spinner from './components/Spinner';
 import AdminRoute from './routes/AdminRoute';
 import PrivateRoute from './routes/PrivateRoute';
+import Stats from '../stats/Stats';
 
 const Home = lazy(() => import('./pages/Home'));
 const Sports = lazy(() => import('./pages/Sports'));
@@ -31,6 +32,7 @@ function App() {
       <Suspense fallback={<Spinner />}>
         <Routes>
           {/* Public Routes */}
+          <Route path="/stats/:playerId/:eventId" element={<Stats />} />
           <Route path="/" element={<Home />} />
           <Route path="/sports" element={<Sports />} />
           <Route path="/signup" element={<Signup />} />

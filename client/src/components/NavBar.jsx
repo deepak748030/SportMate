@@ -62,11 +62,23 @@ const Navbar = () => {
                                     </li>
                                 )}
                                 {auth?.user?.role === 'organizer' && (
-                                    <li className="nav-item">
-                                        <Link className="nav-link" to="/organizer-dashboard">
-                                            Organizer Dashboard
-                                        </Link>
-                                    </li>
+                                    <>
+                                        <li className="nav-item">
+
+                                            <Link className="nav-link" to="/events/detail">
+                                                Events Performance
+                                            </Link>
+
+                                        </li>
+                                        <li className="nav-item">
+                                            <Link className="nav-link" to="/organizer-dashboard">
+                                                Organizer Dashboard
+                                            </Link>
+                                        </li>
+                                    </>
+
+
+
                                 )}
                                 {auth?.user?.role === 'player' && (
                                     <li className="nav-item">

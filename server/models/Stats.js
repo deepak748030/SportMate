@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const statsSchema = new mongoose.Schema({
-    player: { type: mongoose.Schema.Types.ObjectId, ref: 'Player', required: true },
+    player: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
     event: { type: mongoose.Schema.Types.ObjectId, ref: 'Event', required: true },
     attack: {
         kills: { type: Number, default: 0 },
