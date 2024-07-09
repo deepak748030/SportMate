@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Spinner from './components/Spinner';
 import AdminRoute from './routes/AdminRoute';
 import PrivateRoute from './routes/PrivateRoute';
-import Stats from '../stats/Stats';
+import Stats from './stats/Stats';
 
 const Home = lazy(() => import('./pages/Home'));
 const Sports = lazy(() => import('./pages/Sports'));

@@ -4,7 +4,8 @@ import { Bar, Line } from 'react-chartjs-2';
 import 'chart.js/auto';
 import { useParams } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import apiUrl from '../src/api/config';
+import apiUrl from '../api/config';
+import Layout from '../components/layouts/Layout'
 
 const Stats = () => {
     const { playerId, eventId } = useParams();
@@ -121,53 +122,55 @@ const Stats = () => {
     };
 
     return (
-        <div className="container">
-            <h2 className="text-center mb-4">Player Statistics</h2>
-            <div className="row">
-                <div className="col-lg-6">
-                    <div className="chart-container">
-                        <h3>Attack Stats</h3>
-                        <Bar data={attackData} />
+        <Layout>
+            <div className="container my-4">
+                <h2 className="text-center mb-4">Player Statistics</h2>
+                <div className="row">
+                    <div className="col-lg-6">
+                        <div className="chart-container my-3 ">
+                            <h3>Attack Stats</h3>
+                            <Bar data={attackData} />
+                        </div>
                     </div>
-                </div>
-                <div className="col-lg-6">
-                    <div className="chart-container">
-                        <h3>Setting Stats</h3>
-                        <Line data={settingData} />
+                    <div className="col-lg-6">
+                        <div className="chart-container my-3">
+                            <h3>Setting Stats</h3>
+                            <Line data={settingData} />
+                        </div>
                     </div>
-                </div>
-                <div className="col-lg-6">
-                    <div className="chart-container">
-                        <h3>Serving Stats</h3>
-                        <Bar data={servingData} />
+                    <div className="col-lg-6">
+                        <div className="chart-container my-3">
+                            <h3>Serving Stats</h3>
+                            <Bar data={servingData} />
+                        </div>
                     </div>
-                </div>
-                <div className="col-lg-6">
-                    <div className="chart-container">
-                        <h3>Passing Stats</h3>
-                        <Line data={passingData} />
+                    <div className="col-lg-6">
+                        <div className="chart-container my-3">
+                            <h3>Passing Stats</h3>
+                            <Line data={passingData} />
+                        </div>
                     </div>
-                </div>
-                <div className="col-lg-6">
-                    <div className="chart-container">
-                        <h3>Defense Stats</h3>
-                        <Bar data={defenseData} />
+                    <div className="col-lg-6">
+                        <div className="chart-container my-3">
+                            <h3>Defense Stats</h3>
+                            <Bar data={defenseData} />
+                        </div>
                     </div>
-                </div>
-                <div className="col-lg-6">
-                    <div className="chart-container">
-                        <h3>Blocking Stats</h3>
-                        <Line data={blockingData} />
+                    <div className="col-lg-6">
+                        <div className="chart-container my-3">
+                            <h3>Blocking Stats</h3>
+                            <Line data={blockingData} />
+                        </div>
                     </div>
-                </div>
-                <div className="col-lg-6">
-                    <div className="chart-container">
-                        <h3>Miscellaneous Stats</h3>
-                        <Bar data={miscData} />
+                    <div className="col-lg-6">
+                        <div className="chart-container my-3">
+                            <h3>Miscellaneous Stats</h3>
+                            <Bar data={miscData} />
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </Layout>
     );
 };
 

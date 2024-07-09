@@ -44,7 +44,7 @@ function Users() {
                     <div className='col-md-8 col-12 mt-3'>
                         <div className='d-flex justify-content-between align-items-center'>
                             <h2 className='fw-bold fs-md-2'>My Teams</h2>
-                            <button className='btn btn-outline-warning' onClick={() => navigate('/user/createteam')}>Create New Team</button>
+                            <button className='btn btn-outline-warning' onClick={() => navigate('/create-team')}>Create New Team</button>
                         </div>
 
                         {/* Display Teams */}
