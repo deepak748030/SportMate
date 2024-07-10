@@ -20,6 +20,10 @@ const eventSchema = new mongoose.Schema({
     participants: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
+    }],
+    joinedteams: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Team'
     }]
 }, {
     timestamps: true,

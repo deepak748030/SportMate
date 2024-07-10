@@ -4,6 +4,7 @@ const Team = require('../models/Team');
 exports.createTeam = async (req, res) => {
     try {
         const {
+            user,
             teamName,
             clubName,
             sport,
@@ -19,6 +20,7 @@ exports.createTeam = async (req, res) => {
         } = req.body;
 
         const newTeam = new Team({
+            user,
             teamName,
             clubName,
             sport,
@@ -59,7 +61,7 @@ exports.getTeams = async (req, res) => {
 exports.getTeamById = async (req, res) => {
     const { id } = req.params;
     try {
-        const team = await Team.findById(id);
+        const team = await Team.find({ user: id });
         if (!team) {
             return res.status(404).json({ error: 'Team not found' });
         }
@@ -105,3 +107,6 @@ exports.deleteTeamById = async (req, res) => {
         res.status(500).json({ error: 'Server error' });
     }
 };
+
+
+
