@@ -88,10 +88,10 @@ const Subscription = () => {
                                     <div className="d-flex justify-content-between align-items-center">
                                         <div>
                                             <h3 className="h4 fw-bold">Yearly</h3>
-                                            <p className="text-muted">₹10,000 billed annually</p>
+                                            <p className="text-muted">$100 billed annually</p>
                                         </div>
                                         <div className="text-end">
-                                            <p className="h1 fw-bold">₹10,000</p>
+                                            <p className="h1 fw-bold">$100</p>
                                             <p className="text-muted">per year</p>
                                         </div>
                                     </div>
@@ -110,10 +110,10 @@ const Subscription = () => {
                                     <div className="d-flex justify-content-between align-items-center">
                                         <div>
                                             <h3 className="h4 fw-bold">Monthly</h3>
-                                            <p className="text-muted">₹1,000 billed monthly</p>
+                                            <p className="text-muted">$10 billed monthly</p>
                                         </div>
                                         <div className="text-end">
-                                            <p className="h1 fw-bold">₹1,000</p>
+                                            <p className="h1 fw-bold">$10</p>
                                             <p className="text-muted">per month</p>
                                         </div>
                                     </div>

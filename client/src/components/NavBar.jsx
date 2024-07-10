@@ -19,7 +19,7 @@ const Navbar = () => {
         toast.success('Logout success');
         setTimeout(() => {
             navigate('/login');
-        }, 3000);
+        }, 1000);
     };
 
     return (
@@ -42,11 +42,7 @@ const Navbar = () => {
                     <ul className="navbar-nav ms-auto">
                         {auth?.user ? (
                             <>
-                                <li className="nav-item">
-                                    <Link className="nav-link" to="/events">
-                                        All Events
-                                    </Link>
-                                </li>
+
 
                                 <li className="nav-item">
                                     <Link className="nav-link" to="/profile">
@@ -81,14 +77,24 @@ const Navbar = () => {
 
                                 )}
                                 {auth?.user?.role === 'player' && (
-                                    <li className="nav-item">
-                                        <Link className="nav-link" to="/user-dashboard">
-                                            User Dashboard
-                                        </Link>
-                                    </li>
+                                    <>
+                                        <li className="nav-item">
+                                            <Link className="nav-link" to="/events">
+                                                All Events
+                                            </Link>
+                                        </li>
+                                        <li className="nav-item">
+                                            <Link className="nav-link" to="/user-dashboard">
+                                                User Dashboard
+                                            </Link>
+                                        </li>
+                                    </>
+
+
+
                                 )}
                                 <li className="nav-item">
-                                    <Link className="nav-link" to="/users">
+                                    <Link className="nav-link" to="/myteams">
                                         Teams
                                     </Link>
                                 </li>

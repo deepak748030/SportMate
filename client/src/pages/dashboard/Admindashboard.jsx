@@ -235,8 +235,11 @@ const AdminDashboard = () => {
                             <h5 className="card-title">{event?.eventName}</h5>
                             <h6 className="card-subtitle mb-2 text-muted">{event?.date?.slice(0, 10)}</h6>
                             <p className="card-text">Organizer: {event?.user?.firstName}</p>
-                            <button className="btn btn-success btn-sm" onClick={() => acceptEvent(event?._id)}>Approve</button>{' '}
-                            <button className="btn btn-danger btn-sm" onClick={() => deleteEvent(event?._id)}>Decline</button>
+                            <button className="btn btn-success btn-sm" onClick={() => acceptEvent(event?._id)}>
+                                {event?.accepted ? 'Approved' : 'Approve'}</button>{' '}
+                            <button className="btn btn-danger btn-sm" onClick={() => deleteEvent(event?._id)}>
+                                delete
+                            </button>
                         </div>
                     </div>
                 ))

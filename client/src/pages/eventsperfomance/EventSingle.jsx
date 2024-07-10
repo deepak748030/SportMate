@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Layout from '../../components/layouts/Layout';
-import { Spinner, Modal } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
 import axios from 'axios';
 import apiUrl from '../../api/config';
 import { toast } from 'react-toastify';
 import { useAuth } from '../../context/auth';
+import Spinner from '../../components/Spinner'
 
 const EventSingle = () => {
     const [auth] = useAuth();
@@ -99,12 +100,10 @@ const EventSingle = () => {
     // Handle form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(selectedParticipant._id,
-            eventId, formData)
         try {
             if (auth?.user?._id) {
                 const res = await axios.post(`${apiUrl}/stats/record`, {
-                    playerId: auth?.user?._id,
+                    playerId: selectedParticipant._id,
                     eventId,
                     stats: formData
                 });
@@ -124,9 +123,7 @@ const EventSingle = () => {
         return (
             <Layout>
                 <div className="text-center">
-                    <Spinner animation="border" role="status">
-                        <span className="visually-hidden">Loading...</span>
-                    </Spinner>
+                    <Spinner />
                 </div>
             </Layout>
         );
@@ -154,7 +151,7 @@ const EventSingle = () => {
                                     <div key={participant._id} className="col-md-4 mb-3">
                                         <div className="card h-100">
                                             <img
-                                                src="https://via.placeholder.com/150"
+                                                src={'https://media.istockphoto.com/id/1904589046/photo/two-adult-football-players-running-and-kicking-a-soccer-ball-legs-of-two-young-football.jpg?s=2048x2048&w=is&k=20&c=CSTkGc00q6A1VXG8YaHuBbLO58EeHFHkM5uEPoyMYZc=' || "https://via.placeholder.com/150"}
                                                 alt="User"
                                                 className="card-img-top"
                                                 style={{ height: '230px', objectFit: 'cover' }}
@@ -180,7 +177,7 @@ const EventSingle = () => {
                                                     </button>
                                                     <button
                                                         className="btn btn-primary mx-2"
-                                                        onClick={() => navigate(`/stats/${auth?.user?._id}/${eventId}`)}
+                                                        onClick={() => navigate(`/stats/${participant._id}/${eventId}`)}
                                                     >
                                                         View Stats
                                                     </button>

@@ -5,7 +5,8 @@ import 'chart.js/auto';
 import { useParams } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import apiUrl from '../api/config';
-import Layout from '../components/layouts/Layout'
+import Layout from '../components/layouts/Layout';
+import Spinner from '../components/Spinner'
 
 const Stats = () => {
     const { playerId, eventId } = useParams();
@@ -28,11 +29,20 @@ const Stats = () => {
     }, []);
 
     if (loading) {
-        return <div>Loading...</div>;
+        return <Spinner />;
     }
 
     if (!stats || Object.keys(stats).length === 0) {
-        return <div>No data found</div>;
+        return (
+            <Layout>
+                <div className="d-flex justify-content-center align-items-center" style={{ height: '100vh' }}>
+                    <div className="text-center">
+                        <h3 className="fw-bold text-warning">No event data performance found</h3>
+                        <p>Start your sports journey by joining an event.</p>
+                    </div>
+                </div>
+            </Layout>
+        );
     }
 
     // Prepare data for charts
@@ -127,7 +137,7 @@ const Stats = () => {
                 <h2 className="text-center mb-4">Player Statistics</h2>
                 <div className="row">
                     <div className="col-lg-6">
-                        <div className="chart-container my-3 ">
+                        <div className="chart-container my-3">
                             <h3>Attack Stats</h3>
                             <Bar data={attackData} />
                         </div>

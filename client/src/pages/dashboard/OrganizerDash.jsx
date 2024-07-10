@@ -7,6 +7,7 @@ import axios from 'axios';
 import apiUrl from '../../api/config';
 import { useAuth } from '../../context/auth';
 import { toast } from 'react-toastify';
+import UserProfile from '../../components/User/UserProfile';
 
 export default function OrganizerDash() {
     const [auth] = useAuth();
@@ -153,15 +154,7 @@ export default function OrganizerDash() {
         getEventData();
     }, [auth?.user?._id]);
 
-    const organizerData = [
-        {
-            avatar: 'https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-1.png',
-            name: 'Robert Wolfkisser',
-            job: 'Event Organizer',
-            email: 'rob_wolf@gmail.com',
-            phone: '+44 (452) 886 09 12',
-        },
-    ];
+
 
     const handleEditEvent = (event) => {
         setSelectedEvent(event);
@@ -181,30 +174,7 @@ export default function OrganizerDash() {
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-8 mb-4">
-                            {organizerData.map((organizer, index) => (
-                                <div className="card mb-4" key={index}>
-                                    <div className="card-body">
-                                        <div className="d-flex align-items-center">
-                                            <img src={organizer.avatar} className="rounded-circle me-3" alt={organizer.name} style={{ width: '64px', height: '64px' }} />
-                                            <div>
-                                                <h5 className="card-title mb-1">{organizer.name}</h5>
-                                                <p className="card-text text-muted">{organizer.job}</p>
-                                            </div>
-                                        </div>
-                                        <hr />
-                                        <div className=" d-flex flex-column flex-sm-row justify-content-between">
-                                            <div className="d-flex align-items-center mb-2">
-                                                <i className="bi bi-envelope-fill me-2"></i>
-                                                <span>{organizer.email}</span>
-                                            </div>
-                                            <div className="d-flex align-items-center mb-2">
-                                                <i className="bi bi-telephone-fill me-2"></i>
-                                                <span>{organizer.phone}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            ))}
+                            <UserProfile />
                             <div className="card">
                                 <div className="card-body">
                                     <h5 className="card-title">My Events</h5>

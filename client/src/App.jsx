@@ -10,7 +10,7 @@ const Sports = lazy(() => import('./pages/Sports'));
 const Signup = lazy(() => import('./pages/Auth/SignUp'));
 const Login = lazy(() => import('./pages/Auth/Login'));
 const ForgotPassword = lazy(() => import('./pages/Auth/ForgotPassword'));
-const Users = lazy(() => import('./pages/Users'));
+const MyTeams = lazy(() => import('./pages/MyTeams'));
 const CreateTeam = lazy(() => import('./pages/CreateTeam'));
 const Profile = lazy(() => import('./pages/Profile'));
 const Singlechat = lazy(() => import('./pages/chatpage/Singlechat'));
@@ -25,6 +25,7 @@ const EventDetail = lazy(() => import('./pages/eventsperfomance/EventDetail'));
 const EventSingle = lazy(() => import('./pages/eventsperfomance/EventSingle'));
 const AllEvents = lazy(() => import('./pages/AllEvents'));
 const ErrorPage = lazy(() => import('./pages/Error'));
+
 
 function App() {
   return (
@@ -43,7 +44,7 @@ function App() {
           <Route path="/events/detail" element={<EventDetail />} />
           <Route path="/event/:eventId" element={<EventSingle />} />
 
-          <Route path="/users" element={<Users />} />
+          <Route path="/myteams" element={<MyTeams />} />
           <Route path="/create-team" element={<CreateTeam />} />
           <Route path="/chat" element={<Singlechat />} />
           {/* <Route path="/chat/:id" element={<Singlechat />} /> */}

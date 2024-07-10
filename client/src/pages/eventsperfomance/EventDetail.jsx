@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Layout from '../../components/layouts/Layout';
-import { Spinner } from 'react-bootstrap';
 import axios from 'axios';
 import apiUrl from '../../api/config';
 import { toast } from 'react-toastify';
 import { useAuth } from '../../context/auth';
+import Spinner from '../../components/Spinner'
 
 export default function EventDetail() {
     const [auth] = useAuth();
@@ -40,9 +40,7 @@ export default function EventDetail() {
         return (
             <Layout>
                 <div className="text-center">
-                    <Spinner animation="border" role="status">
-                        <span className="visually-hidden">Loading...</span>
-                    </Spinner>
+                    <Spinner />
                 </div>
             </Layout>
         );

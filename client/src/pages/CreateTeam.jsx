@@ -3,11 +3,15 @@ import Layout from '../components/layouts/Layout';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import apiUrl from '../api/config'
+import { useAuth } from '../context/auth';
 
 
 function CreateTeam() {
+    const [auth] = useAuth()
+
     const navigate = useNavigate();
     const [teamData, setTeamData] = useState({
+        user: auth?.user?._id,
         teamName: '',
         clubName: '',
         sport: '',
@@ -35,7 +39,9 @@ function CreateTeam() {
         try {
             const response = await axios.post(`${apiUrl}/create-team`, teamData);
             console.log('Team created:', response.data);
-            navigate('/user'); // Navigate to user dashboard after successful creation
+            setTimeout(() => {
+                navigate('/myteams');
+            }, 2000);
         } catch (error) {
             console.error('Error creating team:', error);
             // Handle error (e.g., show error message to user)
