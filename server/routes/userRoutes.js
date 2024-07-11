@@ -1,7 +1,7 @@
 const express = require('express');
 const multer = require('multer');
 const mongoose = require('mongoose'); // Import mongoose
-const { registerUser, loginUser, profileUser, deleteUser, getAllUsers, getUserEvents } = require('../controllers/userController');
+const { registerUser, loginUser, profileUser, deleteUser, getAllUsers, getUserEvents, toggleBlockUser } = require('../controllers/userController');
 const router = express.Router();
 const { requireSignIn, isAdmin } = require('../middlewares/authMiddleware');
 
@@ -34,5 +34,9 @@ router.get("/user-auth", requireSignIn, (req, res) => {
 router.get("/admin-auth", requireSignIn, isAdmin, (req, res) => {
     res.status(200).send({ ok: true });
 });
+
+// Route to toggle block status of a user
+router.patch('/toggle-block/:userId', toggleBlockUser);
+
 
 module.exports = router;

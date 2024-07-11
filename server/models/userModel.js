@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
+    block: { type: Boolean, default: false },
     role: { type: String, required: true },  // Added role field
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },

@@ -23,21 +23,16 @@ const AdminDashboard = () => {
         }
     };
 
-    // Suspend user
-    const suspendUser = async (id) => {
+    const toggleBlockStatus = async (userId) => {
         try {
-            const res = await axios.put(`${apiUrl}/users/suspend/${id}`);
-            if (res) {
-                toast.success('User suspended');
-                getAllUser();
-            } else {
-                toast.error('Error suspending user');
-            }
+            console.log(userId)
+            const response = await axios.patch(`${apiUrl}/toggle-block/${userId}`);
+            toast.success(response.data.message);
+            getAllUser();
         } catch (error) {
-            console.log(error);
-            toast.error('Error suspending user');
+            console.error('Error toggling block status:', error);
         }
-    }
+    };
 
     // Delete user
     const deleteUser = async (id) => {
@@ -170,7 +165,10 @@ const AdminDashboard = () => {
                             <p className="card-text">Email: {user.email}</p>
                             <p className="card-text">Phone: {user.phoneNumber}</p>
                             <button className="btn btn-outline-danger btn-sm" onClick={() => deleteUser(user?._id)}>Delete</button>
-                            <button className="btn btn-outline-warning btn-sm ms-1" onClick={() => suspendUser(user?._id)}>Suspend</button>
+                            <button className="btn btn-outline-warning btn-sm ms-1" onClick={() => toggleBlockStatus(user?._id)}>
+                                {user.block ? 'Unblock' : 'Block'}
+
+                            </button>
                         </div>
                     </div>
                 ))
