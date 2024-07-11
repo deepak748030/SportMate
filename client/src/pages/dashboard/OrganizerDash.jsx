@@ -211,11 +211,11 @@ export default function OrganizerDash() {
                                                         </div>
                                                         <div className="col-6 d-flex align-items-center mb-2">
                                                             <i className="bi bi-currency-dollar me-2"></i>
-                                                            <span>{price} INR</span>
+                                                            <span>{price}</span>
                                                         </div>
                                                         <div className="col-6 d-flex align-items-center mb-2">
                                                             <i className="bi bi-trophy-fill me-2"></i>
-                                                            <span>{winningPrize} INR Prize</span>
+                                                            <span>{winningPrize} $ Prize</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -245,7 +245,7 @@ export default function OrganizerDash() {
                                 </li>
                                 <li className="list-group-item d-flex justify-content-between align-items-center">
                                     Total Prize Money
-                                    <span className="badge bg-primary rounded-pill">{myEventsData.reduce((total, event) => total + event.winningPrize, 0)} INR</span>
+                                    <span className="badge bg-primary rounded-pill">{myEventsData.reduce((total, event) => total + event.winningPrize, 0)} $</span>
                                 </li>
                             </ul>
                         </div>
@@ -297,7 +297,7 @@ export default function OrganizerDash() {
                             />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formPrice">
-                            <Form.Label>Price (INR)</Form.Label>
+                            <Form.Label>Price ($)</Form.Label>
                             <Form.Control
                                 type="number"
                                 placeholder="Enter price"
@@ -317,7 +317,7 @@ export default function OrganizerDash() {
                             />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formWinningPrize">
-                            <Form.Label>Winning Prize (INR)</Form.Label>
+                            <Form.Label>Winning Prize ($)</Form.Label>
                             <Form.Control
                                 type="number"
                                 placeholder="Enter winning prize"

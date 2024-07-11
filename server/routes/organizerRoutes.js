@@ -12,5 +12,6 @@ router.post('/create', eventController.createEvent);
 router.get('/events', eventController.getEvents);
 router.get('/approvedevents', eventController.getApprovedEvents);
 router.put('/accept/:id', eventController.acceptEvent);
+router.put('/event/decline/:id', eventController.declineEvent);
 
 module.exports = router;

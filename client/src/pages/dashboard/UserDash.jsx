@@ -25,11 +25,7 @@ export default function UserDash() {
         };
 
         fetchUserData();
-    }, [auth]);
-
-    const handleEditEvent = (event) => {
-        console.log("Editing event:", event);
-    };
+    }, []);
 
     const handleDeleteEvent = async (eventId) => {
         try {

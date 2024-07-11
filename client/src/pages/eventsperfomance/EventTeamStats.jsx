@@ -8,8 +8,8 @@ import apiUrl from '../../api/config';
 import { toast } from 'react-toastify';
 import { useAuth } from '../../context/auth';
 import Spinner from '../../components/Spinner';
-// No participants found for this event.
-const EventSingle = () => {
+
+const EventTeamStats = () => {
     const [auth] = useAuth();
     const navigate = useNavigate();
     const { eventId } = useParams();
@@ -33,7 +33,7 @@ const EventSingle = () => {
             try {
                 const res = await axios.get(`${apiUrl}/events/single/${eventId}`);
                 if (res.data) {
-                    setParticipants(res.data.participants);
+                    setParticipants(res.data.joinedteams);
                 } else {
                     toast.error('Event not found');
                 }
@@ -50,18 +50,15 @@ const EventSingle = () => {
         }
     }, [eventId]);
 
-    // Handle opening the modal and setting the selected participant
     const handleOpenModal = (participant) => {
         setSelectedParticipant(participant);
         setShowModal(true);
     };
 
-    // Handle closing the modal
     const handleCloseModal = () => {
         setShowModal(false);
     };
 
-    // Handle statistics input changes
     const handleStatChange = (e) => {
         const { name, value } = e.target;
         const [category, statField] = name.split('.');
@@ -75,7 +72,6 @@ const EventSingle = () => {
         });
     };
 
-    // Handle form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -86,11 +82,9 @@ const EventSingle = () => {
                     stats: formData
                 });
 
-                console.log(res.data);
                 toast.success('Stats recorded successfully');
-                handleCloseModal(); // Close modal after successful submission or navigate to another page
+                handleCloseModal();
             }
-
         } catch (error) {
             console.error('Error saving stats:', error);
             toast.error('Error saving stats');
@@ -114,15 +108,14 @@ const EventSingle = () => {
                     <div className="container">
                         <div className="card">
                             <div className="card-body d-flex justify-content-center align-items-center" style={{ minHeight: '86vh' }}>
-                                <div >
-                                    <h1 className="text-warning ">No participants found for this event.</h1>
+                                <div>
+                                    <h1 className="text-warning">No participants found for this event.</h1>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </Layout>
-
         );
     }
 
@@ -132,7 +125,7 @@ const EventSingle = () => {
                 <div className="container">
                     <div className="card">
                         <div className="card-body">
-                            <h5 className="mt-4">Event Users Participants</h5>
+                            <h5 className="mt-4">Event Teams Participants</h5>
                             <div className="row">
                                 {participants.map(participant => (
                                     <div key={participant._id} className="col-md-4 mb-3">
@@ -145,19 +138,19 @@ const EventSingle = () => {
                                             />
                                             <div className="card-body">
                                                 <h5 className="card-title">
-                                                    {participant.firstName} {participant.lastName}
+                                                    {participant.teamName} - {participant.clubName}
                                                 </h5>
                                                 <p className="card-text">
-                                                    <i className="bi bi-envelope-fill me-2"></i>
-                                                    {participant.email}
+                                                    <i className="bi bi-person-fill me-2"></i>
+                                                    {participant.gender}, {participant.ageGroup}
                                                 </p>
                                                 <p className="card-text">
-                                                    <i className="bi bi-phone-fill me-2"></i>
-                                                    {participant.phoneNumber}
+                                                    <i className="bi bi-geo-alt-fill me-2"></i>
+                                                    {participant.city}, {participant.state}
                                                 </p>
                                                 <div className='d-flex'>
                                                     <button
-                                                        className="btn btn-primary "
+                                                        className="btn btn-primary"
                                                         onClick={() => handleOpenModal(participant)}
                                                     >
                                                         Fill Stats
@@ -168,9 +161,7 @@ const EventSingle = () => {
                                                     >
                                                         View Stats
                                                     </button>
-
                                                 </div>
-
                                             </div>
                                         </div>
                                     </div>
@@ -181,14 +172,12 @@ const EventSingle = () => {
                 </div>
             </div>
 
-            {/* Modal for editing participant data */}
             <Modal show={showModal} onHide={handleCloseModal}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Enter Player Statistics</Modal.Title>
+                    <Modal.Title>Enter Team Statistics</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <form onSubmit={handleSubmit}>
-                        {/* Attacks Statistics */}
                         <div className="mb-3">
                             <label htmlFor="kills" className="form-label">Kills</label>
                             <input
@@ -213,8 +202,30 @@ const EventSingle = () => {
                                 required
                             />
                         </div>
-
-                        {/* Setting Statistics */}
+                        <div className="mb-3">
+                            <label htmlFor="totalAttacks" className="form-label">Total Attacks</label>
+                            <input
+                                type="number"
+                                className="form-control"
+                                id="totalAttacks"
+                                name="attack.totalAttacks"
+                                value={formData.attack.totalAttacks}
+                                onChange={handleStatChange}
+                                required
+                            />
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="hittingPercentage" className="form-label">Hitting Percentage</label>
+                            <input
+                                type="number"
+                                className="form-control"
+                                id="hittingPercentage"
+                                name="attack.hittingPercentage"
+                                value={formData.attack.hittingPercentage}
+                                onChange={handleStatChange}
+                                required
+                            />
+                        </div>
                         <div className="mb-3">
                             <label htmlFor="assists" className="form-label">Assists</label>
                             <input
@@ -239,8 +250,6 @@ const EventSingle = () => {
                                 required
                             />
                         </div>
-
-                        {/* Serving Statistics */}
                         <div className="mb-3">
                             <label htmlFor="serviceAces" className="form-label">Service Aces</label>
                             <input
@@ -265,8 +274,6 @@ const EventSingle = () => {
                                 required
                             />
                         </div>
-
-                        {/* Passing Statistics */}
                         <div className="mb-3">
                             <label htmlFor="receptionErrors" className="form-label">Reception Errors</label>
                             <input
@@ -291,8 +298,6 @@ const EventSingle = () => {
                                 required
                             />
                         </div>
-
-                        {/* Defense Statistics */}
                         <div className="mb-3">
                             <label htmlFor="digs" className="form-label">Digs</label>
                             <input
@@ -305,8 +310,6 @@ const EventSingle = () => {
                                 required
                             />
                         </div>
-
-                        {/* Blocking Statistics */}
                         <div className="mb-3">
                             <label htmlFor="blockSolos" className="form-label">Block Solos</label>
                             <input
@@ -343,8 +346,6 @@ const EventSingle = () => {
                                 required
                             />
                         </div>
-
-                        {/* Misc. Statistics */}
                         <div className="mb-3">
                             <label htmlFor="points" className="form-label">Points</label>
                             <input
@@ -357,8 +358,7 @@ const EventSingle = () => {
                                 required
                             />
                         </div>
-
-                        <button type="submit" className="btn btn-primary">Save Statistics</button>
+                        <button type="submit" className="btn btn-primary">Submit</button>
                     </form>
                 </Modal.Body>
             </Modal>
@@ -366,4 +366,4 @@ const EventSingle = () => {
     );
 };
 
-export default EventSingle;
+export default EventTeamStats;

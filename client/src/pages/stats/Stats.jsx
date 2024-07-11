@@ -4,9 +4,9 @@ import { Bar, Line } from 'react-chartjs-2';
 import 'chart.js/auto';
 import { useParams } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import apiUrl from '../api/config';
-import Layout from '../components/layouts/Layout';
-import Spinner from '../components/Spinner'
+import apiUrl from '../../api/config';
+import Layout from '../../components/layouts/Layout';
+import Spinner from '../../components/Spinner'
 
 const Stats = () => {
     const { playerId, eventId } = useParams();

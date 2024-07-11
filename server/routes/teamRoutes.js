@@ -23,6 +23,9 @@ router.put('/teams/:id/add-friends', teamController.addFriendsToTeam);
 // Route to get friends by team ID
 router.get('/teams/:id/get-friends', teamController.getFriendsById);
 
+// Route to join an event with a team
+router.post('/teamjoin/:eventId', teamController.joinEventWithTeam);
+
 // Route to remove a friend from a team by team ID and user ID
 router.delete('/teams/:teamId/remove-friend/:userId', teamController.removeFriendFromTeam);
 

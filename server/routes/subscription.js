@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const Subscription = require('../models/Subscription');
 const User = require('../models/userModel');
+// const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+
 
 // Endpoint to create a subscription
 router.post('/subscribe', async (req, res) => {

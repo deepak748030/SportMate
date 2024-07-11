@@ -39,6 +39,7 @@ const getEventById = async (req, res) => {
         if (!events || events.length === 0) {
             return res.status(404).json({ message: 'No events found for this user' });
         }
+
         res.json(events);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -50,17 +51,20 @@ const getEventByUserId = async (req, res) => {
     const userId = req.params.id;
 
     try {
-        const events = await Event.findById(userId).populate('participants', 'firstName lastName email phoneNumber email');
-        // console.log(events)
-        if (!events || events.user.length === 0) {
-            return res.status(404).json({ message: 'No events user' });
-        }
+        const events = await Event.findById(userId)
+            .populate('participants', 'firstName lastName email phoneNumber')
+            .populate('joinedteams');
 
-        res.json(events.participants);
+        if (!events || events.length === 0) {
+            return res.status(404).json({ message: 'No events found for this user' });
+        }
+        // console.log(events.joinedteams)
+        res.json(events);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 };
+
 
 
 const getEvents = async (req, res) => {
@@ -76,6 +80,21 @@ const getApprovedEvents = async (req, res) => {
     try {
         const events = await Event.find({ accepted: true }).populate('user', 'firstName lastName email'); // Populate user details
         res.json(events);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+const declineEvent = async (req, res) => {
+    try {
+        const eventId = req.params.id;
+        const updatedEvent = await Event.findByIdAndUpdate(
+            eventId,
+            { accepted: false },
+            { new: true } // To return the updated document
+        );
+
+        res.json(updatedEvent);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -151,5 +170,6 @@ module.exports = {
     deleteEvent,
     getApprovedEvents,
     acceptEvent,
-    getEventByUserId
+    getEventByUserId,
+    declineEvent
 };

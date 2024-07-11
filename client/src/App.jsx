@@ -3,7 +3,8 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Spinner from './components/Spinner';
 import AdminRoute from './routes/AdminRoute';
 import PrivateRoute from './routes/PrivateRoute';
-import Stats from './stats/Stats';
+import Stats from './pages/stats/Stats';
+import EventTeamStats from './pages/eventsperfomance/EventTeamStats';
 
 const Home = lazy(() => import('./pages/Home'));
 const Sports = lazy(() => import('./pages/Sports'));
@@ -43,6 +44,7 @@ function App() {
 
           <Route path="/events/detail" element={<EventDetail />} />
           <Route path="/event/:eventId" element={<EventSingle />} />
+          <Route path="/team-stats/:eventId" element={<EventTeamStats />} />
 
           <Route path="/myteams" element={<MyTeams />} />
           <Route path="/create-team" element={<CreateTeam />} />

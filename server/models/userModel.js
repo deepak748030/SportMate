@@ -13,7 +13,8 @@ const userSchema = new mongoose.Schema({
     gamePosition: { type: String },  // gamePosition is optional
     avatar: { type: String },
     ranking: { type: String, default: 'Beginner' },
-    joinedEvents: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Event' }]
+    joinedEvents: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Event' }],
+    teamsJoined: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Team' }]
 }, {
     timestamps: true,
 });

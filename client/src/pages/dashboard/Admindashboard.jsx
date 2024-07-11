@@ -86,18 +86,18 @@ const AdminDashboard = () => {
     }
 
     // Delete event
-    const deleteEvent = async (id) => {
+    const declineEvent = async (id) => {
         try {
-            const res = await axios.delete(`${apiUrl}/events/${id}`);
+            const res = await axios.put(`${apiUrl}/event/decline/${id}`);
             if (res) {
-                toast.success('Event deleted');
+                toast.success('Event declined');
                 getEventData();
             } else {
-                toast.error('Error deleting event');
+                toast.error('Error declining event');
             }
         } catch (error) {
             console.log(error);
-            toast.error('Error deleting event');
+            toast.error('Error declining event');
         }
     }
 
@@ -208,7 +208,7 @@ const AdminDashboard = () => {
                                 <td>{event?.user?.firstName}</td>
                                 <td>
                                     <button className="btn btn-success btn-sm" onClick={() => acceptEvent(event?._id)}>Approve</button>{' '}
-                                    <button className="btn btn-danger btn-sm" onClick={() => deleteEvent(event?._id)}>Decline</button>
+                                    <button className="btn btn-danger btn-sm" onClick={() => declineEvent(event?._id)}>Decline</button>
                                 </td>
                             </tr>
                         ))
@@ -237,8 +237,8 @@ const AdminDashboard = () => {
                             <p className="card-text">Organizer: {event?.user?.firstName}</p>
                             <button className="btn btn-success btn-sm" onClick={() => acceptEvent(event?._id)}>
                                 {event?.accepted ? 'Approved' : 'Approve'}</button>{' '}
-                            <button className="btn btn-danger btn-sm" onClick={() => deleteEvent(event?._id)}>
-                                delete
+                            <button className="btn btn-danger btn-sm" onClick={() => declineEvent(event?._id)}>
+                                {event?.accepted ? 'decline' : 'declined'}
                             </button>
                         </div>
                     </div>
