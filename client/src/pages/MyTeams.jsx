@@ -5,11 +5,14 @@ import axios from 'axios';
 import apiUrl from '../api/config';
 import { useAuth } from '../context/auth';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import SelectFriendsModal from '../components/SelectFriendsModal';
 
 function MyTeams() {
     const [auth] = useAuth();
     const navigate = useNavigate();
     const [teams, setTeams] = useState([]);
+    const [showModal, setShowModal] = useState(false);
+    const [currentTeamId, setCurrentTeamId] = useState(null);
 
     const fetchTeams = async () => {
         try {
@@ -24,10 +27,20 @@ function MyTeams() {
         fetchTeams();
     }, []);
 
+    const handleShowModal = (teamId) => {
+        setCurrentTeamId(teamId);
+        setShowModal(true);
+    };
+
+    const handleCloseModal = () => {
+        setShowModal(false);
+        setCurrentTeamId(null);
+    };
+
     return (
         <Layout title='SPORTS_MATE - DASHBOARD'>
-            <div className='container mt-md-5 mb-5 mb-md-1'>
-                <div className='row m-3'>
+            <div className='container mt-5'>
+                <div className='row'>
                     {/* Left Section */}
                     <div className='col-md-4'>
                         <div className='text-center'>
@@ -35,21 +48,16 @@ function MyTeams() {
                             <h4 className='mt-3 fw-bold'>Welcome Back, {auth?.user?.name || 'User'}!</h4>
                         </div>
                         <hr className='mt-4' />
-                        <div>
-                            <h5 className='mt-4'>Upcoming Events</h5>
-                            <p>No upcoming events scheduled.</p>
-                        </div>
-                        <hr />
                     </div>
                     {/* Right Section */}
-                    <div className='col-md-8 col-12 mt-3'>
-                        <div className='d-flex justify-content-between align-items-center'>
+                    <div className='col-md-8 mt-3'>
+                        <div className='d-flex justify-content-between align-items-center mb-4'>
                             <h2 className='fw-bold fs-md-2'>My Teams</h2>
                             <button className='btn btn-outline-warning' onClick={() => navigate('/create-team')}>Create New Team</button>
                         </div>
 
                         {/* Display Teams */}
-                        <div className='mt-4'>
+                        <div>
                             {teams.length > 0 ? (
                                 teams.map(team => (
                                     <div key={team._id} className='card mb-3 shadow-sm'>
@@ -60,7 +68,7 @@ function MyTeams() {
                                             <p className='card-text'><strong>Club:</strong> {team.clubName}</p>
                                             <p className='card-text'><strong>Age Group:</strong> {team.ageGroup}</p>
                                             <p className='card-text'><strong>Gender:</strong> {team.gender}</p>
-                                            {/* <button className='btn btn-outline-primary' onClick={() => navigate(`/teams/${team._id}`)}>View Team</button> */}
+                                            <button className='btn btn-outline-primary' onClick={() => handleShowModal(team._id)}>Add Friends</button>
                                         </div>
                                     </div>
                                 ))
@@ -71,10 +79,15 @@ function MyTeams() {
                                 </div>
                             )}
                         </div>
-
                     </div>
                 </div>
             </div>
+            <SelectFriendsModal
+                show={showModal}
+                handleClose={handleCloseModal}
+                teamId={currentTeamId}
+                fetchTeams={fetchTeams}
+            />
         </Layout>
     );
 }

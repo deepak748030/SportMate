@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const teamController = require('../controllers/teamController');
-const { joinEventWithTeam } = require('../controllers/eventTeamController');
 
 // Route to create a new team
 router.post('/create-team', teamController.createTeam);
@@ -18,10 +17,13 @@ router.put('/teams/:id', teamController.updateTeamById);
 // Route to delete a team by ID
 router.delete('/teams/:id', teamController.deleteTeamById);
 
+// Route to add friends to a team by ID
+router.put('/teams/:id/add-friends', teamController.addFriendsToTeam);
 
-// Route to join an event with a team
-router.post('/teamjoin/:eventId', joinEventWithTeam);
+// Route to get friends by team ID
+router.get('/teams/:id/get-friends', teamController.getFriendsById);
 
-
+// Route to remove a friend from a team by team ID and user ID
+router.delete('/teams/:teamId/remove-friend/:userId', teamController.removeFriendFromTeam);
 
 module.exports = router;

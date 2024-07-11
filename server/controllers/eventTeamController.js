@@ -2,7 +2,6 @@ const Event = require('../models/organizerModel'); // Adjust the path to where y
 
 // Function to add a team to the joinedteams array
 const joinEventWithTeam = async (req, res) => {
-    console.log('join run')
     const { teamId } = req.body; // Assuming teamId is sent in the request body
     const { eventId } = req.params; // Assuming eventId is sent as a URL parameter
 

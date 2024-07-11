@@ -37,7 +37,7 @@ router.get('/subscription/:userId', async (req, res) => {
         const subscription = await Subscription.findOne({ userId }).sort({ endDate: -1 });
 
         if (!subscription) {
-            return res.status(404).json({ message: 'No subscription found for this user' });
+            return res.status(200).json({ message: 'No subscription found for this user' });
         }
 
         const isActive = new Date(subscription.endDate) > new Date();

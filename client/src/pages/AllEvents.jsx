@@ -6,7 +6,7 @@ import { Modal, Button, Form } from 'react-bootstrap';
 import Layout from '../components/layouts/Layout';
 import apiUrl from '../api/config';
 import { useAuth } from "../context/auth";
-import Spinner from '../components/Spinner'
+import Spinner from '../components/Spinner';
 
 export default function AllEvents() {
     const [auth] = useAuth();
@@ -66,22 +66,33 @@ export default function AllEvents() {
 
     const handleJoinByTeam = async () => {
         try {
-            const res = await axios.post(`${apiUrl}/teamjoin/${selectedEvent._id}`, {
-                teamId
-            });
-            console.log(teamId, selectedEvent._id)
-            if (res?.data) {
-                toast.success('Team joined event successfully');
-                setShowModal(false);
-                getEventData();
-            } else {
-                toast.error('Team already joined event');
+            if (auth?.user?._id) {
+                const subscription = await axios.get(`${apiUrl}/subscription/${auth?.user?._id}`);
+                if (subscription?.data?.active === true) {
+                    try {
+                        const res = await axios.post(`${apiUrl}/teamjoin/${selectedEvent._id}`, { teamId });
+                        if (res?.status === 200 && res?.data?.message) {
+                            toast.success(res.data.message);
+                            setShowModal(false);
+                            getEventData();
+                        }
+                    } catch (err) {
+                        if (err.response?.status === 400) {
+                            toast.error(err.response.data.message);
+                        } else {
+                            toast.error('An error occurred while joining the event.');
+                        }
+                    }
+                } else {
+                    toast.error('You don\'t have a subscription. Please purchase one.');
+                }
             }
         } catch (error) {
-            console.error(error);
-            toast.error('Error joining event with team');
+            console.error('Error checking subscription:', error);
+            toast.error('An error occurred while checking the subscription.');
         }
     };
+
 
     const openModal = (event) => {
         setSelectedEvent(event);
@@ -96,6 +107,7 @@ export default function AllEvents() {
     if (loadingEvents) {
         return <Spinner />;
     }
+
 
     return (
         <Layout>

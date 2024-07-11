@@ -49,7 +49,11 @@ const teamSchema = new mongoose.Schema({
     uploadPhotosDocs: {
         type: Boolean,
         default: false
-    }
+    },
+    friends: [{
+        type: mongoose.Schema.ObjectId,
+        ref: 'User'
+    }]
 });
 
 module.exports = mongoose.model('Team', teamSchema);
