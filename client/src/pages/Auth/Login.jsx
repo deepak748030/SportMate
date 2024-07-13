@@ -15,6 +15,8 @@ function Login() {
     const [rememberMe, setRememberMe] = useState(false);
     const navigate = useNavigate();
     const [auth, setAuth] = useAuth();
+
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         const loginData = {
@@ -31,17 +33,17 @@ function Login() {
                 ...auth,
                 user: response.data.user,
                 token: response.data.token
-            })
-
-
+            });
 
             // Redirect to another page after successful login
             navigate('/');
         } catch (error) {
             console.error('Error logging in:', error);
-            toast.error('Failed to log in. Please check your email and password.');
+            const errorMessage = error.response?.data?.message || 'Failed to log in. Please check your email and password.';
+            toast.error(errorMessage);
         }
     };
+
 
     return (
         <Layout title="SPORTMATE - LOGIN" description="This is the login page">

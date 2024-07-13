@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 export default function UserDash() {
     const [auth] = useAuth();
     const [myEventsData, setMyEventsData] = useState([]);
+    const [teams, setTeams] = useState()
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -17,7 +18,17 @@ export default function UserDash() {
             try {
                 if (auth?.user?._id) {
                     const eventsResponse = await axios.get(`${apiUrl}/user/${auth?.user?._id}`);
-                    setMyEventsData(eventsResponse.data || []);
+
+                    setMyEventsData(eventsResponse.data.joinedEvents || []);
+
+                    // Filter out duplicates based on teamsJoined._id
+                    const uniqueTeams = Array.from(
+                        new Set(eventsResponse.data.teamsJoined.map(team => team._id))
+                    ).map(id =>
+                        eventsResponse.data.teamsJoined.find(team => team._id === id)
+                    );
+
+                    setTeams(uniqueTeams);
                 }
             } catch (error) {
                 console.error("Error fetching data", error);
@@ -25,16 +36,9 @@ export default function UserDash() {
         };
 
         fetchUserData();
-    }, []);
+    }, [auth]);
 
-    const handleDeleteEvent = async (eventId) => {
-        try {
-            await axios.delete(`${apiUrl}/events/${eventId}`);
-            setMyEventsData(myEventsData.filter(event => event._id !== eventId));
-        } catch (error) {
-            console.error("Error deleting event", error);
-        }
-    };
+
 
     return (
         <Layout>
@@ -43,6 +47,7 @@ export default function UserDash() {
                     <div className="row">
                         <div className="col-lg-8 col-sm-12">
                             <div className="row">
+                                <h2>Events Joined By User</h2>
                                 {myEventsData.length > 0 ? (
                                     myEventsData.map((event) => (
                                         <div className="col-12 col-md-6 mb-4" key={event._id}>
@@ -98,6 +103,65 @@ export default function UserDash() {
                                         </div>
                                     </div>
                                 )}
+
+
+                                <h2>Events Joined By Teams</h2>
+                                {teams?.length > 0 ? (
+                                    teams.map((event) => (
+                                        <div className="col-12 col-md-6 mb-4" key={event._id}>
+                                            <div className="card h-100">
+                                                <img src={'https://media.istockphoto.com/id/1904589046/photo/two-adult-football-players-running-and-kicking-a-soccer-ball-legs-of-two-young-football.jpg?s=2048x2048&w=is&k=20&c=CSTkGc00q6A1VXG8YaHuBbLO58EeHFHkM5uEPoyMYZc='} alt="Event Banner" className="card-img-top" />
+                                                <div className="card-body">
+                                                    <h5 className="card-title">{event.eventName}</h5>
+                                                    <div className="row">
+                                                        <div className="col-6 d-flex align-items-center mb-2">
+                                                            <i className="bi bi-calendar-fill me-2"></i>
+                                                            <span>{event.date.slice(0, 10)}</span>
+                                                        </div>
+                                                        <div className="col-6 d-flex align-items-center mb-2">
+                                                            <i className="bi bi-clock-fill me-2"></i>
+                                                            <span>{event.time}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div className="row">
+                                                        <div className="col-6 d-flex align-items-center mb-2">
+                                                            <i className="bi bi-geo-alt-fill me-2"></i>
+                                                            <span>{event.place}</span>
+                                                        </div>
+                                                        <div className="col-6 d-flex align-items-center mb-2">
+                                                            <i className="bi bi-currency-dollar me-2"></i>
+                                                            <span>{event.price}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div className="row">
+                                                        <div className="col-6 d-flex align-items-center mb-2">
+                                                            <i className="bi bi-people-fill me-2"></i>
+                                                            <span>{event.participants.length} / {event.numTeams}</span>
+                                                        </div>
+                                                        <div className="col-6 d-flex align-items-center mb-2">
+                                                            <i className="bi bi-award-fill me-2"></i>
+                                                            <span>Prize: {event.winningPrize}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div className="d-flex justify-content-between mt-2">
+                                                        <button className="btn btn-primary" onClick={() => navigate(`/user/team-stats/${event._id}`)}>View Performance</button>
+                                                        {/* <button className="btn btn-danger" onClick={() => handleDeleteEvent(event._id)}>Delete</button> */}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))
+                                ) : (
+                                    <div className="col-12">
+                                        <div className="d-flex justify-content-center align-items-center" style={{ height: '300px' }}>
+                                            <div className="text-center">
+                                                <h3 className="fw-bold text-warning">No events joined</h3>
+                                                <p>Start your sports journey by joining an event.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
+
                             </div>
                         </div>
                         <div className="col-lg-4 col-sm-12">

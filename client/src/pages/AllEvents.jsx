@@ -70,7 +70,7 @@ export default function AllEvents() {
                 const subscription = await axios.get(`${apiUrl}/subscription/${auth?.user?._id}`);
                 if (subscription?.data?.active === true) {
                     try {
-                        const res = await axios.post(`${apiUrl}/teamjoin/${selectedEvent._id}`, { teamId });
+                        const res = await axios.post(`${apiUrl}/teamjoin/${selectedEvent._id}`, { teamId, userId: auth?.user?._id });
                         if (res?.status === 200 && res?.data?.message) {
                             toast.success(res.data.message);
                             setShowModal(false);

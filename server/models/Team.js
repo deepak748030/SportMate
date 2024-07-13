@@ -54,6 +54,8 @@ const teamSchema = new mongoose.Schema({
         type: mongoose.Schema.ObjectId,
         ref: 'User'
     }]
+}, {
+    timestamps: true
 });
 
 module.exports = mongoose.model('Team', teamSchema);

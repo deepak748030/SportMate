@@ -15,7 +15,7 @@ const userSchema = new mongoose.Schema({
     avatar: { type: String },
     ranking: { type: String, default: 'Beginner' },
     joinedEvents: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Event' }],
-    teamsJoined: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Team' }]
+    teamsJoined: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Event' }]
 }, {
     timestamps: true,
 });

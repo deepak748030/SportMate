@@ -1,6 +1,37 @@
 const User = require('../models/userModel');
-const jwt = require('jsonwebtoken')
-const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
+
+// Function to get user and their joined events and teams
+const getUserEvents = async (req, res) => {
+    const { userId } = req.params;
+
+    try {
+        // Validate userId
+        if (!userId) {
+            return res.status(400).json({ message: 'User ID is required' });
+        }
+
+        // Find the user by ID and populate the joinedEvents and teamsJoined fields
+        const user = await User.findById(userId)
+            .populate('joinedEvents')
+            .populate('teamsJoined');
+
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        // Send the user and their joined events and teams
+        res.json(user);
+
+    } catch (error) {
+        console.error('Error fetching user events:', error);
+        res.status(500).json({
+            message: 'Server error',
+            error: error.message,
+        });
+    }
+};
 
 
 const registerUser = async (req, res) => {
@@ -83,6 +114,11 @@ const loginUser = async (req, res) => {
             return res.status(400).json({ message: 'Invalid email or password' });
         }
 
+        // Check if user is blocked
+        if (user.block) {
+            return res.status(403).json({ message: 'Admin has blocked your account.' });
+        }
+
         // Check password
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
@@ -108,7 +144,6 @@ const loginUser = async (req, res) => {
                 avatar: user.avatar,
                 role: user.role,
                 ranking: user.ranking
-
             },
         });
     } catch (error) {
@@ -119,6 +154,7 @@ const loginUser = async (req, res) => {
         });
     }
 };
+
 
 const deleteUser = async (req, res) => {
     const eventId = req.params.id;
@@ -199,33 +235,6 @@ const profileUser = async (req, res) => {
 };
 
 
-
-const getUserEvents = async (req, res) => {
-    const { userId } = req.params;
-
-    try {
-        // Validate userId
-        if (!userId) {
-            return res.status(400).json({ message: 'User ID is required' });
-        }
-
-        // Find the user by ID and populate the joinedEvents field
-        const user = await User.findById(userId).populate('joinedEvents');
-
-        if (!user) {
-            return res.status(404).json({ message: 'User not found' });
-        }
-
-        // Send the user and their joined events
-        res.json(user.joinedEvents);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({
-            message: 'Server error',
-            error: error.message,
-        });
-    }
-};
 
 // Controller to toggle block status of a user
 const toggleBlockUser = async (req, res) => {

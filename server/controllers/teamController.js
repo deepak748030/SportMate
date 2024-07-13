@@ -1,5 +1,6 @@
 const Team = require('../models/Team');
 const Event = require('../models/organizerModel')
+const User = require('../models/userModel')
 
 // Create new team
 exports.createTeam = async (req, res) => {
@@ -49,10 +50,11 @@ exports.createTeam = async (req, res) => {
     }
 };
 
+
 // Function to add a team to the joinedteams array
 exports.joinEventWithTeam = async (req, res) => {
-    console.log('join run')
-    const { teamId } = req.body; // Assuming teamId is sent in the request body
+    // console.log('join run');
+    const { teamId, userId } = req.body; // Assuming teamId and userId are sent in the request body
     const { eventId } = req.params; // Assuming eventId is sent as a URL parameter
 
     try {
@@ -62,16 +64,32 @@ exports.joinEventWithTeam = async (req, res) => {
             return res.status(404).json({ message: 'Event not found' });
         }
 
-        // Check if the team is already in the joinedteams array
+        // Find the user by ID
+        const user = await User.findById(userId);
+        // console.log('user:', user)
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        // Check if the team is already in the event's joinedteams array
         if (event.joinedteams.includes(teamId)) {
             return res.status(400).json({ message: 'Team already joined this event' });
         }
 
-        // Add the team ID to the joinedteams array
+        // Check if the event is already in the user's teamsJoined array
+        // if (user.teamsJoined.includes(eventId)) {
+        //     return res.status(400).json({ message: 'Team already joined this user' });
+        // }
+
+        // Add the team ID to the event's joinedteams array
         event.joinedteams.push(teamId);
 
-        // Save the event
+        // Add the event ID to the user's teamsJoined array
+        user.teamsJoined.push(eventId);
+
+        // Save the event and the user
         await event.save();
+        await user.save();
 
         res.status(200).json({ message: 'Team joined event successfully' });
     } catch (error) {
@@ -79,6 +97,7 @@ exports.joinEventWithTeam = async (req, res) => {
         res.status(500).json({ message: 'Internal server error' });
     }
 };
+
 
 // Get all teams
 exports.getTeams = async (req, res) => {

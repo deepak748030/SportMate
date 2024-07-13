@@ -35,6 +35,7 @@ const getEventById = async (req, res) => {
 
     try {
         const events = await Event.find({ user: userId }).populate('user', 'firstName lastName email');
+
         // console.log(events)
         if (!events || events.length === 0) {
             return res.status(404).json({ message: 'No events found for this user' });

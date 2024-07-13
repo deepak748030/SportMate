@@ -5,6 +5,7 @@ import AdminRoute from './routes/AdminRoute';
 import PrivateRoute from './routes/PrivateRoute';
 import Stats from './pages/stats/Stats';
 import EventTeamStats from './pages/eventsperfomance/EventTeamStats';
+import UserTeams from './pages/eventsperfomance/UserTeams';
 
 const Home = lazy(() => import('./pages/Home'));
 const Sports = lazy(() => import('./pages/Sports'));
@@ -45,6 +46,7 @@ function App() {
           <Route path="/events/detail" element={<EventDetail />} />
           <Route path="/event/:eventId" element={<EventSingle />} />
           <Route path="/team-stats/:eventId" element={<EventTeamStats />} />
+          <Route path="/user/team-stats/:eventId" element={<UserTeams />} />
 
           <Route path="/myteams" element={<MyTeams />} />
           <Route path="/create-team" element={<CreateTeam />} />
