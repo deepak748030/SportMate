@@ -138,7 +138,10 @@ const AdminDashboard = () => {
                                 <td className="align-middle">{user.phoneNumber}</td>
                                 <td className="align-middle">
                                     <button className="btn btn-outline-danger btn-sm" onClick={() => deleteUser(user?._id)}>Delete</button>
-                                    <button className="btn btn-outline-warning btn-sm ms-1" onClick={() => suspendUser(user?._id)}>Suspend</button>
+                                    <button className="btn btn-outline-warning btn-sm ms-1" onClick={() => toggleBlockStatus(user?._id)}>
+                                        {user.block ? 'Unblock' : 'Block'}
+
+                                    </button>
                                 </td>
                             </tr>
                         ))
@@ -205,8 +208,11 @@ const AdminDashboard = () => {
                                 <td>{event?.date?.slice(0, 10)}</td>
                                 <td>{event?.user?.firstName}</td>
                                 <td>
-                                    <button className="btn btn-success btn-sm" onClick={() => acceptEvent(event?._id)}>Approve</button>{' '}
-                                    <button className="btn btn-danger btn-sm" onClick={() => declineEvent(event?._id)}>Decline</button>
+                                    <button className="btn btn-success btn-sm" onClick={() => acceptEvent(event?._id)}>
+                                        {event?.accepted ? 'Approved' : 'Approve'}</button>{' '}
+                                    <button className="btn btn-danger btn-sm" onClick={() => declineEvent(event?._id)}>
+                                        {event?.accepted ? 'decline' : 'declined'}
+                                    </button>
                                 </td>
                             </tr>
                         ))
