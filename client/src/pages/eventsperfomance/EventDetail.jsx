@@ -64,28 +64,10 @@ export default function EventDetail() {
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-8">
-                            <h1 className="display-4 text-center mb-4">Event Details</h1>
-                            <EventCard myEventsData={events} stats={true} />
+                            <h1 className="display-4 text-center mb-4 text-danger" style={{ fontWeight: 'bold' }}>Event Details</h1>
                         </div>
-                        <div className="col-lg-4">
-                            <h5 className="mb-3">Performance</h5>
-                            <ul className="list-group mb-4">
-                                <li className="list-group-item">
-                                    <Link
-                                        // to={'/team-performance'} 
-                                        style={{ textDecoration: 'none', color: 'black' }} >
-                                        Team Performance
-                                    </Link>
-                                </li>
-                                <li className="list-group-item">
-                                    <Link
-                                        // to={'/user-performance'}
-                                        style={{ textDecoration: 'none', color: 'black' }} >
-                                        User Performance
-                                    </Link>
-                                </li>
-                            </ul>
-                        </div>
+                        <EventCard myEventsData={events} stats={true} />
+
                     </div>
                 </div>
             </div>

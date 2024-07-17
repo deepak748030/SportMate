@@ -26,7 +26,9 @@ function Login() {
 
         try {
             const response = await axios.post(`${apiUrl}/login`, loginData);
-            toast.success('Logged in successfully!');
+            if (response.data.token) {
+                toast.success('Logged in successfully!');
+            }
 
             localStorage.setItem('auth', JSON.stringify(response.data));
             setAuth({
@@ -35,8 +37,17 @@ function Login() {
                 token: response.data.token
             });
 
-            // Redirect to another page after successful login
-            navigate('/user-dashboard');
+            const userRole = response.data.user.role;
+            if (userRole === 'player') {
+                navigate('/user-dashboard');
+            } else if (userRole === 'organizer') {
+                navigate('/organizer-dashboard');
+            } else if (userRole === 'admin') {
+                navigate('/admin-dashboard');
+            }
+
+
+
         } catch (error) {
             console.error('Error logging in:', error);
             const errorMessage = error.response?.data?.message || 'Failed to log in. Please check your email and password.';

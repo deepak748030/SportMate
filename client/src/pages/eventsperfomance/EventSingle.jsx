@@ -34,6 +34,7 @@ const EventSingle = () => {
                 const res = await axios.get(`${apiUrl}/events/single/${eventId}`);
                 if (res.data) {
                     setParticipants(res.data.participants);
+                    console.log(res.data)
                 } else {
                     toast.error('Event not found');
                 }

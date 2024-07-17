@@ -1,8 +1,10 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/auth';
 
 function EventCard({ myEventsData, handleClick, stats, allEvents, JoinEvent, Modal, userDash, teamDash }) {
     const navigate = useNavigate();
+    const [auth] = useAuth()
 
     return (
         <div className="p-6 bg-gray-100 rounded-lg shadow-md">

@@ -13,7 +13,7 @@ const eventSchema = new mongoose.Schema({
     length: { type: String, required: true },
     teamFee: { type: Number, required: true },
     location: { type: String, required: true },
-    winningPrize: { type: Number, required: true },
+    winningPrize: { type: Number },
     accepted: {
         type: Boolean,
         default: false

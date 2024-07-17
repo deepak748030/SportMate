@@ -93,17 +93,18 @@ const Navbar = () => {
                                                 Teams
                                             </Link>
                                         </li>
+                                        <li className="nav-item">
+                                            <Link className="nav-link" to="/subscription">
+                                                Subscription
+                                            </Link>
+                                        </li>
                                     </>
 
 
 
                                 )}
 
-                                <li className="nav-item">
-                                    <Link className="nav-link" to="/subscription">
-                                        Subscription
-                                    </Link>
-                                </li>
+
                                 <li className="nav-item">
                                     <Link className="nav-link" onClick={handleLogout}>
                                         Logout
