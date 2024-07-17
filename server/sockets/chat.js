@@ -1,4 +1,5 @@
 const socketIo = require('socket.io');
+const Message = require('./Message');
 
 let io;
 
@@ -10,22 +11,22 @@ const initializeSocket = (server) => {
         }
     });
 
-    // Store messages in memory
-    let messages = [];
-
-
     // Socket.IO logic
-    io.on('connection', (socket) => {
-        console.log('New client connected:', socket.id);
+    io.on('connection', async (socket) => {
+        // console.log('New client connected:', socket.id);
 
-        // Send existing messages to the new client
+        // Fetch existing messages from the database and send to the new client
+        const messages = await Message.find().sort({ createdAt: 1 });
         socket.emit('initialMessages', messages);
 
         // Listen for incoming messages
-        socket.on('sendMessage', (message) => {
-            console.log('Message received:', message);
-            // Store message in memory
-            messages.push(message);
+        socket.on('sendMessage', async (messageText) => {
+            // console.log('Message received:', messageText);
+
+            // Save message to the database
+            const message = new Message({ text: messageText });
+            await message.save();
+
             // Broadcast the message to all clients
             io.emit('receiveMessage', message);
         });
@@ -35,11 +36,6 @@ const initializeSocket = (server) => {
             console.log('Client disconnected:', socket.id);
         });
     });
-
-
-
-
-
 };
 
 module.exports = { initializeSocket };

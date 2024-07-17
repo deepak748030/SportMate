@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import Layout from '../../components/layouts/Layout'
+import Layout from '../../components/layouts/Layout';
 import { connectSocket, disconnectSocket, sendMessage, socket } from '../../api/socket'; // Adjust import path as needed
-import './chat.css'
-
+import './chat.css';
 
 export default function SingleChat() {
     const [message, setMessage] = useState('');
@@ -53,14 +52,14 @@ export default function SingleChat() {
                 maxWidth: '40rem',
                 maxHeight: '90vh'
             }}>
-                <div className="flex-1 overflow-auto py-1" >
-                    <div className="flex flex-column gap-4  " style={{
+                <div className="flex-1 overflow-auto py-1">
+                    <div className="flex flex-column gap-4" style={{
                         minHeight: '82vh'
                     }}>
                         {messages.map((msg, index) => (
                             <div key={index} className={`d-flex my-2 justify-content-${index % 2 === 0 ? 'end' : 'start'}`}>
-                                <div className={`bg-${index % 2 === 0 ? 'warning' : 'dark'} text-light px-4 py-2 ${index % 2 === 0 ? 'left' : 'right'} `}>
-                                    <p className="mb-0">{msg}</p>
+                                <div className={`bg-${index % 2 === 0 ? 'warning' : 'dark'} text-light px-4 py-2 ${index % 2 === 0 ? 'left' : 'right'}`}>
+                                    <p className="mb-0">{msg.text}</p>
                                 </div>
                             </div>
                         ))}

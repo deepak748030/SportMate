@@ -1,6 +1,6 @@
 import { io } from 'socket.io-client';
 
-const api = "https://sport-mate-server.vercel.app"; // Adjust based on your server configuration
+const api = "https://sport-mate-server.vercel.app/"; // Adjust based on your server configuration
 export const socket = io(api, {
     autoConnect: false
 });
