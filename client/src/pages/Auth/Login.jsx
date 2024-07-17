@@ -36,7 +36,7 @@ function Login() {
             });
 
             // Redirect to another page after successful login
-            navigate('/');
+            navigate('/user-dashboard');
         } catch (error) {
             console.error('Error logging in:', error);
             const errorMessage = error.response?.data?.message || 'Failed to log in. Please check your email and password.';

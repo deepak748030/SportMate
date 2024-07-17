@@ -7,11 +7,12 @@ const eventSchema = new mongoose.Schema({
         required: true
     },
     eventName: { type: String, required: true },
-    place: { type: String, required: true },
-    date: { type: String, required: true },
-    time: { type: String, required: true },
-    price: { type: Number, required: true },
-    numTeams: { type: Number, required: true },
+    startDate: { type: String, required: true },
+    dayOfWeek: { type: String, required: true },
+    gamesTime: { type: String, required: true },
+    length: { type: String, required: true },
+    teamFee: { type: Number, required: true },
+    location: { type: String, required: true },
     winningPrize: { type: Number, required: true },
     accepted: {
         type: Boolean,

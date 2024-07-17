@@ -20,6 +20,7 @@ function Signup() {
     const [email, setEmail] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
     const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
     const [gender, setGender] = useState('');
     const [gamePosition, setGamePosition] = useState('');
 
@@ -37,6 +38,11 @@ function Signup() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        if (password !== confirmPassword) {
+            toast.error('Passwords do not match');
+            return;
+        }
 
         try {
             const response = await axios.post(`${apiUrl}/signup`, {
@@ -60,10 +66,10 @@ function Signup() {
             setFirstName('');
             setLastName('');
             setBirthYear('');
-            setReceiveEmails(false);
             setEmail('');
             setPhoneNumber('');
             setPassword('');
+            setConfirmPassword('');
             setGender('');
             setGamePosition('');
         } catch (error) {
@@ -243,11 +249,12 @@ function Signup() {
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 required
+                                autoComplete="new-password"
                             />
                         </Col>
                     </Form.Group>
 
-                    <Form.Group as={Row} className="mb-3" controlId="passwordConfirmation">
+                    <Form.Group as={Row} className="mb-3" controlId="confirmPassword">
                         <Form.Label column sm={2}>
                             <i className="bi bi-key me-2"></i> Confirm Password <span className="text-danger">*</span>
                         </Form.Label>
@@ -255,16 +262,21 @@ function Signup() {
                             <Form.Control
                                 type="password"
                                 placeholder="Confirm Password"
-                                value={password}
+                                value={confirmPassword}
+                                onChange={(e) => setConfirmPassword(e.target.value)}
                                 required
                                 autoComplete="new-password"
                             />
                         </Col>
                     </Form.Group>
 
-                    <Button variant="primary" type="submit" className="w-100">
-                        Sign Up
-                    </Button>
+                    <Form.Group as={Row} className="text-center">
+                        <Col sm={{ span: 10, offset: 2 }}>
+                            <Button variant="primary" type="submit" className="w-100">
+                                Sign Up
+                            </Button>
+                        </Col>
+                    </Form.Group>
                 </Form>
             </Container>
         </Layout>
@@ -272,3 +284,6 @@ function Signup() {
 }
 
 export default Signup;
+
+
+

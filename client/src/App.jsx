@@ -6,6 +6,7 @@ import PrivateRoute from './routes/PrivateRoute';
 import Stats from './pages/stats/Stats';
 import EventTeamStats from './pages/eventsperfomance/EventTeamStats';
 import UserTeams from './pages/eventsperfomance/UserTeams';
+import ResetPassword from './pages/Auth/ResetPassword';
 
 const Home = lazy(() => import('./pages/Home'));
 const Sports = lazy(() => import('./pages/Sports'));
@@ -41,6 +42,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
           <Route path="/events" element={<AllEvents />} />
 
           <Route path="/events/detail" element={<EventDetail />} />

@@ -38,11 +38,10 @@ const Subscription = () => {
     const handleFormSubmit = async (e) => {
         e.preventDefault();
         try {
-
-            console.log(apiUrl)
             const response = await axios.post(`${apiUrl}/subscribe`, {
                 userId,
                 plan: selectedPlan,
+                cardDetails, // Include card details here
             });
             console.log('Subscription response:', response.data);
             setShowModal(false);
@@ -50,6 +49,7 @@ const Subscription = () => {
             console.error('Error subscribing:', error);
         }
     };
+
 
     return (
         <Layout>

@@ -1,32 +1,33 @@
 const Event = require('../models/organizerModel');
 
 const createEvent = async (req, res) => {
-    const { user, eventName, place, date, price, numTeams, winningPrize, time } = req.body;
-    console.log(`create`)
-    try {
+    const { user, eventName, startDate, dayOfWeek, gamesTime, length, teamFee, location, winningPrize } = req.body;
 
-        console.log(req.body)
-        if (!user || !eventName || !place || !date || !price || !numTeams || !winningPrize || !time) {
-            return res.status(400).json({ message: 'fill all field properly' })
+    try {
+        if (!user || !eventName || !startDate || !dayOfWeek || !gamesTime || !length || !teamFee || !location || !winningPrize) {
+            return res.status(400).json({ message: 'Fill all fields properly' });
         }
+
         const event = new Event({
             user,
             eventName,
-            place,
-            date,
-            time,
-            price,
-            numTeams,
-            winningPrize,
+            startDate,
+            dayOfWeek,
+            gamesTime,
+            length,
+            teamFee: parseFloat(teamFee),
+            location,
+            winningPrize: parseFloat(winningPrize) // Include winningPrize
         });
 
         await event.save();
-        res.status(201).json({ message: 'created' });
+        res.status(201).json({ message: 'Event created' });
     } catch (error) {
+        console.error('Error creating event:', error);
         res.status(400).json({ message: error.message });
-        console.log(error)
     }
 };
+
 
 
 
@@ -101,16 +102,15 @@ const declineEvent = async (req, res) => {
     }
 };
 
-
 const updateEvent = async (req, res) => {
     const eventId = req.params.id;
-    const { eventName, place, date, time, price, numTeams, winningPrize } = req.body;
+    const { eventName, startDate, dayOfWeek, gamesTime, length, teamFee, location, winningPrize } = req.body;
 
     try {
         const updatedEvent = await Event.findByIdAndUpdate(
             eventId,
-            { eventName, place, date, time, price, numTeams, winningPrize },
-            { new: true } // To return the updated document
+            { eventName, startDate, dayOfWeek, gamesTime, length, teamFee: parseFloat(teamFee), location, winningPrize: parseFloat(winningPrize) },
+            { new: true }
         );
 
         if (!updatedEvent) {

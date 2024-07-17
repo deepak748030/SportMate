@@ -21,10 +21,15 @@ const app = express();
 const server = http.createServer(app);
 
 
-
-
 // Connect to the database
 connectDB();
+
+
+//subscription
+
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+app.set('stripe', stripe); // Store the Stripe instance in the app
+
 
 // Middleware
 app.use(express.json());

@@ -88,16 +88,17 @@ const Navbar = () => {
                                                 User Dashboard
                                             </Link>
                                         </li>
+                                        <li className="nav-item">
+                                            <Link className="nav-link" to="/myteams">
+                                                Teams
+                                            </Link>
+                                        </li>
                                     </>
 
 
 
                                 )}
-                                <li className="nav-item">
-                                    <Link className="nav-link" to="/myteams">
-                                        Teams
-                                    </Link>
-                                </li>
+
                                 <li className="nav-item">
                                     <Link className="nav-link" to="/subscription">
                                         Subscription

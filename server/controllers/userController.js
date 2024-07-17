@@ -1,6 +1,8 @@
 const User = require('../models/userModel');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
+const crypto = require('crypto');
+const nodemailer = require('nodemailer');
 
 // Function to get user and their joined events and teams
 const getUserEvents = async (req, res) => {
@@ -263,5 +265,99 @@ const toggleBlockUser = async (req, res) => {
     }
 };
 
-module.exports = { registerUser, loginUser, profileUser, deleteUser, getAllUsers, getUserEvents, toggleBlockUser };
+
+const forgotPassword = async (req, res) => {
+    const { email } = req.body;
+    console.log(email)
+    try {
+        const user = await User.findOne({ email });
+
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        // Generate reset token
+        const resetToken = crypto.randomBytes(20).toString('hex');
+        const resetTokenExpire = Date.now() + 3600000; // 1 hour
+
+
+        user.resetPasswordToken = resetToken;
+        user.resetPasswordExpire = resetTokenExpire;
+        await user.save();
+
+        // Send email with reset link
+        const resetUrl = `https://sport-mate.vercel.app/reset-password/${resetToken}`;
+        const message = `
+            <h1>You have requested a password reset</h1>
+            <p>Please go to this link to reset your password</p>
+            <a href="${resetUrl}" clicktracking=off>${resetUrl}</a>
+        `;
+
+        const transporter = nodemailer.createTransport({
+            service: 'gmail',
+            host: 'smtp.gmail.com',
+            port: 587,
+            secure: false,
+            auth: {
+                user: process.env.EMAIL_USERNAME,
+                pass: process.env.EMAIL_PASSWORD
+            }
+        });
+
+        await transporter.sendMail({
+            from: process.env.EMAIL_USERNAME,
+            to: user.email,
+            subject: 'Password Reset Request',
+            html: message
+        });
+
+        res.status(200).json({ message: 'Email sent' });
+
+    } catch (error) {
+        console.error('Error in forgotPassword:', error);
+        res.status(500).json({
+            message: 'Server error',
+            error: error.message,
+        });
+    }
+};
+
+
+const resetPassword = async (req, res) => {
+    const { token, newPassword } = req.body;
+
+    try {
+        // Find user by reset token and ensure the token has not expired
+        const user = await User.findOne({
+            resetPasswordToken: token,
+            resetPasswordExpire: { $gt: Date.now() }
+        });
+
+        if (!user) {
+            return res.status(400).json({ message: 'Invalid or expired token' });
+        }
+
+        // Hash new password
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(newPassword, salt);
+
+        // Update user's password and clear the reset token fields
+        user.password = hashedPassword;
+        user.resetPasswordToken = undefined;
+        user.resetPasswordExpire = undefined;
+
+        await user.save();
+
+        res.status(200).json({ message: 'Password updated successfully' });
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            message: 'Server error',
+            error: error.message,
+        });
+    }
+};
+
+module.exports = { registerUser, loginUser, profileUser, deleteUser, getAllUsers, getUserEvents, toggleBlockUser, forgotPassword, resetPassword };
 

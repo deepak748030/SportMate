@@ -1,8 +1,17 @@
 const express = require('express');
-const multer = require('multer');
-const mongoose = require('mongoose'); // Import mongoose
-const { registerUser, loginUser, profileUser, deleteUser, getAllUsers, getUserEvents, toggleBlockUser } = require('../controllers/userController');
 const router = express.Router();
+const multer = require('multer');
+const {
+    registerUser,
+    loginUser,
+    profileUser,
+    deleteUser,
+    getAllUsers,
+    getUserEvents,
+    toggleBlockUser,
+    forgotPassword,
+    resetPassword
+} = require('../controllers/userController');
 const { requireSignIn, isAdmin } = require('../middlewares/authMiddleware');
 
 // Setup multer for avatar upload
@@ -17,16 +26,14 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-
 router.get('/users', getAllUsers);
 router.get('/user/:userId', getUserEvents);
-
 router.delete('/userdelete/:id', deleteUser);
 router.post('/signup', registerUser);
 router.post('/login', loginUser);
 router.put('/profile', requireSignIn, upload.single('avatar'), profileUser);
 
-//protected User route auth
+// Protected User route auth
 router.get("/user-auth", requireSignIn, (req, res) => {
     res.status(200).send({ ok: true });
 });
@@ -38,5 +45,8 @@ router.get("/admin-auth", requireSignIn, isAdmin, (req, res) => {
 // Route to toggle block status of a user
 router.patch('/toggle-block/:userId', toggleBlockUser);
 
+// New routes for forgot and reset password
+router.post('/forgot-password', forgotPassword);
+router.post('/reset-password', resetPassword);
 
 module.exports = router;
