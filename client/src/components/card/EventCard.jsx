@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/auth';
 
-function EventCard({ myEventsData, handleClick, stats, allEvents, JoinEvent, Modal, userDash, teamDash }) {
+function EventCard({ myEventsData, handleClick, stats, allEvents, JoinEvent, Modal, userDash, teamDash, admin, acceptEvent, declineEvent }) {
     const navigate = useNavigate();
     const [auth] = useAuth()
 
@@ -89,6 +89,15 @@ function EventCard({ myEventsData, handleClick, stats, allEvents, JoinEvent, Mod
                                     </button>
                                     <button onClick={() => Modal(event)} className="btn btn-primary">
                                         Join by Team
+                                    </button>
+                                </div>
+                            )}
+                            {admin && (
+                                <div className='d-flex gap-3 my-3' >
+                                    <button className="btn btn-success btn-sm" onClick={() => acceptEvent(event._id)}>
+                                        {event?.accepted ? 'Approved' : 'Approve'}</button>{' '}
+                                    <button className="btn btn-danger btn-sm" onClick={() => declineEvent(event._id)}>
+                                        {event?.accepted ? 'decline' : 'declined'}
                                     </button>
                                 </div>
                             )}

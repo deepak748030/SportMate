@@ -4,6 +4,7 @@ import Layout from '../../components/layouts/Layout';
 import axios from 'axios';
 import apiUrl from '../../api/config';
 import { toast } from 'react-toastify';
+import EventCard from '../../components/card/EventCard'
 
 const AdminDashboard = () => {
     const [eventData, setEventData] = useState([]);
@@ -265,8 +266,7 @@ const AdminDashboard = () => {
                 <div className="row mt-4">
                     <div className="col-12">
                         <h2 className="mb-3">Sports Events</h2>
-                        {renderSportsEventsTable()}
-                        {renderSportsEventsCards()}
+                        <EventCard myEventsData={eventData} admin={true} acceptEvent={(event) => { acceptEvent(event) }} declineEvent={(event) => { declineEvent(event) }} />
                     </div>
                 </div>
             </div>
