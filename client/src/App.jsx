@@ -7,6 +7,7 @@ import Stats from './pages/stats/Stats';
 import EventTeamStats from './pages/eventsperfomance/EventTeamStats';
 import UserTeams from './pages/eventsperfomance/UserTeams';
 import ResetPassword from './pages/Auth/ResetPassword';
+import ContactUs from './pages/ContactUs';
 
 const Home = lazy(() => import('./pages/Home'));
 const Sports = lazy(() => import('./pages/Sports'));
@@ -28,7 +29,9 @@ const EventDetail = lazy(() => import('./pages/eventsperfomance/EventDetail'));
 const EventSingle = lazy(() => import('./pages/eventsperfomance/EventSingle'));
 const AllEvents = lazy(() => import('./pages/AllEvents'));
 const ErrorPage = lazy(() => import('./pages/Error'));
-
+const AdminStats = lazy(() => import('./pages/stats/AdminStats'));
+const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
+const AboutUs = lazy(() => import('./pages/AboutUs'));
 
 function App() {
   return (
@@ -53,6 +56,10 @@ function App() {
           <Route path="/myteams" element={<MyTeams />} />
           <Route path="/create-team" element={<CreateTeam />} />
           <Route path="/chat" element={<Singlechat />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/about-us" element={<AboutUs />} />
+          <Route path="/contact-us" element={<ContactUs />} />
+
           {/* <Route path="/chat/:id" element={<Singlechat />} /> */}
 
           {/* Private Routes */}
@@ -81,6 +88,9 @@ function App() {
           {/* Admin Routes */}
           <Route path="/admin-dashboard" element={<AdminRoute />}>
             <Route index element={<AdminDashboard />} />
+          </Route>
+          <Route path="/admin-stats" element={<AdminRoute />}>
+            <Route index element={<AdminStats />} />
           </Route>
 
           {/* Catch-all Route */}

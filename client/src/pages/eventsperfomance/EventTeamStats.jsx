@@ -125,7 +125,7 @@ const EventTeamStats = () => {
                 <div className="container">
                     <div className="card">
                         <div className="card-body">
-                            <h5 className="mt-4">Event Teams Participants</h5>
+                            <h3 className="my-4 text text-danger">Event Teams Participants</h3>
                             <div className="row">
                                 {participants.map(participant => (
                                     <div key={participant._id} className="col-md-4 mb-3">

@@ -28,7 +28,7 @@ const Footer = () => {
                         <h5>Quick Links</h5>
                         <ul className="list-unstyled">
                             <li>
-                                <Link to="#" className="text-light" style={{ textDecoration: 'none' }}>
+                                <Link to="/about-us" className="text-light" style={{ textDecoration: 'none' }}>
                                     About Us
                                 </Link>
                             </li>
@@ -38,12 +38,12 @@ const Footer = () => {
                                 </Link>
                             </li>
                             <li>
-                                <Link to="#" className="text-light" style={{ textDecoration: 'none' }}>
-                                    Create Event
+                                <Link to="/privacy-policy" className="text-light" style={{ textDecoration: 'none' }}>
+                                    Privacy Policy
                                 </Link>
                             </li>
                             <li>
-                                <Link to="#" className="text-light" style={{ textDecoration: 'none' }}>
+                                <Link to="/contact-us" className="text-light" style={{ textDecoration: 'none' }}>
                                     Contact Us
                                 </Link>
                             </li>

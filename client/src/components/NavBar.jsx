@@ -59,13 +59,13 @@ const Navbar = () => {
                                         </li>
 
 
-                                        {/* <li className="nav-item">
+                                        <li className="nav-item">
 
-                                            <Link className="nav-link" to="/events/detail">
+                                            <Link className="nav-link" to="/admin-stats">
                                                 Stats
                                             </Link>
 
-                                        </li> */}
+                                        </li>
                                     </>
 
 
