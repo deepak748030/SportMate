@@ -42,11 +42,9 @@ function MyTeams() {
             <div className='container mt-5'>
                 <div className='row'>
                     {/* Left Section */}
-                    <div className='col-md-4'>
-                        <div className='text-center'>
-                            <img src='/logo.png' alt='avatar' style={{ width: '120px', borderRadius: '50%' }} />
-                            <h4 className='mt-3 fw-bold'>Welcome Back, {auth?.user?.name || 'User'}!</h4>
-                        </div>
+                    <div className='col-md-4 text-center'>
+                        <img src='/logo.png' alt='avatar' className='rounded-circle' style={{ width: '120px' }} />
+                        <h4 className='mt-3 fw-bold'>Welcome Back, {auth?.user?.name || 'User'}!</h4>
                         <hr className='mt-4' />
                     </div>
                     {/* Right Section */}
@@ -57,23 +55,25 @@ function MyTeams() {
                         </div>
 
                         {/* Display Teams */}
-                        <div>
+                        <div className='row'>
                             {teams.length > 0 ? (
                                 teams.map(team => (
-                                    <div key={team._id} className='card mb-3 shadow-sm'>
-                                        <div className='card-body'>
-                                            <h5 className='card-title'>{team.teamName}</h5>
-                                            <p className='card-text'><strong>Sport:</strong> {team.sport}</p>
-                                            <p className='card-text'><strong>Location:</strong> {team.city}, {team.state}</p>
-                                            <p className='card-text'><strong>Club:</strong> {team.clubName}</p>
-                                            <p className='card-text'><strong>Age Group:</strong> {team.ageGroup}</p>
-                                            <p className='card-text'><strong>Gender:</strong> {team.gender}</p>
-                                            <button className='btn btn-outline-primary' onClick={() => handleShowModal(team._id)}>Add Friends</button>
+                                    <div key={team._id} className='col-md-6 mb-4'>
+                                        <div className='card shadow-sm h-100'>
+                                            <div className='card-body d-flex flex-column'>
+                                                <h3 className='card-title text-center text-danger text-uppercase fw-bold'>{team.teamName}</h3>
+                                                <p className='card-text'><strong>Sport:</strong> {team.sport}</p>
+                                                <p className='card-text'><strong>Location:</strong> {team.city}, {team.state}</p>
+                                                <p className='card-text'><strong>Club:</strong> {team.clubName}</p>
+                                                <p className='card-text'><strong>Age Group:</strong> {team.ageGroup}</p>
+                                                <p className='card-text fw-bold'><strong>Gender:</strong> {team.gender}</p>
+                                                <button className='btn btn-warning mt-auto' onClick={() => handleShowModal(team._id)}>Add Friends</button>
+                                            </div>
                                         </div>
                                     </div>
                                 ))
                             ) : (
-                                <div className='p-4 text-center bg-light rounded'>
+                                <div className='col-12 p-4 text-center bg-light rounded'>
                                     <h3 className='fw-bold text-warning'>You haven't created any teams yet!</h3>
                                     <p>Start your sports journey by creating your first team.</p>
                                 </div>

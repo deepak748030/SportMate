@@ -22,7 +22,7 @@ function Home() {
                                     Discover a seamless platform to create, manage, and promote your volleyball events at competitive rates.
                                 </p>
                                 <div className="d-flex gap-2 mb-3">
-                                    <Link to={auth?.user ? '/user-dashboard' : '/login'} className="btn btn-warning">
+                                    <Link to={auth?.user ? '/myteams' : '/login'} className="btn btn-warning">
                                         Get Started Today!
                                     </Link>
                                     <Link to="/events" className="btn btn-outline-warning">

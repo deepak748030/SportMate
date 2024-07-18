@@ -3,13 +3,13 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Spinner from './components/Spinner';
 import AdminRoute from './routes/AdminRoute';
 import PrivateRoute from './routes/PrivateRoute';
-import Stats from './pages/stats/Stats';
-import EventTeamStats from './pages/eventsperfomance/EventTeamStats';
-import UserTeams from './pages/eventsperfomance/UserTeams';
-import ResetPassword from './pages/Auth/ResetPassword';
-import ContactUs from './pages/ContactUs';
-import Leagues from './pages/leages/Leagues';
 
+const Stats = lazy(() => import('./pages/stats/Stats'));
+const EventTeamStats = lazy(() => import('./pages/eventsperfomance/EventTeamStats'));
+const UserTeams = lazy(() => import('./pages/eventsperfomance/UserTeams'));
+const ResetPassword = lazy(() => import('./pages/Auth/ResetPassword'));
+const ContactUs = lazy(() => import('./pages/ContactUs'));
+const Leagues = lazy(() => import('./pages/leages/Leagues'));
 const Home = lazy(() => import('./pages/Home'));
 const Sports = lazy(() => import('./pages/Sports'));
 const Signup = lazy(() => import('./pages/Auth/SignUp'));
@@ -40,30 +40,44 @@ function App() {
       <Suspense fallback={<Spinner />}>
         <Routes>
           {/* Public Routes */}
-          <Route path="/stats/:playerId/:eventId" element={<Stats />} />
           <Route path="/" element={<Home />} />
           <Route path="/sports" element={<Sports />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password/:token" element={<ResetPassword />} />
-          <Route path="/events" element={<AllEvents />} />
-
-          <Route path="/events/detail" element={<EventDetail />} />
-          <Route path="/event/:eventId" element={<EventSingle />} />
-          <Route path="/team-stats/:eventId" element={<EventTeamStats />} />
-          <Route path="/user/team-stats/:eventId" element={<UserTeams />} />
-
-          <Route path="/myteams" element={<MyTeams />} />
-          <Route path="/create-team" element={<CreateTeam />} />
-          <Route path="/chat" element={<Singlechat />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/about-us" element={<AboutUs />} />
           <Route path="/contact-us" element={<ContactUs />} />
 
-          {/* <Route path="/chat/:id" element={<Singlechat />} /> */}
-
-          {/* Private Routes */}
+          {/* Protected Routes */}
+          <Route path="/stats/:playerId/:eventId" element={<PrivateRoute />}>
+            <Route index element={<Stats />} />
+          </Route>
+          <Route path="/events" element={<PrivateRoute />}>
+            <Route index element={<AllEvents />} />
+          </Route>
+          <Route path="/events/detail" element={<PrivateRoute />}>
+            <Route index element={<EventDetail />} />
+          </Route>
+          <Route path="/event/:eventId" element={<PrivateRoute />}>
+            <Route index element={<EventSingle />} />
+          </Route>
+          <Route path="/team-stats/:eventId" element={<PrivateRoute />}>
+            <Route index element={<EventTeamStats />} />
+          </Route>
+          <Route path="/user/team-stats/:eventId" element={<PrivateRoute />}>
+            <Route index element={<UserTeams />} />
+          </Route>
+          <Route path="/myteams" element={<PrivateRoute />}>
+            <Route index element={<MyTeams />} />
+          </Route>
+          <Route path="/create-team" element={<PrivateRoute />}>
+            <Route index element={<CreateTeam />} />
+          </Route>
+          <Route path="/chat" element={<PrivateRoute />}>
+            <Route index element={<Singlechat />} />
+          </Route>
           <Route path="/profile" element={<PrivateRoute />}>
             <Route index element={<Profile />} />
           </Route>
@@ -96,6 +110,7 @@ function App() {
           <Route path="/leagues" element={<AdminRoute />}>
             <Route index element={<Leagues />} />
           </Route>
+
           {/* Catch-all Route */}
           <Route path="*" element={<ErrorPage />} />
         </Routes>
