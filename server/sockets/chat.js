@@ -3,13 +3,13 @@ const socketIo = require('socket.io');
 let io;
 
 const initializeSocket = (server) => {
+
     io = socketIo(server, {
         cors: {
-            origin: '*', // Consider restricting origins for security in production
+            origin: '*',
             methods: ['GET', 'POST'],
         },
     });
-
     // Socket.IO logic
     io.on('connection', (socket) => {
         console.log('New client connected:', socket.id);
