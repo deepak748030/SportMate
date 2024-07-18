@@ -6,7 +6,7 @@ const initializeSocket = (server) => {
 
     io = socketIo(server, {
         cors: {
-            origin: '*',
+            origin: 'https://sport-mate.vercel.app',
             methods: ['GET', 'POST'],
         },
     });
