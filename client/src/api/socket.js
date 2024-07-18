@@ -1,7 +1,7 @@
 import { io } from 'socket.io-client';
 
 const developmentApi = 'http://localhost:3000';
-const productionApi = 'https://sport-mate-server.vercel.app'; // Assuming your production URL
+const productionApi = 'https://sport-mate-server.vercel.app/'; // Assuming your production URL
 
 // Use environment variables for a more secure and dynamic approach
 const apiUrl = process.env.NODE_ENV === 'production' ? productionApi : developmentApi;
