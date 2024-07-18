@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/auth';
 
-function EventCard({ myEventsData, handleClick, stats, allEvents, JoinEvent, Modal, userDash, teamDash, admin, acceptEvent, declineEvent }) {
+function EventCard({ myEventsData, handleClick, orgDash, stats, allEvents, JoinEvent, Modal, userDash, teamDash, admin, acceptEvent, declineEvent }) {
     const navigate = useNavigate();
     const [auth] = useAuth()
 
@@ -14,7 +14,7 @@ function EventCard({ myEventsData, handleClick, stats, allEvents, JoinEvent, Mod
                     <div
                         key={event._id}
                         className="col-12 col-md-6 mb-4"
-                        onClick={() => handleClick(event)}
+                        onClick={() => { orgDash && handleClick(event); }}
                     >
                         <div className="d-flex flex-column p-3 border border-gray-300 rounded-lg bg-white hover:shadow-lg transition-shadow duration-300">
                             <div className="row">
@@ -106,7 +106,7 @@ function EventCard({ myEventsData, handleClick, stats, allEvents, JoinEvent, Mod
                     </div>
                 ))}
             </div>
-        </div>
+        </div >
     );
 }
 

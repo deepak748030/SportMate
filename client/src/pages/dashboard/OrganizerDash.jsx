@@ -154,7 +154,7 @@ export default function OrganizerDash() {
                         <div className="col-lg-8 mb-4">
                             <UserProfile />
 
-                            <EventCard myEventsData={myEventsData} handleClick={handleEditEvent} />
+                            <EventCard myEventsData={myEventsData} handleClick={handleEditEvent} orgDash={true} />
                             <div className="text-center mt-4">
                                 <Button variant="primary" onClick={handleShow}>Create Event</Button>
                             </div>
