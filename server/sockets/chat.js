@@ -1,34 +1,42 @@
 const socketIo = require('socket.io');
-const Message = require('./Message');
+const Message = require('./Message'); // Assuming Message model exists
 
 let io;
 
 const initializeSocket = (server) => {
     io = socketIo(server, {
         cors: {
-            origin: '*',
-            methods: ['GET', 'POST']
-        }
+            origin: '*', // Consider restricting origins for security in production
+            methods: ['GET', 'POST'],
+        },
     });
 
     // Socket.IO logic
     io.on('connection', async (socket) => {
-        // console.log('New client connected:', socket.id);
+        console.log('New client connected:', socket.id);
 
         // Fetch existing messages from the database and send to the new client
-        const messages = await Message.find().sort({ createdAt: 1 });
-        socket.emit('initialMessages', messages);
+        try {
+            const messages = await Message.find().sort({ createdAt: 1 });
+            socket.emit('initialMessages', messages);
+        } catch (error) {
+            console.error('Error fetching messages:', error);
+            // Handle error gracefully, e.g., send an error message to the client
+        }
 
         // Listen for incoming messages
         socket.on('sendMessage', async (messageText) => {
-            // console.log('Message received:', messageText);
+            try {
+                // Save message to the database
+                const message = new Message({ text: messageText });
+                await message.save();
 
-            // Save message to the database
-            const message = new Message({ text: messageText });
-            await message.save();
-
-            // Broadcast the message to all clients
-            io.emit('receiveMessage', message);
+                // Broadcast the message to all clients
+                io.emit('receiveMessage', message);
+            } catch (error) {
+                console.error('Error saving or broadcasting message:', error);
+                // Handle error gracefully, e.g., notify the user or retry
+            }
         });
 
         // Handle client disconnect

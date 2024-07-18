@@ -11,12 +11,9 @@ export default function SingleChat() {
         connectSocket();
 
         // Clean up on unmount
-        return () => {
-            disconnectSocket();
-        };
+        return () => disconnectSocket();
     }, []);
 
-    // Handle sending messages
     const handleSendMessage = (e) => {
         e.preventDefault();
         if (message.trim()) {
@@ -25,37 +22,30 @@ export default function SingleChat() {
         }
     };
 
-    // Listen for received messages
     useEffect(() => {
         const receiveMessage = (newMessage) => {
-            setMessages(prevMessages => [...prevMessages, newMessage]);
+            setMessages((prevMessages) => [...prevMessages, newMessage]);
         };
 
-        // Subscribe to 'receiveMessage' event
         socket.on('receiveMessage', receiveMessage);
 
-        // Initial messages received
-        socket.on('initialMessages', (initialMessages) => {
+        const receiveInitialMessages = (initialMessages) => {
             setMessages(initialMessages);
-        });
+        };
 
-        // Clean up event listeners on unmount
+        socket.on('initialMessages', receiveInitialMessages);
+
         return () => {
             socket.off('receiveMessage', receiveMessage);
-            socket.off('initialMessages');
+            socket.off('initialMessages', receiveInitialMessages);
         };
     }, []); // Ensure the dependency array is empty to run only once
 
     return (
         <Layout>
-            <div className="container-fluid d-flex flex-column my-1 bg-white border rounded" style={{
-                maxWidth: '40rem',
-                maxHeight: '90vh'
-            }}>
+            <div className="container-fluid d-flex flex-column my-1 bg-white border rounded" style={{ maxWidth: '40rem', maxHeight: '90vh' }}>
                 <div className="flex-1 overflow-auto py-1">
-                    <div className="flex flex-column gap-4" style={{
-                        minHeight: '82vh'
-                    }}>
+                    <div className="flex flex-column gap-4" style={{ minHeight: '82vh' }}>
                         {messages.map((msg, index) => (
                             <div key={index} className={`d-flex my-2 justify-content-${index % 2 === 0 ? 'end' : 'start'}`}>
                                 <div className={`bg-${index % 2 === 0 ? 'warning' : 'dark'} text-light px-4 py-2 ${index % 2 === 0 ? 'left' : 'right'}`}>
@@ -84,6 +74,7 @@ export default function SingleChat() {
     );
 }
 
+// Assuming you have a separate component for SendIcon
 function SendIcon(props) {
     return (
         <svg
