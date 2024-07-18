@@ -31,8 +31,9 @@ function EventCard({ myEventsData, handleClick, stats, allEvents, JoinEvent, Mod
                                 <div className="col-12 col-md-8">
                                     <div className="d-flex flex-column">
                                         <h3 className="text-lg font-semibold text-red-600 text-danger">
-                                            <span className="mr-2">+</span>{event.eventName}
+                                            <span className="mr-2">+</span>{event.eventName} {event.leagues && <span className='text-danger' style={{ fontSize: '0.75rem' }}>[ LEAGUE ]</span>}
                                         </h3>
+
                                         <p className="card-text text-muted"><span className="fw-bold">Start Date:</span> {event.startDate}</p>
                                         <p className="card-text text-muted"><span className="fw-bold">Day of the Week:</span> {event.dayOfWeek}</p>
                                         <p className="card-text text-muted"><span className="fw-bold">Team Fee:</span> ${event.teamFee}.00 (Tax incl.)</p>

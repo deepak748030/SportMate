@@ -13,8 +13,13 @@ const eventSchema = new mongoose.Schema({
     length: { type: String, required: true },
     teamFee: { type: Number, required: true },
     location: { type: String, required: true },
+    locationUrl: { type: String }, // Added locationUrl field
     winningPrize: { type: Number },
     accepted: {
+        type: Boolean,
+        default: false
+    },
+    leagues: { // Added leagues field
         type: Boolean,
         default: false
     },

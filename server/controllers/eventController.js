@@ -1,10 +1,11 @@
 const Event = require('../models/organizerModel');
 
+
 const createEvent = async (req, res) => {
-    const { user, eventName, startDate, dayOfWeek, gamesTime, length, teamFee, location, winningPrize } = req.body;
+    const { user, eventName, startDate, dayOfWeek, gamesTime, length, teamFee, location, winningPrize, leagues } = req.body;
 
     try {
-        if (!user || !eventName || !startDate || !dayOfWeek || !gamesTime || !length || !teamFee || !location || !winningPrize) {
+        if (!user || !eventName || !startDate || !dayOfWeek || !gamesTime || !length || !teamFee || !location) {
             return res.status(400).json({ message: 'Fill all fields properly' });
         }
 
@@ -17,11 +18,12 @@ const createEvent = async (req, res) => {
             length,
             teamFee: parseFloat(teamFee),
             location,
-            winningPrize: parseFloat(winningPrize) // Include winningPrize
+            winningPrize: winningPrize ? parseFloat(winningPrize) : 0, // Include winningPrize if provided
+            leagues: leagues || false // Default to false if not provided
         });
 
         await event.save();
-        res.status(201).json({ message: 'Event created' });
+        res.status(201).json({ message: 'Event created', event });
     } catch (error) {
         console.error('Error creating event:', error);
         res.status(400).json({ message: error.message });
@@ -101,6 +103,7 @@ const declineEvent = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
+
 
 const updateEvent = async (req, res) => {
     const eventId = req.params.id;

@@ -8,6 +8,7 @@ import EventTeamStats from './pages/eventsperfomance/EventTeamStats';
 import UserTeams from './pages/eventsperfomance/UserTeams';
 import ResetPassword from './pages/Auth/ResetPassword';
 import ContactUs from './pages/ContactUs';
+import Leagues from './pages/leages/Leagues';
 
 const Home = lazy(() => import('./pages/Home'));
 const Sports = lazy(() => import('./pages/Sports'));
@@ -92,7 +93,9 @@ function App() {
           <Route path="/admin-stats" element={<AdminRoute />}>
             <Route index element={<AdminStats />} />
           </Route>
-
+          <Route path="/leagues" element={<AdminRoute />}>
+            <Route index element={<Leagues />} />
+          </Route>
           {/* Catch-all Route */}
           <Route path="*" element={<ErrorPage />} />
         </Routes>

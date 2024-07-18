@@ -48,22 +48,46 @@ export default function AllEvents() {
 
     const handleJoinEvent = async (event) => {
         try {
-            if (event.participants.length >= event.numTeams) {
-                toast.error('Users joined limit fulfilled');
-                return;
-            }
-            const res = await axios.post(`${apiUrl}/users/${auth?.user?._id}/join/${event._id}`);
-            if (res?.data) {
-                toast.success('Joined event successfully');
-                getEventData();
-            } else {
-                toast.error('Already joined event');
+            // Check if the user is authenticated
+            if (auth?.user?._id) {
+                // Check if the event is a league and if the user has an active subscription
+                if (event.leagues === true) {
+                    const subscription = await axios.get(`${apiUrl}/subscription/${auth?.user?._id}`);
+                    if (!subscription?.data?.active) {
+                        toast.error('Please purchase a subscription to join league events.');
+                        return;
+                    }
+                }
+
+                // Check if the event has reached its participant limit
+                if (event.participants.length >= event.numTeams) {
+                    toast.error('Users joined limit fulfilled');
+                    return;
+                }
+
+                // Proceed with joining the event
+                try {
+                    const res = await axios.post(`${apiUrl}/users/${auth?.user?._id}/join/${event._id}`);
+                    if (res?.status === 200 && res?.data?.message) {
+                        toast.success(res.data.message);
+                        getEventData();
+                    } else {
+                        toast.error('Already joined event');
+                    }
+                } catch (err) {
+                    if (err.response?.status === 400) {
+                        toast.error(err.response.data.message);
+                    } else {
+                        toast.error('An error occurred while joining the event.');
+                    }
+                }
             }
         } catch (error) {
-            console.error(error);
-            toast.error('Already joined event');
+            console.error('Error checking subscription:', error);
+            toast.error('An error occurred while checking the subscription.');
         }
     };
+
 
     const handleJoinByTeam = async () => {
         try {

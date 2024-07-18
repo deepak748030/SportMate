@@ -57,6 +57,11 @@ const Navbar = () => {
                                                 Admin
                                             </Link>
                                         </li>
+                                        <li className="nav-item">
+                                            <Link className="nav-link" to="/leagues">
+                                                Leagues
+                                            </Link>
+                                        </li>
 
 
                                         <li className="nav-item">
