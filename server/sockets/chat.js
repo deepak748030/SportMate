@@ -6,7 +6,7 @@ const initializeSocket = (server) => {
 
     io = socketIo(server, {
         cors: {
-            origin: '*',
+            origin: 'http://localhost:5173/chat',
             methods: ['GET', 'POST'],
         },
     });
@@ -17,7 +17,7 @@ const initializeSocket = (server) => {
         // Listen for incoming messages
         socket.on('sendMessage', (messageText) => {
             // Broadcast the message to all clients
-            io.emit('receiveMessage', { text: messageText, id: socket.id });
+            io.emit('receiveMessage', messageText);
         });
 
         // Handle client disconnect

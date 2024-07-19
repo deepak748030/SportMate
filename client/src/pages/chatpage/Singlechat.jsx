@@ -2,10 +2,13 @@ import React, { useState, useEffect } from 'react';
 import Layout from '../../components/layouts/Layout';
 import { connectSocket, disconnectSocket, sendMessage, socket } from '../../api/socket'; // Adjust import path as needed
 import './chat.css';
+import { useAuth } from '../../context/auth';
 
 export default function SingleChat() {
+    const [auth] = useAuth();
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
+    const userId = auth?.user?._id;
 
     useEffect(() => {
         connectSocket();
@@ -17,8 +20,13 @@ export default function SingleChat() {
     const handleSendMessage = (e) => {
         e.preventDefault();
         if (message.trim()) {
-            sendMessage(message);
+            const text = {
+                userId,
+                message,
+            };
+            sendMessage(text);
             setMessage('');
+
         }
     };
 
@@ -43,33 +51,35 @@ export default function SingleChat() {
 
     return (
         <Layout>
-            <div className="container-fluid d-flex flex-column my-1 bg-white border rounded" style={{ maxWidth: '40rem', maxHeight: '90vh' }}>
-                <div className="flex-1 overflow-auto py-1">
-                    <div className="flex flex-column gap-4" style={{ minHeight: '82vh' }}>
-                        {messages.map((msg, index) => (
-                            <div key={index} className={`d-flex my-2 justify-content-${index % 2 === 0 ? 'end' : 'start'}`}>
-                                <div className={`bg-${index % 2 === 0 ? 'warning' : 'dark'} text-light px-4 py-2 ${index % 2 === 0 ? 'left' : 'right'}`}>
-                                    <p className="mb-0">{msg.text}</p>
+            <form onSubmit={handleSendMessage}>
+                <div className="container-fluid d-flex flex-column my-1 bg-white border rounded" style={{ maxWidth: '40rem', maxHeight: '90vh' }}>
+                    <div className="flex-1 overflow-auto py-1">
+                        <div className="flex flex-column gap-4" style={{ minHeight: '82vh' }}>
+                            {messages.map((msg, index) => (
+                                <div key={index} className={`d-flex my-2 justify-content-${msg.userId === userId ? 'start' : 'end'}`}>
+                                    <div className={`bg-${msg.userId === userId ? 'warning' : 'dark'} text-light px-4 py-2 ${msg.userId === userId ? 'right' : 'left'}`}>
+                                        <p className="mb-0">{msg.message}</p>
+                                    </div>
                                 </div>
-                            </div>
-                        ))}
+                            ))}
+                        </div>
+                    </div>
+                    <div className="bg-dark border-top border-gray-200 p-1">
+                        <div className="position-relative">
+                            <textarea
+                                className="form-control bg-light border-0 text-dark"
+                                placeholder="Type your message..."
+                                value={message}
+                                onChange={(e) => setMessage(e.target.value)}
+                                rows={1}
+                            />
+                            <button type="submit" className="btn btn-warning position-absolute top-50 end-0 translate-middle-y">
+                                <SendIcon className="text-black" />
+                            </button>
+                        </div>
                     </div>
                 </div>
-                <div className="bg-dark border-top border-gray-200 p-1">
-                    <div className="position-relative">
-                        <textarea
-                            className="form-control bg-light border-0 text-dark"
-                            placeholder="Type your message..."
-                            value={message}
-                            onChange={(e) => setMessage(e.target.value)}
-                            rows={1}
-                        />
-                        <button type="submit" onClick={handleSendMessage} className="btn btn-warning position-absolute top-50 end-0 translate-middle-y">
-                            <SendIcon className="text-black" />
-                        </button>
-                    </div>
-                </div>
-            </div>
+            </form>
         </Layout>
     );
 }
