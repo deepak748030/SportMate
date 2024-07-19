@@ -1,15 +1,20 @@
-const socketIo = require('socket.io');
 
-let io;
 
 const initializeSocket = (server) => {
 
-    io = socketIo(server, {
+    const io = require('socket.io')(server, {
         cors: {
-            origin: 'http://localhost:5173/chat',
+            origin: "https://sport-mate.vercel.app",
             methods: ['GET', 'POST'],
         },
     });
+
+    // io = socketIo(server, {
+    //     cors: {
+    //         origin: 'http://localhost:5173/chat' || '*',
+    //         methods: ['GET', 'POST'],
+    //     },
+    // });
     // Socket.IO logic
     io.on('connection', (socket) => {
         console.log('New client connected:', socket.id);
@@ -17,6 +22,7 @@ const initializeSocket = (server) => {
         // Listen for incoming messages
         socket.on('sendMessage', (messageText) => {
             // Broadcast the message to all clients
+            console.log(messageText)
             io.emit('receiveMessage', messageText);
         });
 
