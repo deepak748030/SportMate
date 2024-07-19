@@ -18,7 +18,7 @@ router.put('/teams/:id', teamController.updateTeamById);
 router.delete('/teams/:id', teamController.deleteTeamById);
 
 // Route to add friends to a team by ID
-router.put('/teams/:id/add-friends', teamController.addFriendsToTeam);
+router.post('/teams/:id/add-friends', teamController.addFriendsToTeam);
 
 // Route to get friends by team ID
 router.get('/teams/:id/get-friends', teamController.getFriendsById);
@@ -28,5 +28,7 @@ router.post('/teamjoin/:eventId', teamController.joinEventWithTeam);
 
 // Route to remove a friend from a team by team ID and user ID
 router.delete('/teams/:teamId/remove-friend/:userId', teamController.removeFriendFromTeam);
+
+router.get('/teams/:teamId/generate-join-link', teamController.generateJoinLink);
 
 module.exports = router;

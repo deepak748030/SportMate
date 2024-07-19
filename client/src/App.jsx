@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Spinner from './components/Spinner';
 import AdminRoute from './routes/AdminRoute';
 import PrivateRoute from './routes/PrivateRoute';
+import JoinTeam from './pages/JoinTeam';
 
 const Stats = lazy(() => import('./pages/stats/Stats'));
 const EventTeamStats = lazy(() => import('./pages/eventsperfomance/EventTeamStats'));
@@ -51,6 +52,10 @@ function App() {
           <Route path="/contact-us" element={<ContactUs />} />
 
           {/* Protected Routes */}
+          <Route path="/join-team/:teamId" element={<PrivateRoute />}>
+            <Route index element={<JoinTeam />} />
+          </Route>
+
           <Route path="/stats/:playerId/:eventId" element={<PrivateRoute />}>
             <Route index element={<Stats />} />
           </Route>

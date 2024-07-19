@@ -165,7 +165,20 @@ exports.deleteTeamById = async (req, res) => {
 exports.addFriendsToTeam = async (req, res) => {
     try {
         const teamId = req.params.id;
-        const { friends } = req.body;
+        let { friends } = req.body;
+
+        console.log('Request body:', req.body); // Debugging statement
+        console.log('Friends:', friends); // Debugging statement
+
+        // Check if friends is a string and convert it to an array
+        if (typeof friends === 'string') {
+            friends = [friends];
+        }
+
+        // Check if friends is an array
+        if (!Array.isArray(friends)) {
+            return res.status(400).json({ message: 'Friends should be an array or a single friend ID' });
+        }
 
         const team = await Team.findById(teamId);
         if (!team) {
@@ -185,6 +198,7 @@ exports.addFriendsToTeam = async (req, res) => {
         res.status(500).json({ message: 'Server error' });
     }
 };
+
 
 // Get friends by team ID
 exports.getFriendsById = async (req, res) => {
@@ -232,4 +246,11 @@ exports.removeFriendFromTeam = async (req, res) => {
         console.error('Error removing friend:', error);
         res.status(500).json({ error: 'Server error' });
     }
+};
+
+
+exports.generateJoinLink = async (req, res) => {
+    const { teamId } = req.params;
+    const joinLink = `http://localhost:5173/join-team/${teamId}`;
+    res.json({ joinLink });
 };

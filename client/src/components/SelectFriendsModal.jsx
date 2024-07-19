@@ -1,16 +1,15 @@
-// SelectFriendsModal.jsx
-
 import React, { useState, useEffect } from 'react';
-import { Modal, Button, Form, ListGroup } from 'react-bootstrap';
+import { Modal, Button, Form, ListGroup, Alert } from 'react-bootstrap';
 import axios from 'axios';
 import apiUrl from '../api/config';
 import { useAuth } from '../context/auth';
-import { PersonPlusFill } from 'react-bootstrap-icons'; // Bootstrap icons
+import { PersonPlusFill, Link45deg } from 'react-bootstrap-icons'; // Bootstrap icons
 
 const SelectFriendsModal = ({ show, handleClose, teamId, fetchTeams }) => {
     const [users, setUsers] = useState([]);
     const [selectedUsers, setSelectedUsers] = useState([]);
     const [joinedUsers, setJoinedUsers] = useState([]); // State to hold joined users
+    const [joinLink, setJoinLink] = useState(''); // State to hold the join link
     const [auth] = useAuth();
 
     // Fetch all users
@@ -33,30 +32,23 @@ const SelectFriendsModal = ({ show, handleClose, teamId, fetchTeams }) => {
         }
     };
 
+    // Generate join link for the current team
+    const generateJoinLink = async () => {
+        try {
+            const response = await axios.get(`${apiUrl}/teams/${teamId}/generate-join-link`);
+            setJoinLink(response.data.joinLink);
+        } catch (error) {
+            console.error('Error generating join link:', error);
+        }
+    };
+
     useEffect(() => {
         if (show) {
             fetchUsers();
             fetchJoinedUsers();
+            generateJoinLink();
         }
     }, [show, teamId]);
-
-    // Handle change in selected users
-    const handleUserChange = (e) => {
-        const value = Array.from(e.target.selectedOptions, option => option.value);
-        setSelectedUsers(value);
-    };
-
-    // Handle add friends action
-    const handleAddFriends = async () => {
-        try {
-            await axios.put(`${apiUrl}/teams/${teamId}/add-friends`, { friends: selectedUsers });
-            fetchTeams();
-            fetchJoinedUsers(); // Refresh joined users list after adding friends
-            setSelectedUsers([]); // Clear selected users after adding
-        } catch (error) {
-            console.error('Error adding friends:', error);
-        }
-    };
 
     // Handle remove friend action
     const handleRemoveFriend = async (userId) => {
@@ -75,22 +67,18 @@ const SelectFriendsModal = ({ show, handleClose, teamId, fetchTeams }) => {
                 <Modal.Title>Select Friends</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <Form>
-                    <Form.Group controlId="friends">
-                        <Form.Label>Select Friends to Add:</Form.Label>
-                        <Form.Control as="select" multiple onChange={handleUserChange} style={{ minHeight: '200px' }}>
-                            {users.map(user => (
-                                <option key={user._id} value={user._id} className='p-1 border'>
-                                    <PersonPlusFill className="me-2" /> {/* Bootstrap icon for person */}
-                                    {`${user.firstName} ${user.lastName}`}
-                                </option>
-                            ))}
-                        </Form.Control>
-                    </Form.Group>
-                    <Button variant="primary" onClick={handleAddFriends} disabled={selectedUsers.length === 0} className='mt-2'>
-                        <PersonPlusFill /> Add Selected Friends
-                    </Button>
-                </Form>
+                <Alert variant="info">
+                    <div className="d-flex align-items-center">
+                        <Link45deg className="me-2" /> {/* Bootstrap icon for link */}
+                        <span>Share this link to invite friends to join your team:</span>
+                    </div>
+                    <Form.Control
+                        type="text"
+                        readOnly
+                        value={joinLink}
+                        className="mt-2"
+                    />
+                </Alert>
                 <hr />
                 {/* Display joined users */}
                 <div>

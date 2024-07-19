@@ -22,7 +22,7 @@ const initializeSocket = (server) => {
         // Listen for incoming messages
         socket.on('sendMessage', (messageText) => {
             // Broadcast the message to all clients
-            console.log(messageText)
+            // console.log(messageText)
             io.emit('receiveMessage', messageText);
         });
 
