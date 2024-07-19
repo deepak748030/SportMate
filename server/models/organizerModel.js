@@ -14,7 +14,8 @@ const eventSchema = new mongoose.Schema({
     teamFee: { type: Number, required: true },
     location: { type: String, required: true },
     locationUrl: { type: String }, // Added locationUrl field
-    winningPrize: { type: Number },
+    winningPrize: { type: Number, required: true },
+    results: { type: String, default: 'Not Declared' },
     accepted: {
         type: Boolean,
         default: false

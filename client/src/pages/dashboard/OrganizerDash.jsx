@@ -26,7 +26,7 @@ export default function OrganizerDash() {
     const [myEventsData, setEventsData] = useState([]);
     const [selectedEvent, setSelectedEvent] = useState(null);
     const [winningPrize, setWinningPrize] = useState('');
-
+    const [results, setResults] = useState(''); // New state for results
 
     const handleShow = async () => {
         setShowModal(true);
@@ -52,7 +52,8 @@ export default function OrganizerDash() {
                 length,
                 teamFee: teamFeeNum,
                 location,
-                winningPrize
+                winningPrize,
+                results // Adding results to the event creation
             });
             if (res?.data) {
                 handleClose();
@@ -80,7 +81,8 @@ export default function OrganizerDash() {
                 length,
                 teamFee: teamFeeNum,
                 location,
-                winningPrize
+                winningPrize,
+                results // Adding results to the event update
             });
             if (res?.data) {
                 handleClose();
@@ -142,7 +144,8 @@ export default function OrganizerDash() {
         setLength(event.length || '');
         setTeamFee(event.teamFee?.toString() || '');
         setLocation(event.location || '');
-        setWinningPrize(event.winningPrize || '')
+        setWinningPrize(event.winningPrize || '');
+        setResults(event.results || ''); // Set results
         handleShow();
     };
 
@@ -267,6 +270,7 @@ export default function OrganizerDash() {
                                 required
                             />
                         </Form.Group>
+
                         <Form.Group className="mb-3" controlId="formWinningPrize">
                             <Form.Label>Winning Prize</Form.Label>
                             <Form.Control
@@ -278,14 +282,25 @@ export default function OrganizerDash() {
                             />
                         </Form.Group>
 
-                        <Modal.Footer>
+                        <Form.Group className="mb-3" controlId="formResults">
+                            <Form.Label>Results</Form.Label>
+                            <Form.Control
+                                type="text"
+                                placeholder="Enter results"
+                                value={results}
+                                onChange={(e) => setResults(e.target.value)}
+                                required
+                            />
+                        </Form.Group>
+
+                        <div className="d-flex justify-content-between">
                             <Button variant="secondary" onClick={handleClose}>
-                                Close
+                                Cancel
                             </Button>
                             {selectedEvent ? (
                                 <>
                                     <Button variant="danger" onClick={handleDeleteEvent}>
-                                        {loading ? <Spinner animation="border" size="sm" /> : 'Delete Event'}
+                                        Delete
                                     </Button>
                                     <Button variant="primary" type="submit">
                                         {loading ? <Spinner animation="border" size="sm" /> : 'Save Changes'}
@@ -296,7 +311,7 @@ export default function OrganizerDash() {
                                     {loading ? <Spinner animation="border" size="sm" /> : 'Create Event'}
                                 </Button>
                             )}
-                        </Modal.Footer>
+                        </div>
                     </Form>
                 </Modal.Body>
             </Modal>

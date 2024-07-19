@@ -107,12 +107,12 @@ const declineEvent = async (req, res) => {
 
 const updateEvent = async (req, res) => {
     const eventId = req.params.id;
-    const { eventName, startDate, dayOfWeek, gamesTime, length, teamFee, location, winningPrize } = req.body;
+    const { eventName, startDate, dayOfWeek, gamesTime, length, teamFee, location, winningPrize, results } = req.body;
 
     try {
         const updatedEvent = await Event.findByIdAndUpdate(
             eventId,
-            { eventName, startDate, dayOfWeek, gamesTime, length, teamFee: parseFloat(teamFee), location, winningPrize: parseFloat(winningPrize) },
+            { eventName, startDate, dayOfWeek, gamesTime, length, teamFee: parseFloat(teamFee), location, winningPrize: parseFloat(winningPrize), results },
             { new: true }
         );
 
