@@ -4,6 +4,8 @@ import Spinner from './components/Spinner';
 import AdminRoute from './routes/AdminRoute';
 import PrivateRoute from './routes/PrivateRoute';
 import JoinTeam from './pages/JoinTeam';
+import Chats from './pages/chatpage/Chats';
+import IndividualChat from './pages/chatpage/IndividualChat';
 
 const Stats = lazy(() => import('./pages/stats/Stats'));
 const EventTeamStats = lazy(() => import('./pages/eventsperfomance/EventTeamStats'));
@@ -50,6 +52,9 @@ function App() {
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/about-us" element={<AboutUs />} />
           <Route path="/contact-us" element={<ContactUs />} />
+          <Route path="/chats" element={<Chats />} />
+          <Route path="/chat/:id" element={<IndividualChat />} />
+
 
           {/* Protected Routes */}
           <Route path="/join-team/:teamId" element={<PrivateRoute />}>

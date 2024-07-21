@@ -110,7 +110,7 @@ export default function UserDash() {
                                     <h5 className="card-title">Quick Links</h5>
                                     <ul className="list-unstyled">
                                         <li className="mb-2">
-                                            <Link to="/chat" className="text-decoration-none text-muted">
+                                            <Link to="/chats" className="text-decoration-none text-muted">
                                                 <i className="bi bi-chat-dots-fill me-2"></i>
                                                 Chat
                                             </Link>
