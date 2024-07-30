@@ -75,7 +75,9 @@ export default function IndividualChat() {
                             />
                             <div>
                                 <h5 className="mb-0">{receiverInfo.firstName} {receiverInfo.lastName}</h5>
-                                <small className="text-muted">{receiverInfo.email}</small>
+                                <small className="text-muted">
+                                    {/* {receiverInfo.email} */}
+                                </small>
                             </div>
                         </>
                     )}

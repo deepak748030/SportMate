@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Layout from '../../components/layouts/Layout';
-import { connectSocket, disconnectSocket, sendMessage, socket } from '../../api/socket'; // Adjust import path as needed
+import { connectSocket, disconnectSocket, sendMessages, socket } from '../../api/socket'; // Adjust import path as needed
 import './chat.css';
 import { useAuth } from '../../context/auth';
 
@@ -17,14 +17,14 @@ export default function SingleChat() {
         return () => disconnectSocket();
     }, []);
 
-    const handleSendMessage = (e) => {
+    const handleSendMessages = (e) => {
         e.preventDefault();
         if (message.trim()) {
             const text = {
                 userId,
                 message,
             };
-            sendMessage(text);
+            sendMessages(text);
             setMessage('');
 
         }
@@ -51,7 +51,7 @@ export default function SingleChat() {
 
     return (
         <Layout>
-            <form onSubmit={handleSendMessage}>
+            <form onSubmit={handleSendMessages}>
                 <div className="container-fluid d-flex flex-column my-1 bg-white border rounded" style={{ maxWidth: '40rem', maxHeight: '90vh' }}>
                     <div className="flex-1 overflow-auto py-1">
                         <div className="flex flex-column gap-4" style={{ minHeight: '82vh' }}>

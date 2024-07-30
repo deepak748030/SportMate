@@ -143,16 +143,24 @@ const Navbar = () => {
                                 </li>
                             </>
                         )}
+                        {
+                            auth?.user && (
+                                <>
+                                    <li className="nav-item">
+                                        <Link className="nav-link" to="/chats">
+                                            chats
+                                        </Link>
+                                    </li>
+                                </>
+                            )
+
+                        }
                         <li className="nav-item">
                             <Link className="nav-link" to="/feedback">
                                 Feedback
                             </Link>
                         </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/chats">
-                                chats
-                            </Link>
-                        </li>
+
                     </ul>
                 </div>
             </div>

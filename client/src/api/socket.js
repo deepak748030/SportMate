@@ -30,7 +30,7 @@ export const disconnectSocket = () => {
     }
 };
 
-export const sendMessage = (message) => {
+export const sendMessages = (message) => {
     if (socket.connected) {
         socket.emit('sendMessage', message);
     } else {

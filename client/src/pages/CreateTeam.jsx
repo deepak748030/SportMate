@@ -2,12 +2,48 @@ import React, { useState } from 'react';
 import Layout from '../components/layouts/Layout';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import apiUrl from '../api/config'
+import apiUrl from '../api/config';
 import { useAuth } from '../context/auth';
 
+const timezones = [
+    { value: "GMT-12:00", label: "(GMT-12:00) International Date Line West" },
+    { value: "GMT-11:00", label: "(GMT-11:00) Midway Island, Samoa" },
+    { value: "GMT-10:00", label: "(GMT-10:00) Hawaii" },
+    { value: "GMT-09:00", label: "(GMT-09:00) Alaska" },
+    { value: "GMT-08:00", label: "(GMT-08:00) Pacific Time (US & Canada)" },
+    { value: "GMT-07:00", label: "(GMT-07:00) Mountain Time (US & Canada)" },
+    { value: "GMT-06:00", label: "(GMT-06:00) Central Time (US & Canada)" },
+    { value: "GMT-05:00", label: "(GMT-05:00) Eastern Time (US & Canada)" },
+    { value: "GMT-04:00", label: "(GMT-04:00) Atlantic Time (Canada)" },
+    { value: "GMT-03:30", label: "(GMT-03:30) Newfoundland" },
+    { value: "GMT-03:00", label: "(GMT-03:00) Greenland" },
+    { value: "GMT-02:00", label: "(GMT-02:00) Mid-Atlantic" },
+    { value: "GMT-01:00", label: "(GMT-01:00) Azores" },
+    { value: "GMT+00:00", label: "(GMT+00:00) London, Lisbon, Casablanca" },
+    { value: "GMT+01:00", label: "(GMT+01:00) Brussels, Copenhagen, Madrid, Paris" },
+    { value: "GMT+02:00", label: "(GMT+02:00) Kaliningrad, South Africa" },
+    { value: "GMT+03:00", label: "(GMT+03:00) Baghdad, Riyadh, Moscow, St. Petersburg" },
+    { value: "GMT+03:30", label: "(GMT+03:30) Tehran" },
+    { value: "GMT+04:00", label: "(GMT+04:00) Abu Dhabi, Muscat, Baku, Tbilisi" },
+    { value: "GMT+04:30", label: "(GMT+04:30) Kabul" },
+    { value: "GMT+05:00", label: "(GMT+05:00) Ekaterinburg, Islamabad, Karachi, Tashkent" },
+    { value: "GMT+05:30", label: "(GMT+05:30) Mumbai, Kolkata, Chennai, New Delhi" },
+    { value: "GMT+05:45", label: "(GMT+05:45) Kathmandu" },
+    { value: "GMT+06:00", label: "(GMT+06:00) Almaty, Dhaka, Colombo" },
+    { value: "GMT+06:30", label: "(GMT+06:30) Yangon, Cocos Islands" },
+    { value: "GMT+07:00", label: "(GMT+07:00) Bangkok, Hanoi, Jakarta" },
+    { value: "GMT+08:00", label: "(GMT+08:00) Beijing, Perth, Singapore, Hong Kong" },
+    { value: "GMT+09:00", label: "(GMT+09:00) Tokyo, Seoul, Osaka, Sapporo, Yakutsk" },
+    { value: "GMT+09:30", label: "(GMT+09:30) Adelaide, Darwin" },
+    { value: "GMT+10:00", label: "(GMT+10:00) Eastern Australia, Guam, Vladivostok" },
+    { value: "GMT+11:00", label: "(GMT+11:00) Magadan, Solomon Islands, New Caledonia" },
+    { value: "GMT+12:00", label: "(GMT+12:00) Auckland, Wellington, Fiji, Kamchatka" },
+    { value: "GMT+13:00", label: "(GMT+13:00) Nuku'alofa" }
+    // Add more timezones as needed
+];
 
 function CreateTeam() {
-    const [auth] = useAuth()
+    const [auth] = useAuth();
 
     const navigate = useNavigate();
     const [teamData, setTeamData] = useState({
@@ -155,8 +191,9 @@ function CreateTeam() {
                                 placeholder="State"
                                 value={teamData.state}
                                 onChange={handleChange}
+                                required
                             />
-                            <label htmlFor="state">State</label>
+                            <label htmlFor="state">State *</label>
                         </div>
                     </div>
                     <div className="col-lg-6">
@@ -165,12 +202,12 @@ function CreateTeam() {
                                 type="text"
                                 className="form-control"
                                 id="city"
-                                placeholder="City/Town"
+                                placeholder="City"
                                 value={teamData.city}
                                 onChange={handleChange}
                                 required
                             />
-                            <label htmlFor="city">City/Town *</label>
+                            <label htmlFor="city">City *</label>
                         </div>
                     </div>
                     <div className="col-lg-6">
@@ -183,8 +220,11 @@ function CreateTeam() {
                                 required
                             >
                                 <option value="" disabled>Select Timezone</option>
-                                <option value="GMT+05:30">(GMT+05:30) Mumbai</option>
-                                {/* Add more timezones as needed */}
+                                {timezones.map((tz) => (
+                                    <option key={tz.value} value={tz.value}>
+                                        {tz.label}
+                                    </option>
+                                ))}
                             </select>
                             <label htmlFor="timezone">Timezone *</label>
                         </div>
@@ -199,10 +239,10 @@ function CreateTeam() {
                                 value={teamData.hearAbout}
                                 onChange={handleChange}
                             />
-                            <label htmlFor="hearAbout">How did you hear about SportMate?</label>
+                            <label htmlFor="hearAbout">How did you hear about us?</label>
                         </div>
                     </div>
-                    <div className="col-12">
+                    <div className="col-lg-6">
                         <div className="form-check">
                             <input
                                 className="form-check-input"
@@ -212,11 +252,11 @@ function CreateTeam() {
                                 onChange={handleChange}
                             />
                             <label className="form-check-label" htmlFor="seeContactInfo">
-                                Allow team members to see each other's contact info
+                                Allow members to see contact info
                             </label>
                         </div>
                     </div>
-                    <div className="col-12">
+                    <div className="col-lg-6">
                         <div className="form-check">
                             <input
                                 className="form-check-input"
@@ -226,21 +266,12 @@ function CreateTeam() {
                                 onChange={handleChange}
                             />
                             <label className="form-check-label" htmlFor="uploadPhotosDocs">
-                                Allow all team members to upload photos and documents
+                                Allow members to upload photos and documents
                             </label>
                         </div>
                     </div>
-                    <div className="col-12 text-center mt-4">
-                        <button
-                            type="button"
-                            className="btn btn-secondary me-3"
-                        // onClick={() => navigate('/user')}
-                        >
-                            Cancel
-                        </button>
-                        <button type="submit" className="btn btn-primary">
-                            Create Team
-                        </button>
+                    <div className="col-12">
+                        <button type="submit" className="btn btn-primary">Create Team</button>
                     </div>
                 </form>
             </div>

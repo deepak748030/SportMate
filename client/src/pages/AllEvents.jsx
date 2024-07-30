@@ -19,7 +19,6 @@ export default function AllEvents() {
     const [teamId, setTeamId] = useState('');
     const [teams, setTeams] = useState([]);
     const [cardDetails, setCardDetails] = useState({
-
         cardNumber: '',
         expiryDate: '',
         cvv: '',
@@ -88,23 +87,45 @@ export default function AllEvents() {
     };
 
     const handleJoinByTeam = async () => {
-        try {
-            if (auth?.user?._id) {
+        if (!teamId) {
+            toast.error('Please select a team.');
+            return;
+        }
+
+        if (selectedEvent?.leagues) {
+            try {
                 const subscription = await axios.get(`${apiUrl}/subscription/${auth?.user?._id}`);
                 if (subscription?.data?.active === true) {
-                    const res = await axios.post(`${apiUrl}/teamjoin/${selectedEvent._id}`, { teamId, userId: auth?.user?._id });
-                    if (res?.status === 200 && res?.data?.message) {
-                        toast.success(res.data.message);
-                        setShowModal(false);
-                        getEventData();
-                    }
+                    // Open subscription modal if the user has an active subscription
+                    setShowSubscriptionModal(true);
                 } else {
                     toast.error('You don\'t have a subscription. Please purchase one.');
                 }
+            } catch (error) {
+                console.error('Error checking subscription:', error);
+                toast.error('An error occurred while checking the subscription.');
+            }
+        } else {
+            completeTeamJoin();
+        }
+    };
+
+    const completeTeamJoin = async () => {
+        try {
+            if (auth?.user?._id) {
+                const res = await axios.post(`${apiUrl}/teamjoin/${selectedEvent._id}`, { teamId, userId: auth?.user?._id });
+                if (res?.status === 200 && res?.data?.message) {
+                    toast.success(res.data.message);
+                    setShowModal(false);
+                    setShowSubscriptionModal(false);
+                    getEventData();
+                } else {
+                    toast.error('Failed to join the event with team.');
+                }
             }
         } catch (error) {
-            console.error('Error checking subscription:', error);
-            toast.error('An error occurred while checking the subscription.');
+            console.error('Error joining event with team:', error);
+            toast.error('An error occurred while joining the event with team.');
         }
     };
 
@@ -133,7 +154,7 @@ export default function AllEvents() {
             // });
             // console.log('Subscription response:', response.data);
             setShowSubscriptionModal(false);
-            joinEvent(selectedEvent); // Join the event after subscribing
+            completeTeamJoin(); // Complete team join after subscribing
         } catch (error) {
             console.error('Error subscribing:', error);
         }
@@ -182,7 +203,7 @@ export default function AllEvents() {
                         Close
                     </Button>
                     <Button variant="primary" onClick={handleJoinByTeam}>
-                        Join Event
+                        Join
                     </Button>
                 </Modal.Footer>
             </Modal>

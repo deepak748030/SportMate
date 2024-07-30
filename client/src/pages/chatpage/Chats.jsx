@@ -64,7 +64,10 @@ function Chats() {
                                 />
                                 <div>
                                     <div className="fw-bold">{user.firstName} {user.lastName}</div>
-                                    <div className="text-muted">{user.email}</div>
+                                    <div className="text-muted">
+                                        {/* {user.email} */}
+
+                                    </div>
                                 </div>
                             </ListGroupItem>
                         ))}
