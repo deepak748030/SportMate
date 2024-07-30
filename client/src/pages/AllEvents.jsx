@@ -125,7 +125,7 @@ export default function AllEvents() {
             }
         } catch (error) {
             console.error('Error joining event with team:', error);
-            toast.error('An error occurred while joining the event with team.');
+            toast.error('already join this event with this team.');
         }
     };
 
