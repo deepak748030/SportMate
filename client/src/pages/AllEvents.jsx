@@ -52,19 +52,31 @@ export default function AllEvents() {
         getEventData();
     }, []);
 
-    const handleJoinEvent = (event) => {
+    const handleJoinEvent = async (event) => {
         if (event.leagues) {
             // Open subscription modal if event is a league
             setSelectedEvent(event);
             setShowSubscriptionModal(true);
         } else {
-            joinEvent(event);
+            try {
+                const subscription = await axios.get(`${apiUrl}/subscription/${auth?.user?._id}`);
+                if (subscription?.data?.active === true) {
+                    joinEvent(event);
+                } else {
+                    toast.error('You don\'t have a subscription. Please purchase one.');
+                }
+            } catch (error) {
+                console.error('Error checking subscription:', error);
+                toast.error('An error occurred while checking the subscription.');
+            }
+
         }
     };
 
     const joinEvent = async (event) => {
         try {
             if (auth?.user?._id) {
+
                 if (event.participants.length >= event.numTeams) {
                     toast.error('Users joined limit fulfilled');
                     return;
@@ -92,12 +104,12 @@ export default function AllEvents() {
             return;
         }
 
-        if (selectedEvent?.leagues) {
+        if (!selectedEvent?.leagues) {
             try {
                 const subscription = await axios.get(`${apiUrl}/subscription/${auth?.user?._id}`);
                 if (subscription?.data?.active === true) {
-                    // Open subscription modal if the user has an active subscription
-                    setShowSubscriptionModal(true);
+
+                    completeTeamJoin();
                 } else {
                     toast.error('You don\'t have a subscription. Please purchase one.');
                 }
@@ -106,7 +118,7 @@ export default function AllEvents() {
                 toast.error('An error occurred while checking the subscription.');
             }
         } else {
-            completeTeamJoin();
+            setShowSubscriptionModal(true);
         }
     };
 
