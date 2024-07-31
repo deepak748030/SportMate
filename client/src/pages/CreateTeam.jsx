@@ -4,17 +4,16 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import apiUrl from '../api/config';
 import { useAuth } from '../context/auth';
-
 const timezones = [
+    { value: "GMT-04:00", label: "(GMT-04:00) Atlantic Time (Canada)" },
+    { value: "GMT-05:00", label: "(GMT-05:00) Eastern Time (US & Canada)" },
+    { value: "GMT-06:00", label: "(GMT-06:00) Central Time (US & Canada)" },
+    { value: "GMT-07:00", label: "(GMT-07:00) Mountain Time (US & Canada)" },
+    { value: "GMT-08:00", label: "(GMT-08:00) Pacific Time (US & Canada)" },
     { value: "GMT-12:00", label: "(GMT-12:00) International Date Line West" },
     { value: "GMT-11:00", label: "(GMT-11:00) Midway Island, Samoa" },
     { value: "GMT-10:00", label: "(GMT-10:00) Hawaii" },
     { value: "GMT-09:00", label: "(GMT-09:00) Alaska" },
-    { value: "GMT-08:00", label: "(GMT-08:00) Pacific Time (US & Canada)" },
-    { value: "GMT-07:00", label: "(GMT-07:00) Mountain Time (US & Canada)" },
-    { value: "GMT-06:00", label: "(GMT-06:00) Central Time (US & Canada)" },
-    { value: "GMT-05:00", label: "(GMT-05:00) Eastern Time (US & Canada)" },
-    { value: "GMT-04:00", label: "(GMT-04:00) Atlantic Time (Canada)" },
     { value: "GMT-03:30", label: "(GMT-03:30) Newfoundland" },
     { value: "GMT-03:00", label: "(GMT-03:00) Greenland" },
     { value: "GMT-02:00", label: "(GMT-02:00) Mid-Atlantic" },
@@ -41,6 +40,7 @@ const timezones = [
     { value: "GMT+13:00", label: "(GMT+13:00) Nuku'alofa" }
     // Add more timezones as needed
 ];
+
 
 function CreateTeam() {
     const [auth] = useAuth();

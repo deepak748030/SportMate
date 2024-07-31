@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom'; // Added useNavigate
+import { Link, useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Layout from '../../components/layouts/Layout';
 import { Modal, Button, Form, Spinner } from 'react-bootstrap';
@@ -10,9 +10,23 @@ import { toast } from 'react-toastify';
 import UserProfile from '../../components/User/UserProfile';
 import EventCard from '../../components/card/EventCard';
 
+const locations = [
+    "Toronto, Canada",
+    "Vancouver, Canada",
+    "Montreal, Canada",
+    "Calgary, Canada",
+    "Ottawa, Canada",
+    "New York, USA",
+    "Los Angeles, USA",
+    "Chicago, USA",
+    "Houston, USA",
+    "Miami, USA"
+    // Add more locations as needed
+];
+
 export default function OrganizerDash() {
     const [auth] = useAuth();
-    const navigate = useNavigate(); // Added navigate hook
+    const navigate = useNavigate();
 
     const [showModal, setShowModal] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -26,7 +40,7 @@ export default function OrganizerDash() {
     const [myEventsData, setEventsData] = useState([]);
     const [selectedEvent, setSelectedEvent] = useState(null);
     const [winningPrize, setWinningPrize] = useState('');
-    const [results, setResults] = useState(''); // New state for results
+    const [results, setResults] = useState('');
 
     const handleShow = async () => {
         setShowModal(true);
@@ -53,7 +67,7 @@ export default function OrganizerDash() {
                 teamFee: teamFeeNum,
                 location,
                 winningPrize,
-                results // Adding results to the event creation
+                results
             });
             if (res?.data) {
                 handleClose();
@@ -82,7 +96,7 @@ export default function OrganizerDash() {
                 teamFee: teamFeeNum,
                 location,
                 winningPrize,
-                results // Adding results to the event update
+                results
             });
             if (res?.data) {
                 handleClose();
@@ -122,7 +136,7 @@ export default function OrganizerDash() {
             if (res?.data) {
                 setEventsData(res.data);
             } else {
-                setEventsData([]); // Ensure myEventsData is set to an empty array if no data is returned
+                setEventsData([]);
             }
         } catch (error) {
             console.error('Error fetching events:', error);
@@ -145,7 +159,7 @@ export default function OrganizerDash() {
         setTeamFee(event.teamFee?.toString() || '');
         setLocation(event.location || '');
         setWinningPrize(event.winningPrize || '');
-        setResults(event.results || ''); // Set results
+        setResults(event.results || '');
         handleShow();
     };
 
@@ -156,12 +170,10 @@ export default function OrganizerDash() {
                     <div className="row">
                         <div className="col-lg-8 mb-4">
                             <UserProfile />
-
                             <EventCard myEventsData={myEventsData} handleClick={handleEditEvent} orgDash={true} />
                             <div className="text-center mt-4">
                                 <Button variant="primary" onClick={handleShow}>Create Event</Button>
                             </div>
-
                         </div>
                         <div className="col-lg-4">
                             <h5 className="mb-3">Statistics</h5>
@@ -184,7 +196,6 @@ export default function OrganizerDash() {
                                 </li>
                             </ul>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -262,13 +273,16 @@ export default function OrganizerDash() {
 
                         <Form.Group className="mb-3" controlId="formLocation">
                             <Form.Label>Location</Form.Label>
-                            <Form.Control
-                                type="text"
-                                placeholder="Enter location"
+                            <Form.Select
                                 value={location}
                                 onChange={(e) => setLocation(e.target.value)}
                                 required
-                            />
+                            >
+                                <option value="">Select a location</option>
+                                {locations.map((loc) => (
+                                    <option key={loc} value={loc}>{loc}</option>
+                                ))}
+                            </Form.Select>
                         </Form.Group>
 
                         <Form.Group className="mb-3" controlId="formWinningPrize">
@@ -289,29 +303,13 @@ export default function OrganizerDash() {
                                 placeholder="Enter results"
                                 value={results}
                                 onChange={(e) => setResults(e.target.value)}
-                                required
+
                             />
                         </Form.Group>
 
-                        <div className="d-flex justify-content-between">
-                            <Button variant="secondary" onClick={handleClose}>
-                                Cancel
-                            </Button>
-                            {selectedEvent ? (
-                                <>
-                                    <Button variant="danger" onClick={handleDeleteEvent}>
-                                        Delete
-                                    </Button>
-                                    <Button variant="primary" type="submit">
-                                        {loading ? <Spinner animation="border" size="sm" /> : 'Save Changes'}
-                                    </Button>
-                                </>
-                            ) : (
-                                <Button variant="primary" type="submit">
-                                    {loading ? <Spinner animation="border" size="sm" /> : 'Create Event'}
-                                </Button>
-                            )}
-                        </div>
+                        <Button variant="primary" type="submit" disabled={loading}>
+                            {loading ? <Spinner animation="border" size="sm" /> : 'Save Changes'}
+                        </Button>
                     </Form>
                 </Modal.Body>
             </Modal>
