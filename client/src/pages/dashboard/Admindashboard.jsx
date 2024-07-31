@@ -5,8 +5,10 @@ import axios from 'axios';
 import apiUrl from '../../api/config';
 import { toast } from 'react-toastify';
 import EventCard from '../../components/card/EventCard'
+import { useAuth } from '../../context/auth';
 
 const AdminDashboard = () => {
+    const [auth] = useAuth()
     const [eventData, setEventData] = useState([]);
     const [userData, setUserData] = useState([]);
     const [loadingUsers, setLoadingUsers] = useState(true); // State to track loading status for users
@@ -16,7 +18,8 @@ const AdminDashboard = () => {
     const getAllUser = async () => {
         try {
             const res = await axios.get(`${apiUrl}/users`);
-            setUserData(res.data);
+            const filteredUsers = res.data.filter(user => user._id !== auth?.user?._id);
+            setUserData(filteredUsers);
         } catch (error) {
             console.error("Error fetching user data:", error);
         } finally {
