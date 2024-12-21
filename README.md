@@ -1,7 +1,6 @@
-
 # Event Management Website
 
-This project is an event management website built using the MERN (MongoDB, Express, React, Node.js) stack. It includes functionality for user authentication, subscription management, and event handling.
+This project is an Event Management Website built using the MERN (MongoDB, Express, React, Node.js) stack. It includes user authentication, event handling, subscription management, and payment integration, designed to help users manage and participate in various events seamlessly.
 
 ## Table of Contents
 
@@ -9,116 +8,85 @@ This project is an event management website built using the MERN (MongoDB, Expre
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
 - [Running the Application](#running-the-application)
-- [File Structure](#file-structure)
 - [API Endpoints](#api-endpoints)
 - [Technologies Used](#technologies-used)
+- [License](#license)
 
 ## Features
 
-- User Authentication (Sign Up, Login, Logout)
-- Subscription Management (Monthly, Yearly)
-- Event Creation and Management
-- Role-based Access Control (Admin, Organizer, User)
-- Payment Integration with Stripe
+- **User Authentication**: Sign up, login, and logout functionality for user management.
+- **Subscription Management**: Monthly and yearly subscription options.
+- **Event Creation & Management**: Allows organizers to create and manage events, including details like date, time, and venue.
+- **Role-based Access Control**: Differentiated access for Admin, Organizer, and User roles.
+- **Payment Integration**: Secure payments through Stripe for event participation.
+- **Real-time Communication**: Using Socket.IO for real-time updates and notifications.
 
 ## Prerequisites
 
-Make sure you have the following installed on your system:
+Ensure you have the following software installed:
 
-- Node.js
-- npm (Node Package Manager) or yarn
-- MongoDB
-- Stripe Account (for payment integration)
+- [Node.js](https://nodejs.org/) (v16 or higher)
+- [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
+- [MongoDB](https://www.mongodb.com/)
+- [Stripe Account](https://stripe.com/) for payment integration
 
 ## Installation
 
-1. Clone the repository:
+Follow these steps to set up the project:
 
-    ```bash
-    git clone https://github.com/deepak748030/SportMate.git
-    cd SportMate
-    ```
+1. **Clone the repository**:
 
-2. Install dependencies for both the client and server:
+   ```bash
+   git clone https://github.com/deepak748030/SportMate.git
+   cd SportMate
+   ```
 
-    ```bash
-    cd client
-    npm install
-    cd ../server
-    npm install
-    ```
+2. **Install dependencies for both client and server**:
 
-3. Set up environment variables:
+   ```bash
+   # For client-side dependencies
+   cd client
+   npm install
+   
+   # For server-side dependencies
+   cd ../server
+   npm install
+   ```
 
-    Create a `.env` file in the `server` directory and add the following:
+3. **Set up environment variables**:
 
-    ```plaintext
-    MONGODB_URI=your_mongodb_uri
-    JWT_SECRET=your_jwt_secret
-    STRIPE_SECRET_KEY=your_stripe_secret_key
-    ```
+   In the `server` directory, create a `.env` file with the following configuration:
 
-    Create a `.env` file in the `client` directory and add the following:
+   ```plaintext
+   MONGODB_URI=your_mongodb_uri
+   JWT_SECRET=your_jwt_secret
+   STRIPE_SECRET_KEY=your_stripe_secret_key
+   ```
 
-    ```plaintext
-    REACT_APP_API_URL=http://localhost:3000/api/v1
-    REACT_APP_STRIPE_PUBLIC_KEY=your_stripe_public_key
-    ```
+   In the `client` directory, create a `.env` file with the following configuration:
+
+   ```plaintext
+   REACT_APP_API_URL=http://localhost:3000/api/v1
+   REACT_APP_STRIPE_PUBLIC_KEY=your_stripe_public_key
+   ```
 
 ## Running the Application
 
-1. Start the server:
+1. **Start the server**:
 
-    ```bash
-    cd server
-    npm start
-    ```
+   ```bash
+   cd server
+   npm start
+   ```
 
-2. Start the client:
+2. **Start the client**:
 
-    ```bash
-    cd client
-    npm start
-    ```
+   ```bash
+   cd client
+   npm start
+   ```
 
-3. Open your browser and navigate to `http://localhost:3000`
-
-## File Structure
-
-```plaintext
-SportMate/
-├── client/
-│   ├── public/
-│   ├── src/
-│   │   ├── components/
-│   │   ├── context/
-│   │   ├── pages/
-│   │   ├── App.js
-│   │   ├── index.js
-│   └── package.json
-├── server/
-│   ├── config/
-│   │   ├── db.js
-│   │   ├── index.js
-│   ├── controllers/
-│   │   ├── authController.js
-│   │   ├── eventController.js
-│   │   ├── subscriptionController.js
-│   ├── models/
-│   │   ├── User.js
-│   │   ├── Event.js
-│   │   ├── Subscription.js
-│   ├── routes/
-│   │   ├── authRoutes.js
-│   │   ├── eventRoutes.js
-│   │   ├── subscriptionRoutes.js
-│   ├── middleware/
-│   │   ├── authMiddleware.js
-│   ├── app.js
-│   ├── server.js
-│   └── package.json
-└── README.md
-```
+3. Open your browser and navigate to `http://localhost:3000` to view the application.
 
 ## API Endpoints
 
@@ -132,13 +100,13 @@ SportMate/
 
 - `GET /api/v1/events` - Get all events
 - `POST /api/v1/events` - Create a new event
-- `GET /api/v1/events/:id` - Get a single event
+- `GET /api/v1/events/:id` - Get a single event by ID
 - `PUT /api/v1/events/:id` - Update an event
 - `DELETE /api/v1/events/:id` - Delete an event
 
 ### Subscriptions
 
-- `POST /api/v1/subscribe` - Subscribe to a plan
+- `POST /api/v1/subscribe` - Subscribe to a plan (monthly/yearly)
 
 ## Technologies Used
 
@@ -160,6 +128,3 @@ This project is licensed under the MIT License. See the LICENSE file for details
 - [MongoDB](https://www.mongodb.com/)
 - [Stripe](https://stripe.com/)
 - [Bootstrap](https://getbootstrap.com/)
-
-
-
