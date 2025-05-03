@@ -27,13 +27,13 @@ git clone https://github.com/deepak748030/SportMate.git
 
 **Backend**
 ```bash
-cd backend
+cd server
 npm install
 ```
 
 **Frontend**
 ```bash
-cd frontend
+cd client
 npm install
 ```
 
@@ -43,11 +43,11 @@ Create `.env` files in both `backend` and `frontend` folders. Add your MongoDB U
 ### 4. Run the app
 ```bash
 # Start backend
-cd backend
+cd server
 npm run dev
 
 # Start frontend
-cd frontend
+cd client
 npm start
 ```
 
@@ -55,7 +55,7 @@ npm start
 *(Add screenshots here if possible. This really helps impress recruiters.)*
 
 ## Live Demo
-[https://sportmate.vercel.app](#) *(Add your link if deployed)*
+[https://sport-mate.vercel.app/](#)
 
 ## License
 This project is licensed under the MIT License.
